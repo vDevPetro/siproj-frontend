@@ -235,7 +235,7 @@ const Login = () => {
                                     <button className="btn btn-primary w-100" type="submit">Criar conta</button>
                                 </div>
                                 <div className="col-12">
-                                    <p className="small mb-0">teste<a href="#" onClick={() => setLogar(!logar)}>Logar</a></p>
+                                    <p className="small mb-0">Já possui conta? <a href="#" onClick={() => setLogar(!logar)}>Logar</a></p>
                                 </div>
                             </form>
                             {showAlert && 
