@@ -49,17 +49,17 @@ const Sidenav = () => {
                     </a>
                     <ul id="forms-nav" className="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li>
-                        <a className={`${location.pathname === '/contrato/cadastrarempresa' ? 'active' : ''}`} onClick={() => handleNavigate('/contrato/cadastrarempresa')}>
+                        <a className={`${location.pathname === '/inserirautorizacao' ? 'active' : ''}`} onClick={() => handleNavigate('/inserirautorizacao')}>
                             <i className="bi bi-circle"></i><span>Inserir</span>
                         </a>
                     </li>
                     <li>
-                        <a className={`${location.pathname === '/contrato/buscarempresa' ? 'active' : ''}`} onClick={() => handleNavigate('/contrato/buscarempresa')}>
+                        <a className={`${location.pathname === '/contrato/buscarempresa' ? 'active' : ''}`} onClick={() => alert('Rota não implamentada')}>
                             <i className="bi bi-circle"></i><span>Consultar</span>
                         </a>
                     </li>
                     <li>
-                        <a className={`${location.pathname === '/contrato/cadastrarcontrato' ? 'active' : ''}`} onClick={() => handleNavigate('/contrato/cadastrarcontrato')}>
+                        <a className={`${location.pathname === '/contrato/cadastrarcontrato' ? 'active' : ''}`} onClick={() => alert('Rota não implamentada')}>
                             <i className="bi bi-circle"></i><span>Cronograma</span>
                         </a>
                     </li>
