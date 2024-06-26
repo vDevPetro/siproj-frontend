@@ -5,7 +5,7 @@
 
 body {
   font-family: "Open Sans", sans-serif;
-  background: #f6f9ff;
+  background: #f9fff6;
   color: #444444;
 }
 
@@ -264,7 +264,7 @@ h6 {
 
 /* Accordion */
 .accordion-item {
-  border: 1px solid #ebeef4;
+  border: 1px solid #edf4eb;
 }
 
 .accordion-button:focus {

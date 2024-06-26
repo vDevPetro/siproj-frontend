@@ -4,12 +4,8 @@ export const Container = styled.div`
   body {
     background-color: #f2f2f2;
   }
-  h2 {
-    color: #008542;
-    text-align: left; 
-  }
   .form-group label {
-    color: #005128;
+    color: #043a00;
     font-weight: 600;
   }
   .form-control {
