@@ -10,7 +10,7 @@ export const Container = styled.div`
   }
   .form-control {
     border-radius: 0.5rem;
-    border-color: rgb(92, 95, 89, 0.5);
+    border-color: rgb(92, 95, 89, 0.25);
     margin-bottom: 1rem;
   }
   button[type="submit"]{
@@ -30,7 +30,28 @@ export const Container = styled.div`
     color: white;
     width: 100%
   }
-  .table-container {
-    margin-top: 30px;
-  } 
+
+  
+  // Small devices 
+  @media (min-width: 576px) {
+    .card-body {
+      margin: 0 1rem !important;
+    }
+  }
+
+  // Medium devices
+  @media (min-width: 768px) {
+    .card-body {
+      margin: 0 2rem !important;
+    }
+  }
+
+  // Large devices
+  @media (min-width: 992px) {
+    .card-body {
+      margin: 0 8rem !important;
+    }
+  }
+
+
 `;

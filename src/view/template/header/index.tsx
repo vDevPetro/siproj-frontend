@@ -39,6 +39,10 @@ const Header = () => {
         }
     }, []);
 
+    const handleNavigate = (path: string) => {
+        navigate(path);
+    }
+
     const logout = async () => {
         await signOut(auth);
         navigate('/');
@@ -48,18 +52,17 @@ const Header = () => {
         <header id="header" className="header fixed-top d-flex align-items-center">
 
             <div className="d-flex align-items-center justify-content-between">
-            <a href="index.html" className="logo d-flex align-items-center">
-              <img src="" alt=""/>
-              <span className="d-none d-lg-block">SiProj</span>
-            </a>
-            <i className="bi bi-list toggle-sidebar-btn"></i>
+                <div className="logo d-flex align-items-center" role="link" onClick={() => handleNavigate('/')}>
+                    <img src="https://firebasestorage.googleapis.com/v0/b/siproj-a2d22.appspot.com/o/assets%2Flogo.png?alt=media&token=16946602-ed07-46f1-9040-f21206e6a192" alt="logo" />
+                </div>
+                <i className="bi bi-list toggle-sidebar-btn"></i>
             </div>
 
             <div className="search-bar">
-            <form className="search-form d-flex align-items-center" method="POST" action="#">
-                <input type="text" name="query" placeholder="Pesquisar" title="Enter search keyword"/>
-                <button type="submit" title="Search"><i className="bi bi-search"></i></button>
-            </form>
+                <form className="search-form d-flex align-items-center" method="POST" action="#">
+                    <input type="text" name="query" placeholder="Pesquisar" title="Enter search keyword"/>
+                    <button type="submit" title="Search"><i className="bi bi-search"></i></button>
+                </form>
             </div>
 
             <nav className="header-nav ms-auto">

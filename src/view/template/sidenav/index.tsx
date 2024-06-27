@@ -54,7 +54,7 @@ const Sidenav = () => {
                         </a>
                     </li>
                     <li>
-                        <a className={`${location.pathname === '/contrato/buscarempresa' ? 'active' : ''}`} onClick={() => alert('Rota não implamentada')}>
+                        <a className={`${location.pathname === '/consultarautorizacao' ? 'active' : ''}`} onClick={() => handleNavigate('/consultarautorizacao')}>
                             <i className="bi bi-circle"></i><span>Consultar</span>
                         </a>
                     </li>
@@ -114,12 +114,12 @@ const Sidenav = () => {
                         </a>
                         <ul id="components-nav" className="nav-content collapse " data-bs-parent="#sidebar-nav">
                             <li >
-                                <a href="components-alerts.html" >
+                                <a className={`${location.pathname === '/inserirautorizacao' ? 'active' : ''}`} onClick={() => handleNavigate('/inserirautorizacao')}>
                                     <i className="bi bi-circle"></i><span>Inserir</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="components-accordion.html">
+                                <a className={`${location.pathname === '/consultarautorizacao' ? 'active' : ''}`} onClick={() => handleNavigate('/consultarautorizacao')}>
                                     <i className="bi bi-circle"></i><span>Consultar</span>
                                 </a>
                             </li>
@@ -166,8 +166,8 @@ const Sidenav = () => {
                         </a>
                         <ul id="components-nav" className="nav-content collapse " data-bs-parent="#sidebar-nav">
                         <li >
-                            <a href="components-alerts.html" >
-                            <i className="bi bi-circle"></i><span>Consultar</span>
+                            <a className={`${location.pathname === '/consultarautorizacao' ? 'active' : ''}`} onClick={() => handleNavigate('/consultarautorizacao')}>
+                                <i className="bi bi-circle"></i><span>Consultar</span>
                             </a>
                         </li>
                         <li>

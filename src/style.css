@@ -346,6 +346,12 @@ h6 {
 ;
 }
 
+/* Form Control */
+.form-control:focus {
+  border-color: #32cd32;
+  box-shadow: 0 0 0 0.2rem rgba(50, 205, 50, 0.1); 
+}
+
 /*--------------------------------------------------------------
 # Header
 --------------------------------------------------------------*/
@@ -360,7 +366,8 @@ h6 {
 }
 
 .logo img {
-  max-height: 26px;
+  margin-top: 8px;
+  max-height: 64px;
   margin-right: 6px;
 }
 
