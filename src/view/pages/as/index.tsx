@@ -75,8 +75,8 @@ const InserirAs = () => {
                       <div className="row">
                         <div className="form-group col-md-1">
                           <label htmlFor="as">AS</label>
-                          <input type="text" className="form-control" id="as" name="as"/>
-                        </div>                          
+                          <input className="form-control" type="text" readOnly id="as" name="as"></input>
+                          </div>                          
                         <div className="form-group col-md-3">
                           <label htmlFor="respPetrobras">Responsável Petrobras</label>
                           <select className="form-control" id="respPetrobras" name="respPetrobras">
