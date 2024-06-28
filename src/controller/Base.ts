@@ -37,15 +37,14 @@ export const getBase = async (): Promise<Base[]> => {
 export const postBase = async (base: Base): Promise<{ status: number; data: any }> => {
     try {
         const response = await axios.post(apiUrl, {
+            id: base.id,
             contrato_icj: base.contrato_icj,
             contrato_sap: base.contrato_sap,
             desc_projeto: base.desc_projeto,
-            pep: base.pep,
             porte: base.porte,
+            prioridade: base.prioridade,
             resp_petro: base.resp_petro,
             resp_contr: base.resp_contr,
-            tipo: base.tipo,
-            unidade: base.unidade
         });
         return { status: response.status, data: response.data };
     } catch (error) {

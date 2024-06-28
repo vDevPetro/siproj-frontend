@@ -46,10 +46,10 @@ const Home = () => {
                             {base?.map(base => (
                                 <Cartao
                                     id={base.id} 
-                                    pep={base.pep} 
+                                    pep={base.pep || ''} 
                                     desc={base.desc_projeto} 
                                     respPetro={base.resp_petro}
-                                    tipo={base.tipo}
+                                    tipo={base.tipo || ''}
                                 />
                             ))}
                         </div>

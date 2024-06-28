@@ -1,12 +1,12 @@
 type Base = {
     id: number;
-    tipo: string;
-    unidade: string;
+    tipo?: string;
+    unidade?: string;
     resp_petro: string;
     resp_contr: string;
     contrato_icj: string;
     contrato_sap: string;
-    pep: string;
+    pep?: string;
     desc_projeto: string;
     porte: string;
     criticidade?: string;
