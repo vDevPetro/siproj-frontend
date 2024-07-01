@@ -40,21 +40,21 @@ button[type="submit"]:hover {
 // Small devices 
   @media (min-width: 576px) {
     .card-body {
-      margin: 0 1rem !important;
+      margin: 0 0.2rem !important;
     }
   }
 
   // Medium devices
   @media (min-width: 768px) {
     .card-body {
-      margin: 0 2rem !important;
+      margin: 0 1rem !important;
     }
   }
 
   // Large devices
   @media (min-width: 992px) {
     .card-body {
-      margin: 0 8rem !important;
+      margin: 0 4rem !important;
     }
   }
 

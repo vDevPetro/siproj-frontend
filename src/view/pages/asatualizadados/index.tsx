@@ -1,11 +1,15 @@
 import { Container } from './styles'
 import React, { useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import { Form, Row, Col, Button, Breadcrumb } from 'react-bootstrap';
+import InputMask from 'react-input-mask';
 import { useParams } from 'react-router-dom';
 import Base from "../../../model/Base";
 import { getBaseById } from '../../../controller/Base';
 
 const AtualizarAS = () => {
+const [contrato_icj, setContratoIcj] = useState('');
+  const [contrato_sap, setContratoSap] = useState('');
+
   const { id } = useParams();
   const [as, setAs] = useState<Base>({         
     id: 0,         
@@ -65,7 +69,7 @@ const AtualizarAS = () => {
           
               <Form onSubmit={handleSubmit}>
                 <Row>
-                  <Col>
+                  <Col sm="1">
                     <Form.Group controlId="formAs">
                       <Form.Label>AS</Form.Label>
                       <Form.Control readOnly type="text" name="as" id="as" value={id} />
@@ -96,34 +100,52 @@ const AtualizarAS = () => {
                   <Col>
                     <Form.Group controlId="formContratoIcj">
                       <Form.Label className="text-nowrap">Contrato ICJ</Form.Label>
-                      <Form.Control type="text" name="contrato_icj"  value={as.contrato_icj} onChange={handleChange}/>
+                      <InputMask 
+                          mask="9999.9999999.99.9"  
+                          type="text" 
+                          className="form-control" 
+                          id="contrato_icj" 
+                          name="contrato_icj" 
+                          onChange={(e) => setContratoIcj(e.target.value)} 
+                          value={as.contrato_icj}
+                          required
+                        />
                     </Form.Group>
                   </Col>
                   <Col>
                     <Form.Group controlId="formContrato">
                       <Form.Label>Contrato</Form.Label>
-                      <Form.Control type="text" name="contrato_sap"  />
+                      <InputMask 
+                          mask="9999999999" 
+                          type="text" 
+                          className="form-control" 
+                          id="contrato_sap" 
+                          name="contrato_sap" 
+                          onChange={(e) => setContratoSap(e.target.value)} 
+                          value={as.contrato_sap}
+                          required
+                        />
                     </Form.Group>
                   </Col>
                 </Row>
 
                 <Row>
-                  <Col>
+                  <Col sm="3">
                     <Form.Group controlId="formIdGep">
                       <Form.Label>ID GEP</Form.Label>
-                      <Form.Control type="text" name="pep"  />
+                      <Form.Control type="text" name="pep" value={as.pep} onChange={handleChange}/>
                     </Form.Group>
                   </Col>
-                  <Col>
-                    <Form.Group controlId="formTipoDe">
-                      <Form.Label>Tipo de</Form.Label>
-                      <Form.Control type="text" name="tipo"  />
+                  <Col sm="1">
+                    <Form.Group controlId="formTipo">
+                      <Form.Label>Tipo</Form.Label>
+                      <Form.Control type="text" name="tipo" value={as.tipo} onChange={handleChange}/>
                     </Form.Group>
                   </Col>
-                  <Col>
+                  <Col sm="2">
                     <Form.Group controlId="formPe">
                       <Form.Label>PE</Form.Label>
-                      <Form.Control type="text" name="unidade"  />
+                      <Form.Control type="text" name="unidade" value={as.unidade} onChange={handleChange}/>
                     </Form.Group>
                   </Col>
                   <Col>
@@ -142,6 +164,9 @@ const AtualizarAS = () => {
                       <Form.Label>Porte</Form.Label>
                       <Form.Select>
                         <option>Selecione...</option>
+                        {as && (
+                          <option value={as.porte} selected>{as.porte}</option>
+                        )}
                       </Form.Select>
                     </Form.Group>
                   </Col>
@@ -150,6 +175,9 @@ const AtualizarAS = () => {
                       <Form.Label>Criticidade</Form.Label>
                       <Form.Select>
                         <option>Selecione...</option>
+                        {as && (
+                          <option value={as.criticidade} selected>{as.criticidade}</option>
+                        )}
                       </Form.Select>
                     </Form.Group>
                   </Col>
@@ -157,7 +185,10 @@ const AtualizarAS = () => {
                     <Form.Group controlId="formPrioridade">
                       <Form.Label>Prioridade</Form.Label>
                       <Form.Select>
-                        <option>Selecione...</option>
+                      <option>Selecione...</option>
+                      {as && (
+                        <option value={as.prioridade} selected>{as.prioridade}</option>
+                      )}
                       </Form.Select>
                     </Form.Group>
                   </Col>
@@ -169,25 +200,25 @@ const AtualizarAS = () => {
                   <Col>
                     <Form.Group controlId="formPrevMes">
                       <Form.Label className="text-nowrap">Previsão Mês %</Form.Label>
-                      <Form.Control type="text" name="prev_mes"  />
+                      <Form.Control type="text" name="prev_mes" />
                     </Form.Group>
                   </Col>
                   <Col>
                     <Form.Group controlId="formRealMes">
                       <Form.Label className="text-nowrap">Real Mês %</Form.Label>
-                      <Form.Control type="text" name="real_mes"  />
+                      <Form.Control type="text" name="real_mes" />
                     </Form.Group>
                   </Col>
                   <Col>
                     <Form.Group controlId="formIefMes">
                       <Form.Label className="text-nowrap">IEF Mês %</Form.Label>
-                      <Form.Control type="text" name="ief_mes"  />
+                      <Form.Control type="text" name="ief_mes" />
                     </Form.Group>
                   </Col>
                   <Col>
                     <Form.Group controlId="formPrevAno">
                       <Form.Label className="text-nowrap">Previsão Ano %</Form.Label>
-                      <Form.Control type="text" name="prev_ano"  />
+                      <Form.Control type="text" name="prev_ano" />
                     </Form.Group>
                   </Col>
                   <Col>
@@ -208,13 +239,13 @@ const AtualizarAS = () => {
                   <Col>
                     <Form.Group controlId="formObjetivoProjeto">
                       <Form.Label className="text-nowrap">Objetivo do Projeto</Form.Label>
-                      <Form.Control as="textarea" rows={3} name="objetivo_projeto"  />
+                      <Form.Control as="textarea" rows={3} name="objetivo_projeto" value={as?.objetivo}/>
                     </Form.Group>
                   </Col>
                   <Col>
                     <Form.Group controlId="formEscopoProjeto">
                       <Form.Label>Escopo do Projeto</Form.Label>
-                      <Form.Control as="textarea" rows={3} name="escopo_projeto"  />
+                      <Form.Control as="textarea" rows={3} name="escopo_projeto" value={as?.escopo}/>
                     </Form.Group>
                   </Col>
                 </Row>
