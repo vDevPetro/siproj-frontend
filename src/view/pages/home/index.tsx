@@ -20,6 +20,7 @@ const Home = () => {
                 const data = await getBase();
                 const sortedData = data.sort((a, b) => a.id - b.id);
                 setBase(sortedData);
+                setLoading(false);
             } catch(err) {
                 alert('Erro: '+ err)
             }
@@ -31,7 +32,6 @@ const Home = () => {
         })
 
         fetchData();
-        setLoading(false);
     }, []);
 
     return (
