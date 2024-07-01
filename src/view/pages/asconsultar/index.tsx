@@ -4,6 +4,7 @@ import { Responsive } from "mui-datatables";
 import { Dialog, DialogActions, DialogContent, DialogTitle, DialogContentText, Button } from "@mui/material";
 import { useState, useEffect, useRef, FormEvent } from "react";
 import { getBase } from "../../../controller/Base";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.main`
     h6 {
@@ -22,6 +23,12 @@ const Container = styled.main`
 `;
 
 const ConsultarAs = () => {
+
+  const navigate = useNavigate();
+
+  const handleNavigate = (path: string) => {
+    navigate(path);
+  }
     const layout: Responsive = "simple";
     const columns = [
         {
@@ -146,7 +153,7 @@ const ConsultarAs = () => {
     }, []);
 
     const CarregarAS = async (id: string) => {
-        alert('Ainda não implementado. Id clicado: ' + id);
+        handleNavigate('/atualizarautorizacao');
     }    
 
     return(

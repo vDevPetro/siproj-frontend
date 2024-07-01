@@ -3,6 +3,7 @@ import Home from './view/pages/home'
 import Users from './view/pages/admin/users'
 import InserirAs from './view/pages/ascadastrar'
 import ConsultarAs from './view/pages/asconsultar'
+import GridBasicExample from './view/pages/asatualizadados'
 
 export default function mainRoutes(){
     return(
@@ -12,6 +13,7 @@ export default function mainRoutes(){
             <Route path='/users' element={<Users/>}/>
             <Route path='/inserirautorizacao' element={<InserirAs/>}/>
             <Route path='/consultarautorizacao' element={<ConsultarAs/>}/>
+            <Route path='/atualizarautorizacao' element={<GridBasicExample/>}/>
         </Routes>
     )
 }
