@@ -13,7 +13,7 @@ export default function mainRoutes(){
             <Route path='/users' element={<Users/>}/>
             <Route path='/inserirautorizacao' element={<InserirAs/>}/>
             <Route path='/consultarautorizacao' element={<ConsultarAs/>}/>
-            <Route path='/atualizarautorizacao' element={<AtualizarAS/>}/>
+            <Route path='/atualizarautorizacao/:id' element={<AtualizarAS/>}/>
         </Routes>
     )
 }

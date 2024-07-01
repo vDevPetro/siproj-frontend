@@ -1,38 +1,54 @@
 import { Container } from './styles'
-import React, { useState, ChangeEvent, FormEvent } from 'react';
+import React, { useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import { Form, Row, Col, Button, Breadcrumb } from 'react-bootstrap';
+import { useParams } from 'react-router-dom';
 import Base from "../../../model/Base";
+import { getBaseById } from '../../../controller/Base';
 
-
-
-const AtulizarAS = () => {
-
-
-  const [nova, setNova] = useState<Base>({
-    id: 0, 
-    tipo: '',
-    unidade: '',
-    resp_petro: '',
-    resp_contr: '',
-    contrato_icj: '',
-    contrato_sap: '',
-    pep: '',
-    desc_projeto: '',
-    porte: ''
+const AtualizarAS = () => {
+  const { id } = useParams();
+  const [as, setAs] = useState<Base>({         
+    id: 0,         
+    tipo: '',         
+    unidade: '',        
+    resp_petro: '',         
+    resp_contr: '',         
+    contrato_icj: '',         
+    contrato_sap: '',         
+    pep: '',         
+    desc_projeto: '',         
+    porte: '',         
+    criticidade: '',        
+    prioridade: '',         
+    prevMes: undefined,         
+    realMes: undefined,         
+    prevAno: undefined,         
+    realAno: undefined,         
+    iefAno: undefined, 
+    objetivo: '', 
+    escopo: '', 
+    log: '' 
   });
-  
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log(nova);
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await getBaseById(id || '');
+      setAs(res);
+    }
+
+    fetchData();
+  }, [])
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {         
+    const { name, value } = e.target;         
+    setAs(prevState => ({ ...prevState, [name]: value })); 
   };
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setNova(prevNova => ({
-      ...prevNova,
-      [name]: value
-    }));
-  };
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    alert(as.contrato_icj);
+  }
 
   return (
    <Container id="main" className="main">
@@ -52,14 +68,17 @@ const AtulizarAS = () => {
                   <Col>
                     <Form.Group controlId="formAs">
                       <Form.Label>AS</Form.Label>
-                      <Form.Control readOnly type="text" name="as" onChange={handleChange} />
+                      <Form.Control readOnly type="text" name="as" id="as" value={id} />
                     </Form.Group>
                   </Col>
                   <Col>
                     <Form.Group controlId="formRespPetro">
                       <Form.Label className="text-nowrap">Responsável Petrobras</Form.Label>
-                      <Form.Select>
+                      <Form.Select name="resp_petro" id="resp_petro" onChange={handleChange}>
                         <option>Selecione...</option>
+                        {as && (
+                          <option value={as.resp_petro} selected>{as.resp_petro}</option>
+                        )}
                       </Form.Select>
                     </Form.Group>
                   </Col>
@@ -68,19 +87,22 @@ const AtulizarAS = () => {
                       <Form.Label className="text-nowrap">Responsável Rina</Form.Label>
                       <Form.Select>
                         <option>Selecione...</option>
+                        {as && (
+                          <option value={as.resp_contr} selected>{as.resp_contr}</option>
+                        )}
                       </Form.Select>
                     </Form.Group>
                   </Col>
                   <Col>
                     <Form.Group controlId="formContratoIcj">
                       <Form.Label className="text-nowrap">Contrato ICJ</Form.Label>
-                      <Form.Control type="text" name="contrato_icj" onChange={handleChange} />
+                      <Form.Control type="text" name="contrato_icj"  value={as.contrato_icj} onChange={handleChange}/>
                     </Form.Group>
                   </Col>
                   <Col>
                     <Form.Group controlId="formContrato">
                       <Form.Label>Contrato</Form.Label>
-                      <Form.Control type="text" name="contrato_sap" onChange={handleChange} />
+                      <Form.Control type="text" name="contrato_sap"  />
                     </Form.Group>
                   </Col>
                 </Row>
@@ -89,25 +111,25 @@ const AtulizarAS = () => {
                   <Col>
                     <Form.Group controlId="formIdGep">
                       <Form.Label>ID GEP</Form.Label>
-                      <Form.Control type="text" name="pep" onChange={handleChange} />
+                      <Form.Control type="text" name="pep"  />
                     </Form.Group>
                   </Col>
                   <Col>
                     <Form.Group controlId="formTipoDe">
                       <Form.Label>Tipo de</Form.Label>
-                      <Form.Control type="text" name="tipo" onChange={handleChange} />
+                      <Form.Control type="text" name="tipo"  />
                     </Form.Group>
                   </Col>
                   <Col>
                     <Form.Group controlId="formPe">
                       <Form.Label>PE</Form.Label>
-                      <Form.Control type="text" name="unidade" onChange={handleChange} />
+                      <Form.Control type="text" name="unidade"  />
                     </Form.Group>
                   </Col>
                   <Col>
                     <Form.Group controlId="formDescProjeto">
                       <Form.Label className="text-nowrap">Descrição do Projeto</Form.Label>
-                      <Form.Control as="textarea" rows={1} name="escopo_projeto" onChange={handleChange} />
+                      <Form.Control as="textarea" rows={1} name="escopo_projeto" value={as?.desc_projeto}/>
                     </Form.Group>
                   </Col>
                 </Row>
@@ -147,37 +169,37 @@ const AtulizarAS = () => {
                   <Col>
                     <Form.Group controlId="formPrevMes">
                       <Form.Label className="text-nowrap">Previsão Mês %</Form.Label>
-                      <Form.Control type="text" name="prev_mes" onChange={handleChange} />
+                      <Form.Control type="text" name="prev_mes"  />
                     </Form.Group>
                   </Col>
                   <Col>
                     <Form.Group controlId="formRealMes">
                       <Form.Label className="text-nowrap">Real Mês %</Form.Label>
-                      <Form.Control type="text" name="real_mes" onChange={handleChange} />
+                      <Form.Control type="text" name="real_mes"  />
                     </Form.Group>
                   </Col>
                   <Col>
                     <Form.Group controlId="formIefMes">
                       <Form.Label className="text-nowrap">IEF Mês %</Form.Label>
-                      <Form.Control type="text" name="ief_mes" onChange={handleChange} />
+                      <Form.Control type="text" name="ief_mes"  />
                     </Form.Group>
                   </Col>
                   <Col>
                     <Form.Group controlId="formPrevAno">
                       <Form.Label className="text-nowrap">Previsão Ano %</Form.Label>
-                      <Form.Control type="text" name="prev_ano" onChange={handleChange} />
+                      <Form.Control type="text" name="prev_ano"  />
                     </Form.Group>
                   </Col>
                   <Col>
                     <Form.Group controlId="formRealAno">
                       <Form.Label className="text-nowrap">Real Ano %</Form.Label>
-                      <Form.Control type="text" name="real_ano" onChange={handleChange} />
+                      <Form.Control type="text" name="real_ano"  />
                     </Form.Group>
                   </Col>
                   <Col>
                     <Form.Group controlId="formIefAno">
                       <Form.Label className="text-nowrap">IEF Ano %</Form.Label>
-                      <Form.Control type="text" name="ief_ano" onChange={handleChange} />
+                      <Form.Control type="text" name="ief_ano"  />
                     </Form.Group>
                   </Col>
                 </Row>
@@ -186,13 +208,13 @@ const AtulizarAS = () => {
                   <Col>
                     <Form.Group controlId="formObjetivoProjeto">
                       <Form.Label className="text-nowrap">Objetivo do Projeto</Form.Label>
-                      <Form.Control as="textarea" rows={3} name="objetivo_projeto" onChange={handleChange} />
+                      <Form.Control as="textarea" rows={3} name="objetivo_projeto"  />
                     </Form.Group>
                   </Col>
                   <Col>
                     <Form.Group controlId="formEscopoProjeto">
                       <Form.Label>Escopo do Projeto</Form.Label>
-                      <Form.Control as="textarea" rows={3} name="escopo_projeto" onChange={handleChange} />
+                      <Form.Control as="textarea" rows={3} name="escopo_projeto"  />
                     </Form.Group>
                   </Col>
                 </Row>
@@ -206,4 +228,4 @@ const AtulizarAS = () => {
   )
 }
 
-export default AtulizarAS;
+export default AtualizarAS;

@@ -153,7 +153,7 @@ const ConsultarAs = () => {
     }, []);
 
     const CarregarAS = async (id: string) => {
-        handleNavigate('/atualizarautorizacao');
+        handleNavigate('/atualizarautorizacao/'+ id);
     }    
 
     return(
