@@ -1,10 +1,11 @@
 import { useState, FormEvent, ChangeEvent, useEffect } from "react";
 import styled from "styled-components";
 import InputMask from 'react-input-mask';
-import { addDoc, collection } from "firebase/firestore";
 import {Container} from './styles';
 import Base from "../../../model/Base";
 import { getNextAvailableId, postBase } from "../../../controller/Base";
+import { Modal, Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 const InserirAs = () => {
   const [message, setMessage] = useState('');
@@ -19,6 +20,7 @@ const InserirAs = () => {
   const [desc_projeto, setDescProj] = useState('');
   const [porte, setPorte] = useState('');
   const [prioridade, setPrioridade] = useState('');
+  const navigate = useNavigate();
 
   const cadastrar = async (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
@@ -56,6 +58,11 @@ const InserirAs = () => {
     fetchNextId();
   }, []);
 
+  const handleClose = () => {
+    setShow(false);
+    navigate('/home');
+  }
+
   return (
       <Container id="main" className="main">
           <div className="pagetitle">
@@ -79,36 +86,54 @@ const InserirAs = () => {
                       </div>                          
                       <div className="form-group col-md-5 col-lg-3">
                         <label htmlFor="contratoICJ" className="text-nowrap">Contrato ICJ</label>
-                        <input type="text" className="form-control" id="contrato_icj" name="contrato_icj" onChange={(e) => setContratoIcj(e.target.value)} value={contrato_icj}/>
+                        <InputMask 
+                          mask="9999.9999999.99.9"  
+                          type="text" 
+                          className="form-control" 
+                          id="contrato_icj" 
+                          name="contrato_icj" 
+                          onChange={(e) => setContratoIcj(e.target.value)} 
+                          value={contrato_icj} 
+                          required
+                        />
                       </div>
                       <div className="form-group col-md-5 col-lg-2">
                         <label htmlFor="contratoSAP" className="text-nowrap">Contrato SAP</label>
-                        <input type="text" className="form-control" id="contrato_sap" name="contrato_sap" onChange={(e) => setContratoSap(e.target.value)} value={contrato_sap}/>
+                        <InputMask 
+                          mask="9999999999" 
+                          type="text" 
+                          className="form-control" 
+                          id="contrato_sap" 
+                          name="contrato_sap" 
+                          onChange={(e) => setContratoSap(e.target.value)} 
+                          value={contrato_sap}
+                          required
+                        />
                       </div>
                     </div>
                     <div className="row mt-md-2">
                       <div className="form-group col-md-6 col-lg-5">
                         <label htmlFor="respPetrobras" className="text-nowrap">Responsável Petrobras</label>
-                        <select className="form-control" id="resp_petro" name="resp_petro" onChange={(e) => setRespPetro(e.target.value)} value={resp_petro}>
+                        <select className="form-control" id="resp_petro" name="resp_petro" onChange={(e) => setRespPetro(e.target.value)} value={resp_petro} required>
                           <option selected >Selecione...</option>
-                          <option value="">Roniere/ Carlos Jesus</option>
-                          <option value="">Y</option>
-                          <option value="">Z</option>
+                          <option value="Roniere/ Carlos Jesus">Roniere/ Carlos Jesus</option>
+                          <option value="Y">Y</option>
+                          <option value="Z">Z</option>
                         </select>
                       </div>
                       <div className="form-group col-md-6 col-lg-5">
                         <label htmlFor="respRina">Responsável Rina</label>
-                        <select className="form-control" id="resp_contr" name="resp_contr" onChange={(e) => setRespContr(e.target.value)} value={resp_contr}>
+                        <select className="form-control" id="resp_contr" name="resp_contr" onChange={(e) => setRespContr(e.target.value)} value={resp_contr} required>
                           <option selected >Selecione...</option>
-                          <option value="">X</option>
-                          <option value="">Y</option>
-                          <option value="">Z</option>
+                          <option value="X">X</option>
+                          <option value="Y">Y</option>
+                          <option value="z">Z</option>
                         </select>
                       </div>
                     </div>
                     <div className="form-group mt-md-2">
                       <label htmlFor="descricaoProjeto">Descrição do projeto</label>
-                      <textarea className="form-control" id="desc_projeto" name="desc_projeto" rows={3} onChange={(e) => setDescProj(e.target.value)} value={desc_projeto}></textarea>
+                      <textarea className="form-control" id="desc_projeto" name="desc_projeto" rows={3} onChange={(e) => setDescProj(e.target.value)} value={desc_projeto} required></textarea>
                     </div>
                     <div className="form-group">
                       <label>Priorização</label>
@@ -116,7 +141,7 @@ const InserirAs = () => {
                       <div className="row">
                         <div className="form-group col-md-6 col-lg-2">
                           <label htmlFor="porte">Porte</label>
-                          <select className="form-control" id="porte" name="porte" onChange={(e) => setPorte(e.target.value)}  value={porte}>
+                          <select className="form-control" id="porte" name="porte" onChange={(e) => setPorte(e.target.value)}  value={porte} required>
                             <option selected>Selecione</option>
                             <option value="Pequeno">Pequeno</option>
                             <option value="Médio">Médio</option>
@@ -125,7 +150,7 @@ const InserirAs = () => {
                         </div>
                         <div className="form-group col-md-6 col-lg-2">
                           <label htmlFor="prioridade">Prioridade</label>
-                          <select className="form-control" id="prioridade" name="prioridade" onChange={(e) => setPrioridade(e.target.value)}  value={prioridade}>
+                          <select className="form-control" id="prioridade" name="prioridade" onChange={(e) => setPrioridade(e.target.value)}  value={prioridade} required>
                             <option selected>Selecione...</option>
                             <option value="Baixa">Baixa</option>
                             <option value="Média">Média</option>
@@ -152,11 +177,19 @@ const InserirAs = () => {
                     </div>
                   }
                   {show && status === 201 &&
-                    <div className="alert alert-success alert-dismissible fade show" role="alert">
-                      <i className="bi bi-check-circle me-1"></i>
-                      {res.id}
-                      <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close" onClick={() => setShow(false)}></button>
-                    </div>
+                    <Modal show onHide={handleClose} backdrop="static" keyboard={false}>
+                      <Modal.Header closeButton>
+                        <Modal.Title>Sucesso</Modal.Title>
+                      </Modal.Header>
+                      <Modal.Body>
+                        Autorização de Serviço cadastrada com sucesso!<br/>Identificador: {id}
+                      </Modal.Body>
+                      <Modal.Footer>
+                        <Button  className="btn btn-success" onClick={handleClose}>
+                          Entendido
+                        </Button>
+                      </Modal.Footer>
+                    </Modal>
                   }
               </div>
             </div>

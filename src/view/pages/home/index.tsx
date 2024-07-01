@@ -1,15 +1,17 @@
 import * as C from './styles';
 import { useEffect, useState } from 'react';
-import { auth, db } from '../../../controller/ConnectionFactory';
+import { auth } from '../../../controller/ConnectionFactory';
 import { useNavigate } from 'react-router-dom';
 import { User, onAuthStateChanged } from 'firebase/auth';
 import { getBase } from '../../../controller/Base';
 import Base from '../../../model/Base';
 import Cartao from '../../components/card';
+import { Card, Placeholder } from 'react-bootstrap';
 
 const Home = () => {
     const [user, setUser] = useState<User>();
     const [base, setBase] = useState<Base[]>();
+    const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -29,6 +31,7 @@ const Home = () => {
         })
 
         fetchData();
+        setLoading(false);
     }, []);
 
     return (
@@ -43,7 +46,7 @@ const Home = () => {
                     </nav>
                     <div className='col-12'>
                         <div className='d-flex flex-wrap justify-content-evenly'>
-                            {base?.map(base => (
+                            {!loading && base?.map(base => (
                                 <Cartao
                                     id={base.id} 
                                     pep={base.pep || ''} 
@@ -52,6 +55,31 @@ const Home = () => {
                                     tipo={base.tipo || ''}
                                 />
                             ))}
+
+                            {loading &&
+                                [...Array(6)].map((_, index) => (
+                                    <C.CardContainer className='d-flex  row'>
+                                        <Card>
+                                            <Placeholder as={Card.Header} animation="glow">
+                                                <Placeholder xs={1} /> <Placeholder xs={2} />
+                                            </Placeholder>
+                                            <Card.Body>
+                                                <Placeholder as={Card.Title} animation="glow">
+                                                    <Placeholder xs={6} />
+                                                </Placeholder>
+                                                <Placeholder as={Card.Text} animation="glow">
+                                                    <Placeholder xs={7} /> <Placeholder xs={4} /> <Placeholder xs={4} />{' '}
+                                                    <Placeholder xs={7} /> <Placeholder xs={8} /> <Placeholder xs={3} />
+                                                </Placeholder>
+                                                <Placeholder as={Card.Footer} animation="glow">
+                                                    <Placeholder xs={4} /> <Placeholder xs={6} />
+                                                </Placeholder>
+                                                <Placeholder.Button variant="success" xs={3} />
+                                            </Card.Body>
+                                        </Card>
+                                    </C.CardContainer>
+                                ))
+                            }
                         </div>
                     </div>
                 </div>

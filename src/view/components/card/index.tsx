@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Card, Button } from "react-bootstrap";
+import { Card, Button, Placeholder } from "react-bootstrap";
 
 const Container = styled.div`
     width: 30%;
@@ -14,7 +14,6 @@ type CardProps = {
 }
 
 const Cartao = (props: CardProps) => {
-
     return(
         <Container className="d-flex  row">
             <Card>
