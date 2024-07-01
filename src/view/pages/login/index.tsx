@@ -160,7 +160,7 @@ const Login = () => {
                                         </div>
                                     </div>
                                     <div className="col-12 mt-4">
-                                        <button className="btn btn-primary w-100" type="submit">Login</button>
+                                        <button className="btn btn-success w-100" type="submit">Login</button>
                                     </div>
                                     <div className="col-12">
                                         <p className="small mb-0">Primeiro login? <a href='#' onClick={() => setLogar(!logar)}>Clique aqui</a></p>

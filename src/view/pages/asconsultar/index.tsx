@@ -35,7 +35,7 @@ const ConsultarAs = () => {
             name: "id",
             label: "ID",
             options: {
-                filter: false,
+                filter: true,
                 sort: false,
                 display: true,
                 draggable: false,
@@ -129,7 +129,7 @@ const ConsultarAs = () => {
         },
         resizableColumns: false,
         rowsPerPage: 10,
-        rowsPerPageOptions: [5, 10, 25],
+        rowsPerPageOptions: [5, 10, 25, 50],
         searchOpen: true,
         selectableRowsHideCheckboxes: true,
         selectableRowsOnClick: false,
