@@ -5,7 +5,7 @@ import Base from "../../../model/Base";
 
 
 
-const GridBasicExample = () => {
+const AtulizarAS = () => {
 
 
   const [nova, setNova] = useState<Base>({
@@ -37,10 +37,10 @@ const GridBasicExample = () => {
   return (
    <Container id="main" className="main">
       <div className="pagetitle">
-        <h1>ATT</h1>
+        <h1>Atualizar dados</h1>
         <Breadcrumb className="mt-1">
           <Breadcrumb.Item href="#">Home</Breadcrumb.Item>
-          <Breadcrumb.Item active>ATT</Breadcrumb.Item>
+          <Breadcrumb.Item active>Atualizar Dados AS</Breadcrumb.Item>
         </Breadcrumb>
       </div>
 
@@ -52,19 +52,23 @@ const GridBasicExample = () => {
                   <Col>
                     <Form.Group controlId="formAs">
                       <Form.Label>AS</Form.Label>
-                      <Form.Control type="text" name="as" onChange={handleChange} />
+                      <Form.Control readOnly type="text" name="as" onChange={handleChange} />
                     </Form.Group>
                   </Col>
                   <Col>
                     <Form.Group controlId="formRespPetro">
                       <Form.Label className="text-nowrap">Responsável Petrobras</Form.Label>
-                      <Form.Control type="text" name="resp_petro" onChange={handleChange} />
+                      <Form.Select>
+                        <option>Selecione...</option>
+                      </Form.Select>
                     </Form.Group>
                   </Col>
                   <Col>
                     <Form.Group controlId="formRespRina">
                       <Form.Label className="text-nowrap">Responsável Rina</Form.Label>
-                      <Form.Control type="text" name="resp_contr" onChange={handleChange} />
+                      <Form.Select>
+                        <option>Selecione...</option>
+                      </Form.Select>
                     </Form.Group>
                   </Col>
                   <Col>
@@ -103,16 +107,18 @@ const GridBasicExample = () => {
                   <Col>
                     <Form.Group controlId="formDescProjeto">
                       <Form.Label className="text-nowrap">Descrição do Projeto</Form.Label>
-                      <Form.Control type="text" name="desc_projeto" onChange={handleChange} />
+                      <Form.Control as="textarea" rows={1} name="escopo_projeto" onChange={handleChange} />
                     </Form.Group>
                   </Col>
                 </Row>
 
-                <Row>
+                <Form.Label>Priorização</Form.Label>
+                <hr/>
+                <Row className="mb-3">
                   <Col>
                     <Form.Group controlId="formPorte">
                       <Form.Label>Porte</Form.Label>
-                      <Form.Select aria-label="">
+                      <Form.Select>
                         <option>Selecione...</option>
                       </Form.Select>
                     </Form.Group>
@@ -120,7 +126,7 @@ const GridBasicExample = () => {
                   <Col>
                     <Form.Group controlId="formCriticidade">
                       <Form.Label>Criticidade</Form.Label>
-                      <Form.Select aria-label="">
+                      <Form.Select>
                         <option>Selecione...</option>
                       </Form.Select>
                     </Form.Group>
@@ -128,50 +134,49 @@ const GridBasicExample = () => {
                   <Col>
                     <Form.Group controlId="formPrioridade">
                       <Form.Label>Prioridade</Form.Label>
-                      <Form.Control as="select" name="prioridade" onChange={handleChange}>
-                        <option value="">Selecione...</option>
-                      </Form.Control>
+                      <Form.Select>
+                        <option>Selecione...</option>
+                      </Form.Select>
                     </Form.Group>
                   </Col>
                 </Row>
 
+                <Form.Label>Avanço Físico</Form.Label>
+                <hr/>
                 <Row>
                   <Col>
                     <Form.Group controlId="formPrevMes">
-                      <Form.Label>Previsão Mês %</Form.Label>
+                      <Form.Label className="text-nowrap">Previsão Mês %</Form.Label>
                       <Form.Control type="text" name="prev_mes" onChange={handleChange} />
                     </Form.Group>
                   </Col>
                   <Col>
                     <Form.Group controlId="formRealMes">
-                      <Form.Label>Real Mês %</Form.Label>
+                      <Form.Label className="text-nowrap">Real Mês %</Form.Label>
                       <Form.Control type="text" name="real_mes" onChange={handleChange} />
                     </Form.Group>
                   </Col>
                   <Col>
                     <Form.Group controlId="formIefMes">
-                      <Form.Label>IEF Mês %</Form.Label>
+                      <Form.Label className="text-nowrap">IEF Mês %</Form.Label>
                       <Form.Control type="text" name="ief_mes" onChange={handleChange} />
                     </Form.Group>
                   </Col>
-                </Row>
-
-                <Row>
                   <Col>
                     <Form.Group controlId="formPrevAno">
-                      <Form.Label>Previsão Ano %</Form.Label>
+                      <Form.Label className="text-nowrap">Previsão Ano %</Form.Label>
                       <Form.Control type="text" name="prev_ano" onChange={handleChange} />
                     </Form.Group>
                   </Col>
                   <Col>
                     <Form.Group controlId="formRealAno">
-                      <Form.Label>Real Ano %</Form.Label>
+                      <Form.Label className="text-nowrap">Real Ano %</Form.Label>
                       <Form.Control type="text" name="real_ano" onChange={handleChange} />
                     </Form.Group>
                   </Col>
                   <Col>
                     <Form.Group controlId="formIefAno">
-                      <Form.Label>IEF Ano %</Form.Label>
+                      <Form.Label className="text-nowrap">IEF Ano %</Form.Label>
                       <Form.Control type="text" name="ief_ano" onChange={handleChange} />
                     </Form.Group>
                   </Col>
@@ -201,4 +206,4 @@ const GridBasicExample = () => {
   )
 }
 
-export default GridBasicExample;
+export default AtulizarAS;
