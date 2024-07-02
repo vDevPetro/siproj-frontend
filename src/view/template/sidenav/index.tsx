@@ -54,7 +54,7 @@ const Sidenav = () => {
                         </a>
                     </li>
                     <li>
-                        <a className={`${location.pathname === '/consultarautorizacao' ? 'active' : ''}`} onClick={() => handleNavigate('/consultarautorizacao')}>
+                        <a className={`${location.pathname === '/consultarautorizacao' || location.pathname.match('/atualizarautorizacao') ? 'active' : ''}`} onClick={() => handleNavigate('/consultarautorizacao')}>
                             <i className="bi bi-circle"></i><span>Consultar</span>
                         </a>
                     </li>
@@ -64,8 +64,8 @@ const Sidenav = () => {
                         </a>
                     </li>
                     <li>
-                        <a href="forms-validation.html">
-                        <i className="bi bi-circle"></i><span>Histórico</span>
+                        <a onClick={() => alert('Rota não implamentada')}>
+                            <i className="bi bi-circle"></i><span>Histórico</span>
                         </a>
                     </li>
                     </ul>
@@ -77,13 +77,13 @@ const Sidenav = () => {
                     </a>
                     <ul id="components-nav" className="nav-content collapse " data-bs-parent="#sidebar-nav">
                         <li >
-                            <a href="/emissoesinserir" >
-                            <i className="bi bi-circle"></i><span>Inserir</span>
+                            <a className={`${location.pathname === '/emissoesinserir' ? 'active' : ''}`} onClick={() => handleNavigate('/emissoesinserir')} >
+                                <i className="bi bi-circle"></i><span>Inserir</span>
                             </a>
                         </li>
                         <li>
-                            <a href="components-accordion.html">
-                            <i className="bi bi-circle"></i><span>Consultar</span>
+                            <a onClick={() => alert('Rota não implamentada')}>
+                                <i className="bi bi-circle"></i><span>Consultar</span>
                             </a>
                         </li>
                     </ul>
@@ -124,12 +124,12 @@ const Sidenav = () => {
                                 </a>
                             </li>
                             <li>
-                                <a href="components-badges.html">
+                                <a onClick={() => alert('Rota não implamentada')}>
                                     <i className="bi bi-circle"></i><span>Cronograma</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="components-badges.html">
+                                <a onClick={() => alert('Rota não implamentada')}>
                                     <i className="bi bi-circle"></i><span>Histórico</span>
                                 </a>
                             </li>
@@ -142,8 +142,8 @@ const Sidenav = () => {
                         </a>
                         <ul id="forms-nav" className="nav-content collapse " data-bs-parent="#sidebar-nav">
                             <li>
-                                <a href="forms-elements.html">
-                                <i className="bi bi-circle"></i><span>Consultar</span>
+                                <a onClick={() => alert('Rota não implamentada')}>
+                                    <i className="bi bi-circle"></i><span>Consultar</span>
                                 </a>
                             </li>
                         </ul>
@@ -171,12 +171,12 @@ const Sidenav = () => {
                             </a>
                         </li>
                         <li>
-                            <a href="components-accordion.html">
+                            <a onClick={() => alert('Rota não implamentada')}>
                             <i className="bi bi-circle"></i><span>Cronograma</span>
                             </a>
                         </li>
                         <li>
-                            <a href="components-badges.html">
+                            <a onClick={() => alert('Rota não implamentada')}>
                             <i className="bi bi-circle"></i><span>Histórico</span>
                             </a>
                         </li>
@@ -189,12 +189,12 @@ const Sidenav = () => {
                         </a>
                         <ul id="forms-nav" className="nav-content collapse " data-bs-parent="#sidebar-nav">
                             <li>
-                                <a href="forms-elements.html">
+                                <a className={`${location.pathname === '/emissoesinserir' ? 'active' : ''}`} onClick={() => handleNavigate('/emissoesinserir')} >
                                     <i className="bi bi-circle"></i><span>Inserir</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="forms-layouts.html">
+                                <a onClick={() => alert('Rota não implamentada')}>
                                     <i className="bi bi-circle"></i><span>Consultar</span>
                                 </a>
                             </li>
