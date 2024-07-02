@@ -75,6 +75,21 @@ const [contrato_icj, setContratoIcj] = useState('');
                       <Form.Control readOnly type="text" name="as" id="as" value={id} />
                     </Form.Group>
                   </Col>
+                  <Col sm="1">
+                    <Form.Group controlId="formTipo">
+                      <Form.Label className="text-nowrap">Tipo</Form.Label>
+                      <Form.Control type="text" name="tipo" value={as.tipo} onChange={handleChange}/>
+                    </Form.Group>
+                  </Col>
+                  <Col>
+                    <Form.Group controlId="formDescProjeto">
+                      <Form.Label className="text-nowrap">Descrição do Projeto</Form.Label>
+                      <Form.Control as="textarea" rows={1} name="escopo_projeto" value={as?.desc_projeto}/>
+                    </Form.Group>
+                  </Col>
+                </Row>
+
+                <Row>
                   <Col>
                     <Form.Group controlId="formRespPetro">
                       <Form.Label className="text-nowrap">Responsável Petrobras</Form.Label>
@@ -114,7 +129,7 @@ const [contrato_icj, setContratoIcj] = useState('');
                   </Col>
                   <Col>
                     <Form.Group controlId="formContrato">
-                      <Form.Label>Contrato</Form.Label>
+                      <Form.Label>Contrato SAP</Form.Label>
                       <InputMask 
                           mask="9999999999" 
                           type="text" 
@@ -130,28 +145,24 @@ const [contrato_icj, setContratoIcj] = useState('');
                 </Row>
 
                 <Row>
-                  <Col sm="3">
+                <Col sm="3">
                     <Form.Group controlId="formIdGep">
                       <Form.Label>ID GEP</Form.Label>
                       <Form.Control type="text" name="pep" value={as.pep} onChange={handleChange}/>
                     </Form.Group>
                   </Col>
-                  <Col sm="1">
-                    <Form.Group controlId="formTipo">
-                      <Form.Label>Tipo</Form.Label>
-                      <Form.Control type="text" name="tipo" value={as.tipo} onChange={handleChange}/>
+                  <Col sm="2">
+                    <Form.Group controlId="formPorte">
+                      <Form.Label>Tipo GEP</Form.Label>
+                      <Form.Select>
+                        <option>Selecione...</option>
+                      </Form.Select>
                     </Form.Group>
                   </Col>
                   <Col sm="2">
                     <Form.Group controlId="formPe">
-                      <Form.Label>PE</Form.Label>
+                      <Form.Label>PEP</Form.Label>
                       <Form.Control type="text" name="unidade" value={as.unidade} onChange={handleChange}/>
-                    </Form.Group>
-                  </Col>
-                  <Col>
-                    <Form.Group controlId="formDescProjeto">
-                      <Form.Label className="text-nowrap">Descrição do Projeto</Form.Label>
-                      <Form.Control as="textarea" rows={1} name="escopo_projeto" value={as?.desc_projeto}/>
                     </Form.Group>
                   </Col>
                 </Row>
@@ -159,7 +170,7 @@ const [contrato_icj, setContratoIcj] = useState('');
                 <Form.Label>Priorização</Form.Label>
                 <hr/>
                 <Row className="mb-3">
-                  <Col>
+                  <Col sm="2">
                     <Form.Group controlId="formPorte">
                       <Form.Label>Porte</Form.Label>
                       <Form.Select>
@@ -170,7 +181,7 @@ const [contrato_icj, setContratoIcj] = useState('');
                       </Form.Select>
                     </Form.Group>
                   </Col>
-                  <Col>
+                  <Col sm="2">
                     <Form.Group controlId="formCriticidade">
                       <Form.Label>Criticidade</Form.Label>
                       <Form.Select>
@@ -181,7 +192,7 @@ const [contrato_icj, setContratoIcj] = useState('');
                       </Form.Select>
                     </Form.Group>
                   </Col>
-                  <Col>
+                  <Col sm="2">
                     <Form.Group controlId="formPrioridade">
                       <Form.Label>Prioridade</Form.Label>
                       <Form.Select>

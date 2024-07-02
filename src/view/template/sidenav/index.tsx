@@ -77,7 +77,7 @@ const Sidenav = () => {
                     </a>
                     <ul id="components-nav" className="nav-content collapse " data-bs-parent="#sidebar-nav">
                         <li >
-                            <a href="components-alerts.html" >
+                            <a href="/emissoesinserir" >
                             <i className="bi bi-circle"></i><span>Inserir</span>
                             </a>
                         </li>

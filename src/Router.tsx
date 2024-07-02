@@ -4,6 +4,7 @@ import Users from './view/pages/admin/users'
 import InserirAs from './view/pages/ascadastrar'
 import ConsultarAs from './view/pages/asconsultar'
 import AtualizarAS from './view/pages/asatualizadados'
+import InserirEmissao from './view/pages/emissoesinserir'
 
 export default function mainRoutes(){
     return(
@@ -14,6 +15,7 @@ export default function mainRoutes(){
             <Route path='/inserirautorizacao' element={<InserirAs/>}/>
             <Route path='/consultarautorizacao' element={<ConsultarAs/>}/>
             <Route path='/atualizarautorizacao/:id' element={<AtualizarAS/>}/>
+            <Route path='/emissoesinserir' element={<InserirEmissao/>}/>
         </Routes>
     )
 }
