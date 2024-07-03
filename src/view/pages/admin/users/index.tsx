@@ -3,7 +3,7 @@ import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { db, auth } from '../../../../controller/ConnectionFactory';
 import { FormEvent, useEffect, useState } from 'react';
 import { createUserWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
-import { Usuario } from '../../../../model/Usuario';
+import Usuario from '../../../../model/Usuario';
 import { getUsers } from '../../../../controller/Users';
 import { TextField, MenuItem, Select, InputLabel, FormControl, SelectChangeEvent } from '@mui/material';
 

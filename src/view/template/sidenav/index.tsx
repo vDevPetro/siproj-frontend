@@ -1,8 +1,8 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import { useEffect } from "react";
-import { Usuario } from "../../../model/Usuario";
+import Usuario from "../../../model/Usuario";
 import { getUser } from "../../../controller/Users";
-import { onAuthStateChanged, User } from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
 import { useState } from "react";
 import { auth } from "../../../controller/ConnectionFactory";
 
@@ -38,7 +38,7 @@ const Sidenav = () => {
 
                 <li className="nav-item">
                     <a className={`nav-link ${location.pathname === '/home' ? '' : 'collapsed'}`} onClick={() => handleNavigate('/home')}>
-                    <i className="bi bi-grid"></i>
+                    <i className="bi bi-house"></i>
                     <span>Painel</span>
                     </a>
                 </li>
@@ -172,12 +172,12 @@ const Sidenav = () => {
                         </li>
                         <li>
                             <a onClick={() => alert('Rota não implamentada')}>
-                            <i className="bi bi-circle"></i><span>Cronograma</span>
+                                <i className="bi bi-circle"></i><span>Cronograma</span>
                             </a>
                         </li>
                         <li>
                             <a onClick={() => alert('Rota não implamentada')}>
-                            <i className="bi bi-circle"></i><span>Histórico</span>
+                                <i className="bi bi-circle"></i><span>Histórico</span>
                             </a>
                         </li>
                         </ul>

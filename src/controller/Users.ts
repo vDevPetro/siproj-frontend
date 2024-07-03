@@ -1,41 +1,43 @@
-import { getDocs, addDoc, doc, updateDoc, deleteDoc, getDoc } from "firebase/firestore";
-import { createCollection, db } from "../controller/ConnectionFactory";
-import { Usuario } from "../model/Usuario";
+import axios from "axios";
+import Usuario from "../model/Usuario";
 
-export const getUsers = async () => {
-    let list : Usuario[] = [];
-    const listaCol = createCollection('USUARIOS');
-    const usersDocs = await getDocs(listaCol);
-    usersDocs.docs.forEach((lista) => {
-        
-        list.push({
-            nome: lista.data().nome,
-            email: lista.data().email,
-            nivel: lista.data().nivel,
-            status: lista.data().status,
-            uid: lista.data().uid,
-            stamp: lista.data().stamp,
-            profilePhoto: lista.data().profilePhoto
-        });
-    });
-    return list;
+const apiUrl = "https://apisiproj.vercel.app/users";
+
+export const getUsers = async (): Promise<Usuario[]> => {
+    try {
+        const response = await axios.get<Usuario[]>(apiUrl);
+        return response.data.map(item => ({
+            id: item.id,
+            nome: item.nome,
+            email: item.email,
+            nivel: item.nivel,
+            status: item.status,
+            uid: item.uid,
+            stamp: item.stamp,
+            profilePhoto: item.profilePhoto
+        }));
+    } catch(error) {
+        console.error('Falha em obter os usuários: ', error);
+        throw error;
+    }
 }
 
-export const getUser = async(email: string) => {
-    const docRef = doc(db, 'USUARIOS', email);
-    const docSnap = await getDoc(docRef);
-    if (docSnap.exists()) {
-        let usuario: Usuario = {
-            nome: docSnap.data().nome,
-            email: docSnap.data().email,
-            nivel: docSnap.data().nivel,
-            status: docSnap.data().status,
-            uid: docSnap.data().uid,
-            stamp: docSnap.data().stamp,
-            profilePhoto: docSnap.data().profilePhoto
-        }    
-        return usuario;
-    } else {
-        return undefined;
+export const getUser = async(email: string): Promise<Usuario> => {
+    try {
+        const response = await axios.get<Usuario>(`${apiUrl}/${email}`);
+        const item = response.data;
+        return {
+            id: item.id,
+            nome: item.nome,
+            email: item.email,
+            nivel: item.nivel,
+            status: item.status,
+            uid: item.uid,
+            stamp: item.stamp,
+            profilePhoto: item.profilePhoto
+        }
+    } catch(error) {
+        console.error('Falhar em obter usuário: ', error);
+        throw error;
     }
 }

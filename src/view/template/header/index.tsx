@@ -4,7 +4,7 @@ import { auth } from '../../../controller/ConnectionFactory';
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getUser } from "../../../controller/Users";
-import { Usuario } from "../../../model/Usuario";
+import Usuario from "../../../model/Usuario";
 
 const Header = () => {
     const navigate = useNavigate();

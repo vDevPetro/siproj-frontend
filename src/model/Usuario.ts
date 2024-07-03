@@ -1,4 +1,5 @@
-export type Usuario = {
+type Usuario = {
+    id: string;
     nome: string;
     email: string;
     nivel: string;
@@ -7,3 +8,5 @@ export type Usuario = {
     stamp: string;
     profilePhoto: string;
 }
+
+export default Usuario;
