@@ -30,7 +30,7 @@ const InserirEmissao = () => {
                 <Form.Control readOnly type="text" name="as" id="as" />
               </Form.Group>
             </Col>
-            <Col>
+            <Col sm="2">
               <Form.Group controlId="">
                 <Form.Label>Emissão</Form.Label>
                 <Form.Control type="text" name="emissão" id="emissão" />
@@ -70,7 +70,7 @@ const InserirEmissao = () => {
                   <td><Form.Control type="date" className="border-0 p-1"/></td>
                 </tr>
                 <tr>
-                <th>Username</th>
+                <th>Realizado</th>
                   <td><Form.Control type="date" className="border-0 p-1"/></td>
                   <td><Form.Control type="date" className="border-0 p-1"/></td>
                   <td><Form.Control type="date" className="border-0 p-1"/></td>
@@ -79,13 +79,52 @@ const InserirEmissao = () => {
             </Table>
           </Row>
 
-          <Row>
+          <Row className="mb-4">
             <Col>
               <Form.Group controlId="formEscopoProjeto">
-                <Form.Label>Descrição</Form.Label>
+                <Form.Label>Justificativa</Form.Label>
                 <Form.Control as="textarea" rows={3} name="descrição" />
               </Form.Group>
             </Col>
+          </Row>
+
+          <Form.Label>Consultar</Form.Label>
+          <hr/>
+          <Row>
+            <Table hover className="table-sm text-nowrap">
+              <thead>
+                <tr>
+                  <th>N° Emissão</th>
+                  <th>Motivo</th>
+                  <th>Situação</th>
+                  <th>Emitir Projeto LB</th>
+                  <th>Comentário Projeto LB</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><Form.Control readOnly type="text" className="border-0 text-center" style={{ height: '4rem' }} /></td>
+                  <td><Form.Control readOnly type="text" className="border-0 text-center" style={{ height: '4rem' }} /></td>
+                  <td><Form.Control readOnly type="text" className="border-0 text-center" style={{ height: '4rem' }} /></td>
+                  <td><Form.Control readOnly type="text" className="border-0 text-center" style={{ height: '4rem' }} /></td>
+                  <td><Form.Control readOnly type="text" className="border-0 text-center" style={{ height: '4rem' }} /></td>
+                </tr>
+                <tr>
+                  <td><Form.Control readOnly type="text" className="border-0 text-center" style={{ height: '4rem' }} /></td>
+                  <td><Form.Control readOnly type="text" className="border-0 text-center" style={{ height: '4rem' }} /></td>
+                  <td><Form.Control readOnly type="text" className="border-0 text-center" style={{ height: '4rem' }} /></td>
+                  <td><Form.Control readOnly type="text" className="border-0 text-center" style={{ height: '4rem' }} /></td>
+                  <td><Form.Control readOnly type="text" className="border-0 text-center" style={{ height: '4rem' }} /></td>
+                </tr>
+                <tr>
+                  <td><Form.Control readOnly type="text" className="border-0 text-center" style={{ height: '4rem' }} /></td>
+                  <td><Form.Control readOnly type="text" className="border-0 text-center" style={{ height: '4rem' }} /></td>
+                  <td><Form.Control readOnly type="text" className="border-0 text-center" style={{ height: '4rem' }} /></td>
+                  <td><Form.Control readOnly type="text" className="border-0 text-center" style={{ height: '4rem' }} /></td>
+                  <td><Form.Control readOnly type="text" className="border-0 text-center" style={{ height: '4rem' }} /></td>
+                </tr>
+              </tbody>
+            </Table>
           </Row>
           <Button variant="primary" type="submit">Salvar</Button>
         </div>
