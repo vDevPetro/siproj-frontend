@@ -1,5 +1,5 @@
 import Base from "../model/Base"
-import axios from "axios"
+import axios, { AxiosError } from "axios"
 
 const apiUrl = "https://apisiproj.vercel.app/as";
 
@@ -29,13 +29,13 @@ export const getBase = async (): Promise<Base[]> => {
             log: item.log,
         }));
     } catch (error) {
-        if (axios.isAxiosError(error) && error.response && error.response.status === 404) {
-            console.error('Recurso não encontrado (404).', error);
-            throw new Error('Recurso não encontrado.');
-          } else {
+        if (axios.isAxiosError(error) && error.response?.status === 404) {
+            console.error('Endpoint não encontrado (404):', error);
+            throw new Error('Endpoint não encontrado (404)');
+        } else {
             console.error('Falha em obter os dados:', error);
             throw error;
-          }
+        }
     }
 }
 

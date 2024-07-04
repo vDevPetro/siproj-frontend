@@ -54,7 +54,7 @@ const Header = () => {
         return (
             <Navbar expand="lg" className="bg-body-tertiary mb-3" bg="dark" data-bs-theme="dark">
             <Container >
-                <Navbar.Brand href="#">SiProj</Navbar.Brand>
+                <Navbar.Brand><img src="https://firebasestorage.googleapis.com/v0/b/siproj-a2d22.appspot.com/o/assets%2Flogo-removebg-preview.png?alt=media&token=a9e1311c-f182-4c95-92e4-c419c37f4471" height={42} className="" id="logo" /></Navbar.Brand>
                 <Navbar.Toggle aria-controls="offcanvas" />
                 <Navbar.Offcanvas
                 id="offcanvas"
@@ -63,7 +63,7 @@ const Header = () => {
                 >
                 <Offcanvas.Header closeButton>
                     <Offcanvas.Title id="title">
-                    Offcanvas
+                    <img src="https://firebasestorage.googleapis.com/v0/b/siproj-a2d22.appspot.com/o/assets%2Flogo-removebg-preview.png?alt=media&token=a9e1311c-f182-4c95-92e4-c419c37f4471" height={42} className="" id="logo" />
                     </Offcanvas.Title>
                 </Offcanvas.Header>
                 <Offcanvas.Body>
@@ -138,7 +138,7 @@ const Header = () => {
         return (
             <Navbar expand="lg" className="bg-body-tertiary mb-3" bg="dark" data-bs-theme="dark">
             <Container >
-                <Navbar.Brand href="#">SiProj</Navbar.Brand>
+                <Navbar.Brand ><img src="https://firebasestorage.googleapis.com/v0/b/siproj-a2d22.appspot.com/o/assets%2Flogo-removebg-preview.png?alt=media&token=a9e1311c-f182-4c95-92e4-c419c37f4471" height={42} className="" id="logo" /></Navbar.Brand>
                 <Navbar.Toggle aria-controls="offcanvas" />
                 <Navbar.Offcanvas
                 id="offcanvas"
@@ -211,7 +211,7 @@ const Header = () => {
         return (
             <Navbar expand="lg" className="bg-body-tertiary mb-3" bg="dark" data-bs-theme="dark">
             <Container >
-                <Navbar.Brand href="#">SiProj</Navbar.Brand>
+                <Navbar.Brand ><img src="https://firebasestorage.googleapis.com/v0/b/siproj-a2d22.appspot.com/o/assets%2Flogo-removebg-preview.png?alt=media&token=a9e1311c-f182-4c95-92e4-c419c37f4471" height={42} className="" id="logo" /></Navbar.Brand>
                 <Navbar.Toggle aria-controls="offcanvas" />
                 <Navbar.Offcanvas
                 id="offcanvas"
