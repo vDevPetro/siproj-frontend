@@ -13,6 +13,7 @@ body {
 .form-label {
   color: #043a00;
   font-weight: 600;
+  margin-bottom: 0;
 }
 
 .table-sm td {

@@ -4,9 +4,13 @@ export const Container = styled.div`
     body {
     background-color: #f2f2f2;
   }
-  .form-group label {
+  .form-label {
     color: #043a00;
+    font-weight: 600;  
+  }
+  th.table-title {
     font-weight: 600;
+    color: #021900;
   }
   .form-control {
     border-radius: 0.5rem;
@@ -17,8 +21,6 @@ export const Container = styled.div`
     background-color: #008542;
     border: none;
     border-radius: 5px;
-    color: white;
-    width: 100%;
   }
   button[type="submit"]:hover {
     background-color: #004f28;
