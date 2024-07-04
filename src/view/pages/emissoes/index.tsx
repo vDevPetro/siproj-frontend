@@ -8,7 +8,7 @@ import { getBaseById } from '../../../controller/Base';
 import Table from 'react-bootstrap/Table';
 
 
-const InserirEmissao = () => {
+const Emissao = () => {
 
   return (
     <>
@@ -124,4 +124,4 @@ const InserirEmissao = () => {
   )
 }
 
-export default InserirEmissao
+export default Emissao;

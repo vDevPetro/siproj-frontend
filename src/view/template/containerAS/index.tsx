@@ -2,7 +2,7 @@ import * as C from './styles';
 import { Route, Routes, useParams } from 'react-router-dom';
 import { Nav } from 'react-bootstrap';
 import AtualizarAS from '../../pages/asatualizadados';
-import InserirEmissao from '../../pages/emissoesinserir';
+import Emissao from '../../pages/emissoes';
 import NavLink from './NavLink';
 
 const ContainerAS = () => {
@@ -31,7 +31,7 @@ const ContainerAS = () => {
                     <Route path="atualizar" element={<AtualizarAS />} />
                     <Route path="cronograma" element={<div>Cronograma Component</div>} />
                     <Route path="historico" element={<div>Histórico Component</div>} />
-                    <Route path="emissoes" element={<InserirEmissao/>} />
+                    <Route path="emissoes" element={<Emissao/>} />
                 </Routes>
             </div>
         </div>
