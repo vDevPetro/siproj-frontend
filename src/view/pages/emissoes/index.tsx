@@ -1,4 +1,4 @@
-import { Container } from './styles'
+import './styles'
 import React, { useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import { Form, Row, Col, Button, Breadcrumb } from 'react-bootstrap';
 import InputMask from 'react-input-mask';
@@ -39,31 +39,31 @@ const Emissao = () => {
         </Col>
       </Row>
 
-      <Row className="mb-4">
+      <Row className="mb-4 table-responsive">
         <Table bordered hover className="table-sm">
           <thead>
             <tr>
               <td></td>
-              <th>Emitir projeto comentário</th>
-              <th>PB comentar projeto</th>
-              <th>Atender comentários</th>
+              <th className="table-title">Emitir projeto comentário</th>
+              <th className="table-title">PB comentar projeto</th>
+              <th className="table-title">Atender comentários</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <th>Planejamento</th>
+              <th className="table-title">Planejamento</th>
               <td><Form.Control type="date" className="border-0 p-1"/></td>
               <td><Form.Control type="date" className="border-0 p-1"/></td>
               <td><Form.Control type="date" className="border-0 p-1"/></td>
             </tr>
             <tr>
-              <th>Replanejamento</th>
+              <th className="table-title">Replanejamento</th>
               <td><Form.Control type="date" className="border-0 p-1"/></td>
               <td><Form.Control type="date" className="border-0 p-1"/></td>
               <td><Form.Control type="date" className="border-0 p-1"/></td>
             </tr>
             <tr>
-            <th>Realizado</th>
+              <th className="table-title">Realizado</th>
               <td><Form.Control type="date" className="border-0 p-1"/></td>
               <td><Form.Control type="date" className="border-0 p-1"/></td>
               <td><Form.Control type="date" className="border-0 p-1"/></td>
@@ -87,11 +87,11 @@ const Emissao = () => {
         <Table hover className="table-sm text-nowrap table-striped">
           <thead>
             <tr>
-              <th>N° Emissão</th>
-              <th>Motivo</th>
-              <th>Situação</th>
-              <th>Emitir Projeto LB</th>
-              <th>Comentário Projeto LB</th>
+              <th scope="col" className="table-title">N° Emissão</th>
+              <th scope="col" className="table-title">Motivo</th>
+              <th scope="col" className="table-title">Situação</th>
+              <th scope="col" className="table-title">Emitir Projeto LB</th>
+              <th scope="col" className="table-title">Comentário Projeto LB</th>
             </tr>
           </thead>
           <tbody>

@@ -4,6 +4,7 @@ import { Nav } from 'react-bootstrap';
 import AtualizarAS from '../../pages/asatualizadados';
 import Emissao from '../../pages/emissoes';
 import NavLink from './NavLink';
+import Cronograma from '../../pages/cronograma';
 
 const ContainerAS = () => {
   const { id } = useParams<{ id: string }>();
@@ -29,7 +30,7 @@ const ContainerAS = () => {
 
                 <Routes>
                     <Route path="atualizar" element={<AtualizarAS />} />
-                    <Route path="cronograma" element={<div>Cronograma Component</div>} />
+                    <Route path="cronograma" element={<Cronograma/>} />
                     <Route path="historico" element={<div>Histórico Component</div>} />
                     <Route path="emissoes" element={<Emissao/>} />
                 </Routes>

@@ -159,7 +159,7 @@ const [contrato_icj, setContratoIcj] = useState('');
           </Col>
         </Row>
 
-        <div className='mt-5'>Priorização</div>
+        <Form.Label>Priorização</Form.Label>
         <hr/>
         <Row className="mb-3">
           <Col sm="2">
