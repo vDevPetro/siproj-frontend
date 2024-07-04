@@ -5,7 +5,6 @@ import { auth } from './controller/ConnectionFactory';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { User, onAuthStateChanged } from 'firebase/auth';
 import Login from './view/pages/login';
-import Sidenav from './view/template/sidenav';
 import Header from './view/template/header';
 
 const AppContainer = styled.div`
@@ -33,7 +32,6 @@ function App() {
       <AppContainer> 
         <Router>
           <Header/>
-          <Sidenav/>
           <Rotas/>
         </Router>
       </AppContainer>

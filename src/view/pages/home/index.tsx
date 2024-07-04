@@ -12,6 +12,7 @@ const Home = () => {
     const [user, setUser] = useState<User>();
     const [base, setBase] = useState<Base[]>();
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -21,9 +22,13 @@ const Home = () => {
                 const sortedData = data.sort((a, b) => a.id - b.id);
                 setBase(sortedData);
                 setLoading(false);
-            } catch(err) {
-                alert('Erro: '+ err)
-            }
+            }  catch (error) {
+                if (error instanceof Error) {
+                  setError(error.message);
+                } else {
+                  setError('Um erro inesperado ocorreu.');
+                }
+              }
         }
         onAuthStateChanged(auth, (user) => {
             if(!user){
@@ -34,56 +39,52 @@ const Home = () => {
         fetchData();
     }, []);
 
-    return (
-        <C.Container>
-            <main id="main" className="main">
-                <div className="pagetitle">
-                    <h1>Tela inicial {user?.uid}</h1>
-                    <nav>
-                        <ol className="breadcrumb">
-                            <li className="breadcrumb-item active">Home</li>
-                        </ol>
-                    </nav>
-                    <div className='col-12'>
-                        <div className='d-flex flex-wrap justify-content-evenly'>
-                            {!loading && base?.map(base => (
-                                <Cartao
-                                    id={base.id} 
-                                    pep={base.pep || ''} 
-                                    desc={base.desc_projeto} 
-                                    respPetro={base.resp_petro}
-                                    tipo={base.tipo || ''}
-                                />
-                            ))}
 
-                            {loading &&
-                                [...Array(6)].map((_, index) => (
-                                    <C.CardContainer className='d-flex  row'>
-                                        <Card>
-                                            <Placeholder as={Card.Header} animation="glow">
-                                                <Placeholder xs={1} /> <Placeholder xs={2} />
-                                            </Placeholder>
-                                            <Card.Body>
-                                                <Placeholder as={Card.Title} animation="glow">
-                                                    <Placeholder xs={6} />
-                                                </Placeholder>
-                                                <Placeholder as={Card.Text} animation="glow">
-                                                    <Placeholder xs={7} /> <Placeholder xs={4} /> <Placeholder xs={4} />{' '}
-                                                    <Placeholder xs={7} /> <Placeholder xs={8} /> <Placeholder xs={3} />
-                                                </Placeholder>
-                                                <Placeholder as={Card.Footer} animation="glow">
-                                                    <Placeholder xs={4} /> <Placeholder xs={6} />
-                                                </Placeholder>
-                                                <Placeholder.Button variant="success" xs={3} />
-                                            </Card.Body>
-                                        </Card>
-                                    </C.CardContainer>
-                                ))
-                            }
-                        </div>
-                    </div>
+    if (error) {
+        return <div>{error}</div>;
+    }
+
+
+    return (
+        <C.Container className='container-lg pt-5'>
+            <div className='col-12 mt-2'>
+                <div className='d-flex flex-wrap justify-content-evenly'>
+                    {!loading && base?.map(base => (
+                        <Cartao
+                            id={base.id} 
+                            pep={base.pep || ''} 
+                            desc={base.desc_projeto} 
+                            respPetro={base.resp_petro}
+                            tipo={base.tipo || ''}
+                        />
+                    ))}
+
+                    {loading &&
+                        [...Array(6)].map((_, index) => (
+                            <C.CardContainer className='d-flex  row'>
+                                <Card>
+                                    <Placeholder as={Card.Header} animation="glow">
+                                        <Placeholder xs={1} /> <Placeholder xs={2} />
+                                    </Placeholder>
+                                    <Card.Body>
+                                        <Placeholder as={Card.Title} animation="glow">
+                                            <Placeholder xs={6} />
+                                        </Placeholder>
+                                        <Placeholder as={Card.Text} animation="glow">
+                                            <Placeholder xs={7} /> <Placeholder xs={4} /> <Placeholder xs={4} />{' '}
+                                            <Placeholder xs={7} /> <Placeholder xs={8} /> <Placeholder xs={3} />
+                                        </Placeholder>
+                                        <Placeholder as={Card.Footer} animation="glow">
+                                            <Placeholder xs={4} /> <Placeholder xs={6} />
+                                        </Placeholder>
+                                        <Placeholder.Button variant="success" xs={3} />
+                                    </Card.Body>
+                                </Card>
+                            </C.CardContainer>
+                        ))
+                    }
                 </div>
-            </main>
+            </div>
         </C.Container>
     )
 }

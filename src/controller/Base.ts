@@ -29,8 +29,13 @@ export const getBase = async (): Promise<Base[]> => {
             log: item.log,
         }));
     } catch (error) {
-        console.error('Falha em obter os dados:', error);
-        throw error;
+        if (axios.isAxiosError(error) && error.response && error.response.status === 404) {
+            console.error('Recurso não encontrado (404).', error);
+            throw new Error('Recurso não encontrado.');
+          } else {
+            console.error('Falha em obter os dados:', error);
+            throw error;
+          }
     }
 }
 

@@ -157,7 +157,7 @@ const ConsultarAs = () => {
     }    
 
     return(
-        <Container className="main" id="main">
+        <Container className="container-lg">
             <div className="pagetitle">
                 <h1>Consultar Autorização de Serviço</h1>
                 <nav>

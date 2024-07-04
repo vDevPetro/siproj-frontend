@@ -600,6 +600,23 @@ h6 {
   cursor: pointer;
 }
 
+nav .dropdown-menu .nav-link:hover {
+  color: #000;
+}
+
+.dropdown-menu .dropdown-item:hover {
+  color: #000 !important;
+}
+
+nav #pesquisar {
+  border-top-left-radius: 2rem;
+  border-bottom-left-radius: 2rem;
+}
+
+nav #btnPesquisar {
+  border-top-right-radius: 2rem;
+  border-bottom-right-radius: 2rem;
+}
 /*--------------------------------------------------------------
 # Sidebar
 --------------------------------------------------------------*/

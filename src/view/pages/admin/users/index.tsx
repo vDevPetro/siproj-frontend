@@ -61,7 +61,7 @@ const Users = () => {
 
     return(
         <C.Container>
-            <main id="main" className="main">
+            <main className="container-lg">
                 <div className="pagetitle">
                 <h1>Usuários</h1>
                 <nav>

@@ -5,11 +5,29 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getUser } from "../../../controller/Users";
 import Usuario from "../../../model/Usuario";
+import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
+import Form from 'react-bootstrap/Form';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
+import Offcanvas from 'react-bootstrap/Offcanvas';
+import NavLink from "../containerAS/NavLink";
+
 
 const Header = () => {
     const navigate = useNavigate();
     const [user, setUser] = useState<User>();
-    const [userData, setUserData] = useState<Usuario>();
+    const [userData, setUserData] = useState<Usuario>({
+        id: '',
+        nivel: '',
+        profilePhoto: '',
+        stamp: '',
+        status: '',
+        uid: '',
+        email: '',
+        nome: ''
+    });
     //add event listener para ocultar ou desocultar a sidebar
     useEffect(() => {
         const fetchUserData = async (email: string | null) => {
@@ -25,179 +43,244 @@ const Header = () => {
             }
         })
         
-        const handleClick = (e: MouseEvent) => {
-            const target = e.target as HTMLElement;
-            if (target.classList.contains('toggle-sidebar-btn')) {
-                document.body.classList.toggle('toggle-sidebar');
-            }
-        }
-
-        document.addEventListener('click', handleClick);
-
-        return () => {
-            document.removeEventListener('click', handleClick);
-        }
     }, []);
-
-    const handleNavigate = (path: string) => {
-        navigate(path);
-    }
 
     const logout = async () => {
         await signOut(auth);
         navigate('/');
     }
 
-    return (
-        <header id="header" className="header fixed-top d-flex align-items-center">
-
-            <div className="d-flex align-items-center justify-content-between">
-                <div className="logo d-flex align-items-center" role="link" onClick={() => handleNavigate('/')}>
-                    <img src="https://firebasestorage.googleapis.com/v0/b/siproj-a2d22.appspot.com/o/assets%2Flogo.png?alt=media&token=16946602-ed07-46f1-9040-f21206e6a192" alt="logo" />
-                </div>
-                <i className="bi bi-list toggle-sidebar-btn"></i>
-            </div>
-
-            <div className="search-bar">
-                <form className="search-form d-flex align-items-center" method="POST" action="#">
-                    <input type="text" name="query" placeholder="Pesquisar" title="Enter search keyword"/>
-                    <button type="submit" title="Search"><i className="bi bi-search"></i></button>
-                </form>
-            </div>
-
-            <nav className="header-nav ms-auto">
-            <ul className="d-flex align-items-center">
-
-                <li className="nav-item d-block d-lg-none">
-                <a className="nav-link nav-icon search-bar-toggle " href="#">
-                    <i className="bi bi-search"></i>
-                </a>
-                </li>
-
-                <li className="nav-item dropdown">
-
-                <a className="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-                    <i className="bi bi-bell"></i>
-                </a>
-
-                <ul className="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
-                    <li className="dropdown-header">
-                    You have 4 new notifications
-                    <a href="#"><span className="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
-                    </li>
-                    <li>
-                    <hr className="dropdown-divider"/>
-                    </li>
-
-                    <li className="notification-item">
-                    <i className="bi bi-exclamation-circle text-warning"></i>
-                    <div>
-                        <h4>Lorem Ipsum</h4>
-                        <p>Quae dolorem earum veritatis oditseno</p>
-                        <p>30 min. ago</p>
-                    </div>
-                    </li>
-
-                    <li>
-                    <hr className="dropdown-divider"/>
-                    </li>
-
-                    <li className="notification-item">
-                    <i className="bi bi-x-circle text-danger"></i>
-                    <div>
-                        <h4>Atque rerum nesciunt</h4>
-                        <p>Quae dolorem earum veritatis oditseno</p>
-                        <p>1 hr. ago</p>
-                    </div>
-                    </li>
-
-                    <li>
-                    <hr className="dropdown-divider"/>
-                    </li>
-
-                    <li className="notification-item">
-                    <i className="bi bi-check-circle text-success"></i>
-                    <div>
-                        <h4>Sit rerum fuga</h4>
-                        <p>Quae dolorem earum veritatis oditseno</p>
-                        <p>2 hrs. ago</p>
-                    </div>
-                    </li>
-
-                    <li>
-                    <hr className="dropdown-divider"/>
-                    </li>
-
-                    <li className="notification-item">
-                    <i className="bi bi-info-circle text-primary"></i>
-                    <div>
-                        <h4>Dicta reprehenderit</h4>
-                        <p>Quae dolorem earum veritatis oditseno</p>
-                        <p>4 hrs. ago</p>
-                    </div>
-                    </li>
-
-                    <li>
-                    <hr className="dropdown-divider"/>
-                    </li>
-                    <li className="dropdown-footer">
-                    <a href="#">Show all notifications</a>
-                    </li>
-
-                </ul>
-
-                </li>
-
-                <li className="nav-item dropdown pe-3">
-
-                <a className="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                    <img src="assets/img/message-2.img" alt="Profile" className="rounded-circle"/>
-                    <span className="d-none d-md-block dropdown-toggle ps-2">{userData?.nome}</span>
-                </a>
-
-                <ul className="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-                    <li className="dropdown-header">
-                    <h6>{user?.email}</h6>
-                    <span>{userData?.nivel.toLowerCase()}</span>
-                    </li>
-                    <li>
-                    <hr className="dropdown-divider"/>
-                    </li>
-
-                    <li>
-                    <a className="dropdown-item d-flex align-items-center" href="users-profile.html">
-                        <i className="bi bi-person"></i>
-                        <span>Meu perfil</span>
-                    </a>
-                    </li>
-                    <li>
-                    <hr className="dropdown-divider"/>
-                    </li>
-                    <li>
-                        <a className="dropdown-item d-flex align-items-center" >
-                            <i className="bi bi-question-circle"></i>
-                            <span>Ajuda</span>
-                        </a>
-                    </li>
-                    <li>
-                        <hr className="dropdown-divider"/>
-                    </li>
-
-                    <li>
-                        <a className="dropdown-item d-flex align-items-center" onClick={logout}>
-                            <i className="bi bi-box-arrow-right "></i>
-                            <span>Sair</span>
-                        </a>
-                    </li>
-
-                </ul>
-                </li>
-
-            </ul>
-            </nav>
-
-        </header>
-    )
+    if (userData?.nivel === 'ADMINISTRADOR') {
+        return (
+            <Navbar expand="lg" className="bg-body-tertiary mb-3" bg="dark" data-bs-theme="dark">
+            <Container >
+                <Navbar.Brand href="#">SiProj</Navbar.Brand>
+                <Navbar.Toggle aria-controls="offcanvas" />
+                <Navbar.Offcanvas
+                id="offcanvas"
+                aria-labelledby="title"
+                placement="end"
+                >
+                <Offcanvas.Header closeButton>
+                    <Offcanvas.Title id="title">
+                    Offcanvas
+                    </Offcanvas.Title>
+                </Offcanvas.Header>
+                <Offcanvas.Body>
+                    <Nav className="justify-content-between flex-grow-1 pe-3">
+                        <div className="d-flex flex-column flex-lg-row ps-md-3">
+                            <Nav.Item className="me-md-3">
+                                <NavLink to='/'><i className="bi bi-house me-2"/>Home</NavLink>
+                            </Nav.Item>
+                            <NavDropdown 
+                                title={
+                                <>
+                                    <i className="bi bi-ui-checks me-2"/>
+                                    Autorização
+                                </>
+                                } 
+                                id="dropdownas"
+                                className="me-md-3"
+                            >
+                                <NavDropdown.Item>
+                                    <NavLink to='/inserirautorizacao'>
+                                        <i className="bi bi-folder-plus"></i>
+                                        Inserir
+                                    </NavLink>
+                                </NavDropdown.Item>
+                                <NavDropdown.Item>
+                                    <NavLink to='/as'>
+                                        <i className="bi bi-list-ul"></i>
+                                        Consultar
+                                    </NavLink>
+                                </NavDropdown.Item>
+                            </NavDropdown>
+                            <Nav.Item>
+                                <NavLink to='/users'><i className="bi bi-people-fill me-2"/>Usuários</NavLink>
+                            </Nav.Item>
+                        </div>
+                        <div className="d-flex flex-column flex-lg-row">
+                            <Form className="d-flex my-2 my-lg-0 ms-md-3">
+                                <div className="input-group">
+                                    <input type="text" className="form-control" placeholder="Pesquisar..." id="pesquisar"/>
+                                    <Button variant="outline-success" id="btnPesquisar"><i className="bi bi-search"/></Button>
+                                </div>
+                            </Form>
+                            <NavDropdown title={<><i className="bi bi-person-badge me-2"/>{user?.email}</>} id="dropdown"  className="ms-md-3">
+                                <NavDropdown.Item>
+                                    <NavLink to='/perfil'>
+                                        <i className="bi bi-person"></i>
+                                        Perfil
+                                    </NavLink>
+                                </NavDropdown.Item>
+                                <NavDropdown.Item>
+                                    <NavLink to='/ajuda'>
+                                        <i className="bi bi-question-circle"></i>
+                                        Ajuda
+                                    </NavLink>
+                                </NavDropdown.Item>
+                                <NavDropdown.Divider />
+                                <NavDropdown.Item onClick={logout} >
+                                    <div className="d-flex ms-md-2">
+                                        <i className="bi bi-door-open"/>
+                                        Sair
+                                    </div>
+                                </NavDropdown.Item>
+                            </NavDropdown>
+                        </div>
+                    </Nav>
+                </Offcanvas.Body>
+                </Navbar.Offcanvas>
+            </Container>
+            </Navbar>
+          );
+    } else if (userData.nivel === 'OPERACIONAL') {
+        return (
+            <Navbar expand="lg" className="bg-body-tertiary mb-3" bg="dark" data-bs-theme="dark">
+            <Container >
+                <Navbar.Brand href="#">SiProj</Navbar.Brand>
+                <Navbar.Toggle aria-controls="offcanvas" />
+                <Navbar.Offcanvas
+                id="offcanvas"
+                aria-labelledby="title"
+                placement="end"
+                >
+                <Offcanvas.Header closeButton>
+                    <Offcanvas.Title id="title">
+                    Offcanvas
+                    </Offcanvas.Title>
+                </Offcanvas.Header>
+                <Offcanvas.Body>
+                    <Nav className="justify-content-between flex-grow-1 pe-3">
+                        <div className="d-flex flex-column flex-md-row ps-md-3">
+                            <Nav.Item>
+                                <NavLink to='/'>Home</NavLink>
+                            </Nav.Item>
+                            <NavDropdown title="Autorização" id="dropdownas" >
+                                <NavDropdown.Item>
+                                    <NavLink to='/inserirautorizacao'>
+                                        <i className="bi bi-ui-checks"></i>
+                                        Inserir
+                                    </NavLink>
+                                </NavDropdown.Item>
+                                <NavDropdown.Item>
+                                    <NavLink to='/as'>
+                                        <i className="bi bi-list-ul"></i>
+                                        Consultar
+                                    </NavLink>
+                                </NavDropdown.Item>
+                            </NavDropdown>
+                            <Nav.Item>
+                                <NavLink to='/users'>Usuários</NavLink>
+                            </Nav.Item>
+                        </div>
+                        <div className="d-flex flex-column flex-md-row">
+                            <Form className="d-flex">
+                                <div className="input-group">
+                                    <input type="text" className="form-control" placeholder="Pesquisar..." id="pesquisar"/>
+                                    <Button variant="outline-success" id="btnPesquisar"><i className="bi bi-search"/></Button>
+                                </div>
+                            </Form>
+                            <NavDropdown title={user?.email} id="dropdown"  className="ms-md-3">
+                                <NavDropdown.Item>
+                                    <NavLink to='/perfil'>
+                                        <i className="bi bi-person"></i>
+                                        Perfil
+                                    </NavLink>
+                                </NavDropdown.Item>
+                                <NavDropdown.Item>
+                                    <NavLink to='/ajuda'>
+                                        <i className="bi bi-question-circle"></i>
+                                        Ajuda
+                                    </NavLink>
+                                </NavDropdown.Item>
+                                <NavDropdown.Divider />
+                                <NavDropdown.Item onClick={logout} >
+                                    <i className="bi bi-door-open"/>
+                                    Sair
+                                </NavDropdown.Item>
+                            </NavDropdown>
+                        </div>
+                    </Nav>
+                </Offcanvas.Body>
+                </Navbar.Offcanvas>
+            </Container>
+            </Navbar>
+          );
+    } else {
+        return (
+            <Navbar expand="lg" className="bg-body-tertiary mb-3" bg="dark" data-bs-theme="dark">
+            <Container >
+                <Navbar.Brand href="#">SiProj</Navbar.Brand>
+                <Navbar.Toggle aria-controls="offcanvas" />
+                <Navbar.Offcanvas
+                id="offcanvas"
+                aria-labelledby="title"
+                placement="end"
+                >
+                <Offcanvas.Header closeButton>
+                    <Offcanvas.Title id="title">
+                    Offcanvas
+                    </Offcanvas.Title>
+                </Offcanvas.Header>
+                <Offcanvas.Body>
+                    <Nav className="justify-content-between flex-grow-1 pe-3">
+                        <div className="d-flex flex-column flex-md-row ps-md-3">
+                            <Nav.Item>
+                                <NavLink to='/'>Home</NavLink>
+                            </Nav.Item>
+                            <NavDropdown title="Autorização" id="dropdownas" >
+                                <NavDropdown.Item>
+                                    <NavLink to='/inserirautorizacao'>
+                                        <i className="bi bi-ui-checks"></i>
+                                        Inserir
+                                    </NavLink>
+                                </NavDropdown.Item>
+                                <NavDropdown.Item>
+                                    <NavLink to='/as'>
+                                        <i className="bi bi-list-ul"></i>
+                                        Consultar
+                                    </NavLink>
+                                </NavDropdown.Item>
+                            </NavDropdown>
+                            <Nav.Item>
+                                <NavLink to='/users'>Usuários</NavLink>
+                            </Nav.Item>
+                        </div>
+                        <div className="d-flex flex-column flex-md-row">
+                            <Form className="d-flex">
+                                <div className="input-group">
+                                    <input type="text" className="form-control" placeholder="Pesquisar..." id="pesquisar"/>
+                                    <Button variant="outline-success" id="btnPesquisar"><i className="bi bi-search"/></Button>
+                                </div>
+                            </Form>
+                            <NavDropdown title={user?.email} id="dropdown"  className="ms-md-3">
+                                <NavDropdown.Item>
+                                    <NavLink to='/perfil'>
+                                        <i className="bi bi-person"></i>
+                                        Perfil
+                                    </NavLink>
+                                </NavDropdown.Item>
+                                <NavDropdown.Item>
+                                    <NavLink to='/ajuda'>
+                                        <i className="bi bi-question-circle"></i>
+                                        Ajuda
+                                    </NavLink>
+                                </NavDropdown.Item>
+                                <NavDropdown.Divider />
+                                <NavDropdown.Item onClick={logout}>
+                                    <i className="bi bi-door-open"/>
+                                    Sair
+                                </NavDropdown.Item>
+                            </NavDropdown>
+                        </div>
+                    </Nav>
+                </Offcanvas.Body>
+                </Navbar.Offcanvas>
+            </Container>
+            </Navbar>
+          );
+    }
 }
 
 export default Header

@@ -10,7 +10,7 @@ const ContainerAS = () => {
   const { id } = useParams<{ id: string }>();
 
   return (
-    <C.Container id="main" className="main">
+    <C.Container className='container-lg'>
         <div className="card px-2 py-1 py-md-4">
             <div className="card-body">
                 <Nav fill variant="tabs" defaultActiveKey={`/as/${id}/atualizar`}>
@@ -27,7 +27,7 @@ const ContainerAS = () => {
                         <NavLink to={`/as/${id}/emissoes`}>Emissões</NavLink>
                     </Nav.Item>
                 </Nav>
-
+            
                 <Routes>
                     <Route path="atualizar" element={<AtualizarAS />} />
                     <Route path="cronograma" element={<Cronograma/>} />

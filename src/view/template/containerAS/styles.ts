@@ -45,24 +45,24 @@ export const Container = styled.div`
     color: #198754 !important;
   }
   
-  // Small devices 
-  @media (min-width: 576px) {
-    .card-body {
-      margin: 0 1rem !important;
-    }
-  }
 
   // Medium devices
   @media (min-width: 768px) {
     .card-body {
-      margin: 0 2rem !important;
+      margin: 0 1rem !important;
     }
   }
 
   // Large devices
   @media (min-width: 992px) {
     .card-body {
-      margin: 0 6rem !important;
+      margin: 0 3rem !important;
+    }
+  }
+
+  @media (min-width: 1200px) { 
+    .card-body {
+      margin: 0 8rem !important;
     }
   }
 

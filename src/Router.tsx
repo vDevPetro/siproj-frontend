@@ -14,7 +14,7 @@ export default function mainRoutes(){
             <Route path='/home' element={<Home/>}/>
             <Route path='/users' element={<Users/>}/>
             <Route path='/inserirautorizacao' element={<InserirAs/>}/>
-            <Route path='/consultarautorizacao' element={<ConsultarAs/>}/>
+            <Route path='/as' element={<ConsultarAs/>}/>
             <Route path='/as/:id/*' element={<ContainerAS/>}/>
         </Routes>
     )
