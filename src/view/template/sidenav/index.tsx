@@ -58,34 +58,6 @@ const Sidenav = () => {
                             <i className="bi bi-circle"></i><span>Consultar</span>
                         </a>
                     </li>
-                    <li>
-                        <a className={`${location.pathname === '/contrato/cadastrarcontrato' ? 'active' : ''}`} onClick={() => alert('Rota não implamentada')}>
-                            <i className="bi bi-circle"></i><span>Cronograma</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a onClick={() => alert('Rota não implamentada')}>
-                            <i className="bi bi-circle"></i><span>Histórico</span>
-                        </a>
-                    </li>
-                    </ul>
-                </li>
-
-                <li className="nav-item">
-                    <a className="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-                        <i className="bi bi-menu-button-wide"></i><span>Emissões</span><i className="bi bi-chevron-down ms-auto"></i>
-                    </a>
-                    <ul id="components-nav" className="nav-content collapse " data-bs-parent="#sidebar-nav">
-                        <li >
-                            <a className={`${location.pathname === '/emissoesinserir' ? 'active' : ''}`} onClick={() => handleNavigate('/emissoesinserir')} >
-                                <i className="bi bi-circle"></i><span>Inserir</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a onClick={() => alert('Rota não implamentada')}>
-                                <i className="bi bi-circle"></i><span>Consultar</span>
-                            </a>
-                        </li>
                     </ul>
                 </li>
 
