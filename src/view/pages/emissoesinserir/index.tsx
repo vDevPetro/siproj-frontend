@@ -83,7 +83,7 @@ const InserirEmissao = () => {
 
       <Form.Label>Consultar</Form.Label>
       <hr/>
-      <Row>
+      <Row className='table-responsive'>
         <Table hover className="table-sm text-nowrap table-striped">
           <thead>
             <tr>
