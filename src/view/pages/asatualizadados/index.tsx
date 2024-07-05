@@ -113,7 +113,7 @@ const [contrato_icj, setContratoIcj] = useState('');
                   className="form-control" 
                   id="contrato_icj" 
                   name="contrato_icj" 
-                  onChange={(e) => setContratoIcj(e.target.value)} 
+                  onChange={handleChange} 
                   value={as.contrato_icj}
                   required
                 />
@@ -128,7 +128,7 @@ const [contrato_icj, setContratoIcj] = useState('');
                   className="form-control" 
                   id="contrato_sap" 
                   name="contrato_sap" 
-                  onChange={(e) => setContratoSap(e.target.value)} 
+                  onChange={handleChange} 
                   value={as.contrato_sap}
                   required
                 />
