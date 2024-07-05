@@ -16,271 +16,266 @@ import NavLink from "../containerAS/NavLink";
 
 
 const Header = () => {
-    const navigate = useNavigate();
-    const [user, setUser] = useState<User>();
-    const [userData, setUserData] = useState<Usuario>({
-        id: '',
-        nivel: '',
-        profilePhoto: '',
-        stamp: '',
-        status: '',
-        uid: '',
-        email: '',
-        nome: ''
-    });
-    //add event listener para ocultar ou desocultar a sidebar
-    useEffect(() => {
-        const fetchUserData = async (email: string | null) => {
-            if (email !== null) {
-                setUserData(await getUser(email));
-            }
-        };
+  const navigate = useNavigate();
+  const [user, setUser] = useState<User>();
+  const [userData, setUserData] = useState<Usuario>({
+    id: '',
+    nivel: '',
+    profilePhoto: '',
+    stamp: '',
+    status: '',
+    uid: '',
+    email: '',
+    nome: ''
+  });
+  //add event listener para ocultar ou desocultar a sidebar
+  useEffect(() => {
+    const fetchUserData = async (email: string | null) => {
+      if (email !== null) {
+        setUserData(await getUser(email));
+      }
+    };
 
-        onAuthStateChanged(auth, (user) => {
-            if(user){
-                setUser(user);
-                fetchUserData(user.email);
-            }
-        })
-        
-    }, []);
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user);
+        fetchUserData(user.email);
+      }
+    })
 
-    const logout = async () => {
-        await signOut(auth);
-        navigate('/');
-    }
+  }, []);
 
-    if (userData?.nivel === 'ADMINISTRADOR') {
-        return (
-            <Navbar expand="lg" className="bg-body-tertiary mb-3" bg="dark" data-bs-theme="dark" sticky="top">
-            <Container >
-                <Navbar.Brand><img src="https://firebasestorage.googleapis.com/v0/b/siproj-a2d22.appspot.com/o/assets%2Flogo-removebg-preview.png?alt=media&token=a9e1311c-f182-4c95-92e4-c419c37f4471" height={42} className="" id="logo" /></Navbar.Brand>
-                <Navbar.Toggle aria-controls="offcanvas" />
-                <Navbar.Offcanvas
-                id="offcanvas"
-                aria-labelledby="title"
-                placement="end"
-                >
-                <Offcanvas.Header closeButton>
-                    <Offcanvas.Title id="title">
-                    <img src="https://firebasestorage.googleapis.com/v0/b/siproj-a2d22.appspot.com/o/assets%2Flogo-removebg-preview.png?alt=media&token=a9e1311c-f182-4c95-92e4-c419c37f4471" height={42} className="" id="logo" />
-                    </Offcanvas.Title>
-                </Offcanvas.Header>
-                <Offcanvas.Body>
-                    <Nav className="justify-content-between flex-grow-1 pe-3">
-                        <div className="d-flex flex-column flex-lg-row ps-md-3">
-                            <Nav.Item className="me-md-3">
-                                <NavLink to='/'><i className="bi bi-house me-2"/>Home</NavLink>
-                            </Nav.Item>
-                            <NavDropdown 
-                                title={
-                                <>
-                                    <i className="bi bi-ui-checks me-2"/>
-                                    Autorização
-                                </>
-                                } 
-                                id="dropdownas"
-                                className="me-md-3"
-                            >
-                                <NavDropdown.Item>
-                                    <NavLink to='/inserirautorizacao'>
-                                        <i className="bi bi-folder-plus"></i>
-                                        Inserir
-                                    </NavLink>
-                                </NavDropdown.Item>
-                                <NavDropdown.Item>
-                                    <NavLink to='/as'>
-                                        <i className="bi bi-list-ul"></i>
-                                        Consultar
-                                    </NavLink>
-                                </NavDropdown.Item>
-                            </NavDropdown>
-                            <Nav.Item>
-                                <NavLink to='/users'><i className="bi bi-people-fill me-2"/>Usuários</NavLink>
-                            </Nav.Item>
-                        </div>
-                        <div className="d-flex flex-column flex-lg-row">
-                            <Form className="d-flex my-2 my-lg-0 ms-md-3">
-                                <div className="input-group">
-                                    <input type="text" className="form-control" placeholder="Pesquisar..." id="pesquisar"/>
-                                    <Button variant="outline-success" id="btnPesquisar"><i className="bi bi-search"/></Button>
-                                </div>
-                            </Form>
-                            <NavDropdown title={<><i className="bi bi-person-badge me-2"/>{user?.email}</>} id="dropdown"  className="ms-md-3">
-                                <NavDropdown.Item>
-                                    <NavLink to='/perfil'>
-                                        <i className="bi bi-person"></i>
-                                        Perfil
-                                    </NavLink>
-                                </NavDropdown.Item>
-                                <NavDropdown.Item>
-                                    <NavLink to='/ajuda'>
-                                        <i className="bi bi-question-circle"></i>
-                                        Ajuda
-                                    </NavLink>
-                                </NavDropdown.Item>
-                                <NavDropdown.Divider />
-                                <NavDropdown.Item onClick={logout} >
-                                    <div className="d-flex ms-md-2">
-                                        <i className="bi bi-door-open"/>
-                                        Sair
-                                    </div>
-                                </NavDropdown.Item>
-                            </NavDropdown>
-                        </div>
-                    </Nav>
-                </Offcanvas.Body>
-                </Navbar.Offcanvas>
-            </Container>
-            </Navbar>
-          );
-    } else if (userData.nivel === 'OPERACIONAL') {
-        return (
-            <Navbar expand="lg" className="bg-body-tertiary mb-3" bg="dark" data-bs-theme="dark">
-            <Container >
-                <Navbar.Brand ><img src="https://firebasestorage.googleapis.com/v0/b/siproj-a2d22.appspot.com/o/assets%2Flogo-removebg-preview.png?alt=media&token=a9e1311c-f182-4c95-92e4-c419c37f4471" height={42} className="" id="logo" /></Navbar.Brand>
-                <Navbar.Toggle aria-controls="offcanvas" />
-                <Navbar.Offcanvas
-                id="offcanvas"
-                aria-labelledby="title"
-                placement="end"
-                >
-                <Offcanvas.Header closeButton>
-                    <Offcanvas.Title id="title">
-                    Offcanvas
-                    </Offcanvas.Title>
-                </Offcanvas.Header>
-                <Offcanvas.Body>
-                    <Nav className="justify-content-between flex-grow-1 pe-3">
-                        <div className="d-flex flex-column flex-md-row ps-md-3">
-                            <Nav.Item>
-                                <NavLink to='/'>Home</NavLink>
-                            </Nav.Item>
-                            <NavDropdown title="Autorização" id="dropdownas" >
-                                <NavDropdown.Item>
-                                    <NavLink to='/inserirautorizacao'>
-                                        <i className="bi bi-ui-checks"></i>
-                                        Inserir
-                                    </NavLink>
-                                </NavDropdown.Item>
-                                <NavDropdown.Item>
-                                    <NavLink to='/as'>
-                                        <i className="bi bi-list-ul"></i>
-                                        Consultar
-                                    </NavLink>
-                                </NavDropdown.Item>
-                            </NavDropdown>
-                            <Nav.Item>
-                                <NavLink to='/users'>Usuários</NavLink>
-                            </Nav.Item>
-                        </div>
-                        <div className="d-flex flex-column flex-md-row">
-                            <Form className="d-flex">
-                                <div className="input-group">
-                                    <input type="text" className="form-control" placeholder="Pesquisar..." id="pesquisar"/>
-                                    <Button variant="outline-success" id="btnPesquisar"><i className="bi bi-search"/></Button>
-                                </div>
-                            </Form>
-                            <NavDropdown title={user?.email} id="dropdown"  className="ms-md-3">
-                                <NavDropdown.Item>
-                                    <NavLink to='/perfil'>
-                                        <i className="bi bi-person"></i>
-                                        Perfil
-                                    </NavLink>
-                                </NavDropdown.Item>
-                                <NavDropdown.Item>
-                                    <NavLink to='/ajuda'>
-                                        <i className="bi bi-question-circle"></i>
-                                        Ajuda
-                                    </NavLink>
-                                </NavDropdown.Item>
-                                <NavDropdown.Divider />
-                                <NavDropdown.Item onClick={logout} >
-                                    <i className="bi bi-door-open"/>
-                                    Sair
-                                </NavDropdown.Item>
-                            </NavDropdown>
-                        </div>
-                    </Nav>
-                </Offcanvas.Body>
-                </Navbar.Offcanvas>
-            </Container>
-            </Navbar>
-          );
-    } else {
-        return (
-            <Navbar expand="lg" className="bg-body-tertiary mb-3" bg="dark" data-bs-theme="dark">
-            <Container >
-                <Navbar.Brand ><img src="https://firebasestorage.googleapis.com/v0/b/siproj-a2d22.appspot.com/o/assets%2Flogo-removebg-preview.png?alt=media&token=a9e1311c-f182-4c95-92e4-c419c37f4471" height={42} className="" id="logo" /></Navbar.Brand>
-                <Navbar.Toggle aria-controls="offcanvas" />
-                <Navbar.Offcanvas
-                id="offcanvas"
-                aria-labelledby="title"
-                placement="end"
-                >
-                <Offcanvas.Header closeButton>
-                    <Offcanvas.Title id="title">
-                    Offcanvas
-                    </Offcanvas.Title>
-                </Offcanvas.Header>
-                <Offcanvas.Body>
-                    <Nav className="justify-content-between flex-grow-1 pe-3">
-                        <div className="d-flex flex-column flex-md-row ps-md-3">
-                            <Nav.Item>
-                                <NavLink to='/'>Home</NavLink>
-                            </Nav.Item>
-                            <NavDropdown title="Autorização" id="dropdownas" >
-                                <NavDropdown.Item>
-                                    <NavLink to='/inserirautorizacao'>
-                                        <i className="bi bi-ui-checks"></i>
-                                        Inserir
-                                    </NavLink>
-                                </NavDropdown.Item>
-                                <NavDropdown.Item>
-                                    <NavLink to='/as'>
-                                        <i className="bi bi-list-ul"></i>
-                                        Consultar
-                                    </NavLink>
-                                </NavDropdown.Item>
-                            </NavDropdown>
-                            <Nav.Item>
-                                <NavLink to='/users'>Usuários</NavLink>
-                            </Nav.Item>
-                        </div>
-                        <div className="d-flex flex-column flex-md-row">
-                            <Form className="d-flex">
-                                <div className="input-group">
-                                    <input type="text" className="form-control" placeholder="Pesquisar..." id="pesquisar"/>
-                                    <Button variant="outline-success" id="btnPesquisar"><i className="bi bi-search"/></Button>
-                                </div>
-                            </Form>
-                            <NavDropdown title={user?.email} id="dropdown"  className="ms-md-3">
-                                <NavDropdown.Item>
-                                    <NavLink to='/perfil'>
-                                        <i className="bi bi-person"></i>
-                                        Perfil
-                                    </NavLink>
-                                </NavDropdown.Item>
-                                <NavDropdown.Item>
-                                    <NavLink to='/ajuda'>
-                                        <i className="bi bi-question-circle"></i>
-                                        Ajuda
-                                    </NavLink>
-                                </NavDropdown.Item>
-                                <NavDropdown.Divider />
-                                <NavDropdown.Item onClick={logout}>
-                                    <i className="bi bi-door-open"/>
-                                    Sair
-                                </NavDropdown.Item>
-                            </NavDropdown>
-                        </div>
-                    </Nav>
-                </Offcanvas.Body>
-                </Navbar.Offcanvas>
-            </Container>
-            </Navbar>
-          );
-    }
+  const logout = async () => {
+    await signOut(auth);
+    navigate('/');
+  }
+
+  if (userData?.nivel === 'ADMINISTRADOR') {
+    return (
+      <Navbar expand="lg" className="bg-body-tertiary mb-3" bg="dark" data-bs-theme="dark" sticky="top">
+        <Container >
+          <Navbar.Brand><img src="https://firebasestorage.googleapis.com/v0/b/siproj-a2d22.appspot.com/o/assets%2Flogo-removebg-preview.png?alt=media&token=a9e1311c-f182-4c95-92e4-c419c37f4471" height={42} className="" id="logo" /></Navbar.Brand>
+          <Navbar.Toggle aria-controls="offcanvas" />
+          <Navbar.Offcanvas
+            id="offcanvas"
+            aria-labelledby="title"
+            placement="end"
+          >
+            <Offcanvas.Header closeButton>
+              <Offcanvas.Title id="title">
+                <img src="https://firebasestorage.googleapis.com/v0/b/siproj-a2d22.appspot.com/o/assets%2Flogo-removebg-preview.png?alt=media&token=a9e1311c-f182-4c95-92e4-c419c37f4471" height={42} className="" id="logo" />
+              </Offcanvas.Title>
+            </Offcanvas.Header>
+            <Offcanvas.Body>
+              <Nav className="justify-content-between flex-grow-1 pe-3">
+                <div className="d-flex flex-column flex-lg-row ps-md-3">
+                  <Nav.Item className="me-md-3">
+                    <NavLink to='/'><i className="bi bi-house me-2" />Home</NavLink>
+                  </Nav.Item>
+                  <NavDropdown
+                    title={
+                      <>
+                        <i className="bi bi-ui-checks me-2" />
+                        Autorização
+                      </>
+                    }
+                    id="dropdownas"
+                    className="me-md-3"
+                  >
+                    <NavDropdown.Item>
+                      <NavLink to='/inserirautorizacao'>
+                        <i className="bi bi-folder-plus"></i>
+                        Inserir
+                      </NavLink>
+                    </NavDropdown.Item>
+                    <NavDropdown.Item>
+                      <NavLink to='/as'>
+                        <i className="bi bi-list-ul"></i>
+                        Consultar
+                      </NavLink>
+                    </NavDropdown.Item>
+                  </NavDropdown>
+                  <Nav.Item>
+                    <NavLink to='/users'><i className="bi bi-people-fill me-2" />Usuários</NavLink>
+                  </Nav.Item>
+                </div>
+                <div className="d-flex flex-column flex-lg-row">
+                  <Form className="d-flex my-2 my-lg-0 ms-md-3">
+                    <div className="input-group">
+                      <input type="text" className="form-control" placeholder="Pesquisar..." id="pesquisar" />
+                      <Button variant="outline-success" id="btnPesquisar"><i className="bi bi-search" /></Button>
+                    </div>
+                  </Form>
+                  <NavDropdown title={<><i className="bi bi-person-badge me-2" />{user?.email}</>} id="dropdown" className="ms-md-3">
+                    <NavDropdown.Item>
+                      <NavLink to='/perfil'>
+                        <i className="bi bi-person"></i>
+                        Perfil
+                      </NavLink>
+                    </NavDropdown.Item>
+                    <NavDropdown.Item>
+                      <NavLink to='/ajuda'>
+                        <i className="bi bi-question-circle"></i>
+                        Ajuda
+                      </NavLink>
+                    </NavDropdown.Item>
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item onClick={logout} >
+                      <div className="d-flex ms-md-2">
+                        <i className="bi bi-door-open" />
+                        Sair
+                      </div>
+                    </NavDropdown.Item>
+                  </NavDropdown>
+                </div>
+              </Nav>
+            </Offcanvas.Body>
+          </Navbar.Offcanvas>
+        </Container>
+      </Navbar>
+    );
+  } else if (userData.nivel === 'OPERACIONAL') {
+    return (
+      <Navbar expand="lg" className="bg-body-tertiary mb-3" bg="dark" data-bs-theme="dark">
+        <Container >
+          <Navbar.Brand ><img src="https://firebasestorage.googleapis.com/v0/b/siproj-a2d22.appspot.com/o/assets%2Flogo-removebg-preview.png?alt=media&token=a9e1311c-f182-4c95-92e4-c419c37f4471" height={42} className="" id="logo" /></Navbar.Brand>
+          <Navbar.Toggle aria-controls="offcanvas" />
+          <Navbar.Offcanvas
+            id="offcanvas"
+            aria-labelledby="title"
+            placement="end"
+          >
+            <Offcanvas.Header closeButton>
+            </Offcanvas.Header>
+            <Offcanvas.Body>
+              <Nav className="justify-content-between flex-grow-1 pe-3">
+                <div className="d-flex flex-column flex-md-row ps-md-3">
+                  <Nav.Item>
+                    <NavLink to='/'>Home</NavLink>
+                  </Nav.Item>
+                  <NavDropdown title="Autorização" id="dropdownas" >
+                    <NavDropdown.Item>
+                      <NavLink to='/inserirautorizacao'>
+                        <i className="bi bi-ui-checks"></i>
+                        Inserir
+                      </NavLink>
+                    </NavDropdown.Item>
+                    <NavDropdown.Item>
+                      <NavLink to='/as'>
+                        <i className="bi bi-list-ul"></i>
+                        Consultar
+                      </NavLink>
+                    </NavDropdown.Item>
+                  </NavDropdown>
+                  <Nav.Item>
+                    <NavLink to='/users'>Usuários</NavLink>
+                  </Nav.Item>
+                </div>
+                <div className="d-flex flex-column flex-md-row">
+                  <Form className="d-flex">
+                    <div className="input-group bs-body-bg-dark">
+                      <input type="text" className="form-control" placeholder="Pesquisar..." id="pesquisar" />
+                      <Button variant="outline-success" id="btnPesquisar"><i className="bi bi-search" /></Button>
+                    </div>
+                  </Form>
+                  <NavDropdown title={user?.email} id="dropdown" className="ms-md-3">
+                    <NavDropdown.Item>
+                      <NavLink to='/perfil'>
+                        <i className="bi bi-person"></i>
+                        Perfil
+                      </NavLink>
+                    </NavDropdown.Item>
+                    <NavDropdown.Item>
+                      <NavLink to='/ajuda'>
+                        <i className="bi bi-question-circle"></i>
+                        Ajuda
+                      </NavLink>
+                    </NavDropdown.Item>
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item onClick={logout} >
+                      <i className="bi bi-door-open" />
+                      Sair
+                    </NavDropdown.Item>
+                  </NavDropdown>
+                </div>
+              </Nav>
+            </Offcanvas.Body>
+          </Navbar.Offcanvas>
+        </Container>
+      </Navbar>
+    );
+  } else {
+    return (
+      <Navbar expand="lg" className="bg-body-tertiary mb-3" bg="dark" data-bs-theme="dark">
+        <Container >
+          <Navbar.Brand ><img src="https://firebasestorage.googleapis.com/v0/b/siproj-a2d22.appspot.com/o/assets%2Flogo-removebg-preview.png?alt=media&token=a9e1311c-f182-4c95-92e4-c419c37f4471" height={42} className="" id="logo" /></Navbar.Brand>
+          <Navbar.Toggle aria-controls="offcanvas" />
+          <Navbar.Offcanvas
+            id="offcanvas"
+            aria-labelledby="title"
+            placement="end"
+          >
+            <Offcanvas.Header closeButton>
+              <img src="https://firebasestorage.googleapis.com/v0/b/siproj-a2d22.appspot.com/o/assets%2Flogo-removebg-preview.png?alt=media&amp;token=a9e1311c-f182-4c95-92e4-c419c37f4471" height={42} className="" id="logo"/>
+            </Offcanvas.Header>
+            <Offcanvas.Body data-bs-theme="dark">
+              <Nav className="justify-content-between flex-grow-1 pe-3">
+                <div className="d-flex flex-column flex-md-row ps-md-3">
+                  <Nav.Item>
+                    <NavLink to='/'>Home</NavLink>
+                  </Nav.Item>
+                  <NavDropdown title="Autorização" id="dropdownas" >
+                    <NavDropdown.Item>
+                      <NavLink to='/inserirautorizacao'>
+                        <i className="bi bi-ui-checks"></i>
+                        Inserir
+                      </NavLink>
+                    </NavDropdown.Item>
+                    <NavDropdown.Item>
+                      <NavLink to='/as'>
+                        <i className="bi bi-list-ul"></i>
+                        Consultar
+                      </NavLink>
+                    </NavDropdown.Item>
+                  </NavDropdown>
+                  <Nav.Item>
+                    <NavLink to='/users'>Usuários</NavLink>
+                  </Nav.Item>
+                </div>
+                <div className="d-flex flex-column flex-md-row">
+                  <Form className="d-flex">
+                    <div className="input-group">
+                      <input type="text" className="form-control" placeholder="Pesquisar..." id="pesquisar" />
+                      <Button variant="outline-success" id="btnPesquisar"><i className="bi bi-search" /></Button>
+                    </div>
+                  </Form>
+                  <NavDropdown title={user?.email} id="dropdown" className="ms-md-3">
+                    <NavDropdown.Item>
+                      <NavLink to='/perfil'>
+                        <i className="bi bi-person"></i>
+                        Perfil
+                      </NavLink>
+                    </NavDropdown.Item>
+                    <NavDropdown.Item>
+                      <NavLink to='/ajuda'>
+                        <i className="bi bi-question-circle"></i>
+                        Ajuda
+                      </NavLink>
+                    </NavDropdown.Item>
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item onClick={logout}>
+                      <i className="bi bi-door-open" />
+                      Sair
+                    </NavDropdown.Item>
+                  </NavDropdown>
+                </div>
+              </Nav>
+            </Offcanvas.Body>
+          </Navbar.Offcanvas>
+        </Container>
+      </Navbar>
+    );
+  }
 }
 
 export default Header

@@ -792,6 +792,13 @@ nav #btnPesquisar {
 ;
 }
 
+.offcanvas {
+  background-color: #2b3035;
+  color: #ffffff8c
+}
+.div-inpu-group {
+  background-color: #2b3035;
+}
 /*--------------------------------------------------------------
 # Dashboard
 --------------------------------------------------------------*/
