@@ -96,7 +96,7 @@ const [contrato_icj, setContratoIcj] = useState('');
           <Col>
             <Form.Group controlId="formRespRina">
               <Form.Label className="text-nowrap">Responsável Rina</Form.Label>
-              <Form.Select>
+              <Form.Select name="resp_contr" id="resp_contr" onChange={handleChange}>
                 <option>Selecione...</option>
                 {as && (
                   <option value={as.resp_contr} selected>{as.resp_contr}</option>
