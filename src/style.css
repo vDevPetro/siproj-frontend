@@ -28,6 +28,37 @@ h6 {
   font-family: "Nunito", sans-serif;
 }
 
+.timeline::after {
+  content: ' ';
+  position: absolute;
+  width: 0.375rem;
+  height: 100%;
+  background: #fff;
+  top: 0;
+  left: 50%;
+  margin-left: -3px;
+  z-index: 0;
+  box-shadow: inset 1px 1px 3px #d4d4d4,
+              inset -1px -1px 3px #ffffff;
+  border-radius: 50px;
+  animation: moveline 5s linear forwards;
+}
+@keyframes moveline {
+  0% {
+      height: 0;
+  }
+
+  100% {
+      height: 100%;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .timeline::after {
+      left: 2rem;
+  }
+}
+
 /*--------------------------------------------------------------
 # Main
 --------------------------------------------------------------*/
