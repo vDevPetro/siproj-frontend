@@ -4,7 +4,7 @@ import axios, { AxiosError } from "axios"
 const apiUrl = "https://apisiproj.vercel.app/as";
 
 export const getBase = async (): Promise<Base[]> => {
-    try{
+    try {
         const response = await axios.get<Base[]>(apiUrl);
         return response.data.map(item => ({
             id: item.id,
@@ -37,7 +37,7 @@ export const getBase = async (): Promise<Base[]> => {
             throw error;
         }
     }
-}
+};
 
 export const postBase = async (base: Base): Promise<{ status: number; data: any }> => {
     try {

@@ -32,7 +32,13 @@ const Header = () => {
   useEffect(() => {
     const fetchUserData = async (email: string | null) => {
       if (email !== null) {
-        setUserData(await getUser(email));
+        try {
+          await getUser(email).then((res) => {
+            setUserData(res);
+          })
+        } catch (error) {
+          console.log(error);
+        }
       }
     };
 

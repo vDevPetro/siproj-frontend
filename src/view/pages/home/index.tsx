@@ -10,7 +10,7 @@ import { Card, Placeholder } from 'react-bootstrap';
 
 const Home = () => {
     const [user, setUser] = useState<User>();
-    const [base, setBase] = useState<Base[]>();
+    const [base, setBase] = useState<Base[] | null>();
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const navigate = useNavigate();
@@ -18,10 +18,11 @@ const Home = () => {
     useEffect(() => {
         const fetchData = async () => {
             try{
-                const data = await getBase();
-                const sortedData = data.sort((a, b) => a.id - b.id);
-                setBase(sortedData);
-                setLoading(false);
+                await getBase().then((data) =>{
+                    const sortedData = data.sort((a, b) => a.id - b.id);
+                    setBase(sortedData);
+                    setLoading(false);
+                });
             }  catch (error) {
                 if (error instanceof Error) {
                   setError(error.message);
@@ -39,9 +40,48 @@ const Home = () => {
         fetchData();
     }, []);
 
+    if (loading) {
+        return (
+            <C.Container className='container-lg pt-5'>
+                <div className='col-12 mt-2'>
+                    <div className='d-flex flex-wrap justify-content-evenly'>
+                        {[...Array(9)].map((_, index) => (
+                                <C.CardContainer className='d-flex  row'>
+                                    <Card>
+                                        <Placeholder as={Card.Header} animation="glow">
+                                            <Placeholder xs={1} /> <Placeholder xs={2} />
+                                        </Placeholder>
+                                        <Card.Body>
+                                            <Placeholder as={Card.Title} animation="glow">
+                                                <Placeholder xs={6} />
+                                            </Placeholder>
+                                            <Placeholder as={Card.Text} animation="glow">
+                                                <Placeholder xs={7} /> <Placeholder xs={4} /> <Placeholder xs={4} />{' '}
+                                                <Placeholder xs={7} /> <Placeholder xs={8} /> <Placeholder xs={3} />
+                                            </Placeholder>
+                                            <Placeholder as={Card.Footer} animation="glow">
+                                                <Placeholder xs={4} /> <Placeholder xs={6} />
+                                            </Placeholder>
+                                            <Placeholder.Button variant="success" xs={3} />
+                                        </Card.Body>
+                                    </Card>
+                                </C.CardContainer>
+                            ))
+                        }
+                    </div>
+                </div>
+            </C.Container>
+        );
+    }
 
-    if (error) {
-        return <div>{error}</div>;
+    if (!base) {
+        return (
+            <C.Container className='container-lg pt-5'>
+                <div className='col-12 mt-2'>
+                    <h2>Erro. Regarregue a página</h2>
+                </div>
+            </C.Container>
+        )
     }
 
 
@@ -49,7 +89,7 @@ const Home = () => {
         <C.Container className='container-lg pt-5'>
             <div className='col-12 mt-2'>
                 <div className='d-flex flex-wrap justify-content-evenly'>
-                    {!loading && base?.map(base => (
+                    {base.map(base => (
                         <Cartao
                             id={base.id} 
                             pep={base.pep || ''} 
@@ -58,31 +98,6 @@ const Home = () => {
                             tipo={base.tipo || ''}
                         />
                     ))}
-
-                    {loading &&
-                        [...Array(6)].map((_, index) => (
-                            <C.CardContainer className='d-flex  row'>
-                                <Card>
-                                    <Placeholder as={Card.Header} animation="glow">
-                                        <Placeholder xs={1} /> <Placeholder xs={2} />
-                                    </Placeholder>
-                                    <Card.Body>
-                                        <Placeholder as={Card.Title} animation="glow">
-                                            <Placeholder xs={6} />
-                                        </Placeholder>
-                                        <Placeholder as={Card.Text} animation="glow">
-                                            <Placeholder xs={7} /> <Placeholder xs={4} /> <Placeholder xs={4} />{' '}
-                                            <Placeholder xs={7} /> <Placeholder xs={8} /> <Placeholder xs={3} />
-                                        </Placeholder>
-                                        <Placeholder as={Card.Footer} animation="glow">
-                                            <Placeholder xs={4} /> <Placeholder xs={6} />
-                                        </Placeholder>
-                                        <Placeholder.Button variant="success" xs={3} />
-                                    </Card.Body>
-                                </Card>
-                            </C.CardContainer>
-                        ))
-                    }
                 </div>
             </div>
         </C.Container>
