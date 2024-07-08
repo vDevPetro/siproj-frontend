@@ -19,3 +19,19 @@ export const getByAs = async(num_as: String | undefined): Promise<Comentario[]> 
         throw error;
     }
 }
+
+export const postComment = async(comentario: Comentario): Promise<{ status: number; data: any}> => {
+    try {
+        const response = await axios.post(apiUrl, {
+            comentario: comentario.comentario,
+            user: comentario.user,
+            data_envio: comentario.data_envio,
+            num_as: comentario.num_as,
+            perfil: comentario.perfil
+        })
+        return { status: response.status, data: response.data };
+    } catch (error) {
+        console.error('Falha ao enviar o comentario:', error);
+        throw error;
+    }
+}

@@ -7,6 +7,7 @@ import { User, onAuthStateChanged } from 'firebase/auth';
 import Login from './view/pages/login';
 import Header from './view/template/header';
 import { FilterProvider } from './context/HomeFilter';
+import { UserProvider } from './context/UserContext';
 
 const AppContainer = styled.div`
 `;
@@ -31,12 +32,14 @@ function App() {
   else{
     return (
       <AppContainer> 
+        <UserProvider email={user.email}>
         <FilterProvider>
         <Router>
           <Header/>
           <Rotas/>
         </Router>
         </FilterProvider>
+        </UserProvider>
       </AppContainer>
     );
   }

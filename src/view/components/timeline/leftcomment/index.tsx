@@ -109,11 +109,10 @@ const Logo = styled.img`
 `;
 
 type Props = {
-    id: string;
     item: Comentario;
 }
 
-const LeftComment = ({ id, item } : Props) => {
+const LeftComment = ({ item } : Props) => {
 
     return (
         <Container>
