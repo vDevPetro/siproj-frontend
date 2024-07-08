@@ -13,6 +13,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import NavLink from "../containerAS/NavLink";
+import FilterSelect from "../../components/filterselect";
 
 
 const Header = () => {
@@ -106,12 +107,7 @@ const Header = () => {
                   </Nav.Item>
                 </div>
                 <div className="d-flex flex-column flex-lg-row">
-                  <Form className="d-flex my-2 my-lg-0 ms-md-3">
-                    <div className="input-group">
-                      <input type="text" className="form-control" placeholder="Pesquisar..." id="pesquisar" />
-                      <Button variant="outline-success" id="btnPesquisar"><i className="bi bi-search" /></Button>
-                    </div>
-                  </Form>
+                  <FilterSelect/>
                   <NavDropdown title={<><i className="bi bi-person-badge me-2" />{user?.email}</>} id="dropdown" className="ms-md-3">
                     <NavDropdown.Item>
                       <NavLink to='/perfil'>

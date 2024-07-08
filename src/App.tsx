@@ -6,6 +6,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { User, onAuthStateChanged } from 'firebase/auth';
 import Login from './view/pages/login';
 import Header from './view/template/header';
+import { FilterProvider } from './context/HomeFilter';
 
 const AppContainer = styled.div`
 `;
@@ -30,10 +31,12 @@ function App() {
   else{
     return (
       <AppContainer> 
+        <FilterProvider>
         <Router>
           <Header/>
           <Rotas/>
         </Router>
+        </FilterProvider>
       </AppContainer>
     );
   }

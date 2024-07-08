@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Card, Button, Placeholder } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
     width: 30%;
@@ -14,6 +15,8 @@ type CardProps = {
 }
 
 const Cartao = (props: CardProps) => {
+    const navigate = useNavigate();
+
     return(
         <Container className="d-flex  row">
             <Card>
@@ -24,7 +27,7 @@ const Cartao = (props: CardProps) => {
                         {props.desc}
                     </Card.Text>
                     <Card.Footer>Responsável: {props.respPetro}</Card.Footer>
-                    <Button variant="success">Abrir</Button>
+                    <Button variant="success" onClick={() => navigate('/as/'+ props.id + '/atualizar')}>Abrir</Button>
                 </Card.Body>
             </Card>
         </Container>
