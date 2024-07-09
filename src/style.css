@@ -796,9 +796,7 @@ nav #btnPesquisar {
   background-color: #2b3035;
   color: #ffffff8c
 }
-.div-inpu-group {
-  background-color: #2b3035;
-}
+
 /*--------------------------------------------------------------
 # Dashboard
 --------------------------------------------------------------*/
@@ -1049,7 +1047,7 @@ nav #btnPesquisar {
 .profile .profile-card h2 {
   font-size: 24px;
   font-weight: 700;
-  color: #324e2c;
+  color: #afecaf;
   margin: 10px 0 0 0;
 }
 
@@ -1154,7 +1152,20 @@ nav #btnPesquisar {
   margin-bottom: 24px;
   font-weight: 600;
 }
+.form-control:focus, .form-select {
+  border-color: #90ee90;
+  box-shadow: 0 0 0 0.25rem rgba(144, 238, 144, 0.5);
+}
 
+.btn:focus {
+  border-color: #90ee90;
+  box-shadow: 0 0 0 0.25rem rgba(144, 238, 144, 0.5);
+}
+
+select:focus {
+  outline: none;
+  box-shadow: 0 0 0 0.25rem rgba(144, 238, 144, 0.5); 
+}
 .contact .php-email-form .loading {
   display: none;
   background: #fff;

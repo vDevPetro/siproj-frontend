@@ -1,4 +1,4 @@
-import { Container } from './styles'
+import { Container } from './styles';
 import React, { useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import { Form, Row, Col, Button, Breadcrumb } from 'react-bootstrap';
 import InputMask from 'react-input-mask';
@@ -7,7 +7,7 @@ import Base from "../../../model/Base";
 import { getBaseById } from '../../../controller/Base';
 
 const AtualizarAS = () => {
-const [contrato_icj, setContratoIcj] = useState('');
+  const [contrato_icj, setContratoIcj] = useState('');
   const [contrato_sap, setContratoSap] = useState('');
 
   const { id } = useParams();
@@ -34,7 +34,6 @@ const [contrato_icj, setContratoIcj] = useState('');
     log: '' 
   });
 
-
   useEffect(() => {
     const fetchData = async () => {
       const res = await getBaseById(id || '');
@@ -55,7 +54,7 @@ const [contrato_icj, setContratoIcj] = useState('');
   }
 
   return (
-    <>
+    <Container>
       <div className="pagetitle mt-5 mb-4">
         <h1>Atualizar dados</h1>
       </div>
@@ -255,7 +254,7 @@ const [contrato_icj, setContratoIcj] = useState('');
 
         <Button variant="primary" type="submit">Salvar</Button>
       </Form>
-    </>
+    </Container>
   )
 }
 

@@ -26,6 +26,16 @@ label {
   margin-bottom: 1rem;
 }
 
+.form-control:focus, .form-select:focus {
+  border-color: #90ee90;
+  box-shadow: 0 0 0 0.25rem rgba(144, 238, 144, 0.5);
+}
+
+.btn:focus {
+  border-color: #90ee90;
+  box-shadow: 0 0 0 0.25rem rgba(144, 238, 144, 0.5);
+}
+  
 button[type="submit"] {
   background-color: #008542;
   border: none;
