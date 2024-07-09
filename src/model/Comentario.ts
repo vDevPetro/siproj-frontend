@@ -1,5 +1,5 @@
 type Comentario = {
-    id: string;
+    id?: string;
     comentario: string;
     data_envio: string;
     num_as: string;

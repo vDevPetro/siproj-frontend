@@ -2,6 +2,7 @@ import Comentario from "../../../model/Comentario";
 import styled from "styled-components";
 import LeftComment from "./leftcomment";
 import RightComment from "./rightcomment";
+import { Spinner } from "react-bootstrap";
 
 type Props = {
     historico: Comentario[] | undefined;
@@ -26,17 +27,20 @@ const Timeline = ({ historico } : Props) => {
             <Container className="timeline">
                 {historico.map(item => 
                     item.perfil === 'CONTRATADA' ? (
-                        <LeftComment id={item.id} item={item} />
+                        <LeftComment item={item} />
                     ) : (
-                        <RightComment id={item.id} item={item} />
+                        <RightComment item={item} />
                     )
                 )}
             </Container>
         )
     } else {
         return(
-            <>
-            </>
+            <Container className="d-flex justify-content-center">
+                <Spinner animation="border" role="status" variant="success">
+                    <span className="visually-hidden">Loading...</span>
+                </Spinner>
+            </Container>
         )
     }
 }
