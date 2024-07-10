@@ -1,14 +1,27 @@
-import './styles'
 import React, { useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import { Form, Row, Col, Button, Breadcrumb } from 'react-bootstrap';
 import InputMask from 'react-input-mask';
 import { useParams } from 'react-router-dom';
-import Base from "../../../model/Base";
-import { getBaseById } from '../../../controller/Base';
+import Emissao from '../../../model/Emissao';
+import { getEmissao } from '../../../controller/Emissao';
 import Table from 'react-bootstrap/Table';
 
+const Emissoes = () => {
+  const { id } = useParams();
+  const [emissoes, setEmissoes] = useState<Emissao[]>([]);
 
-const Emissao = () => {
+  useEffect(() => {
+      const fetchData = async () => {
+          try {
+              const res = await getEmissao(id);
+              setEmissoes(res);
+          } catch (error) {
+              console.error('Falha ao obter dados:', error);
+          }
+      };
+
+      fetchData();
+  }, []);
 
   return (
     <>
@@ -20,19 +33,19 @@ const Emissao = () => {
         <Col sm="1">
           <Form.Group controlId="formAs">
             <Form.Label>AS</Form.Label>
-            <Form.Control readOnly type="text" name="as" id="as" />
+            <Form.Control readOnly type="text" name="as" id="as" value={id} />
           </Form.Group>
         </Col>
         <Col sm="2">
-          <Form.Group controlId="">
+          <Form.Group controlId="formEmissao">
             <Form.Label>Emissão</Form.Label>
-            <Form.Control type="text" name="emissão" id="emissão" />
+            <Form.Control type="text" name="emissao" id="emissao" />
           </Form.Group>
         </Col>
         <Col>
-          <Form.Group controlId="">
+          <Form.Group controlId="formMotivo">
             <Form.Label>Motivo</Form.Label>
-            <Form.Select>
+            <Form.Select name="motivo" id="motivo">
               <option>Selecione...</option>
             </Form.Select>
           </Form.Group>
@@ -52,21 +65,21 @@ const Emissao = () => {
           <tbody>
             <tr>
               <th className="table-title">Planejamento</th>
-              <td><Form.Control type="date" className="border-0 p-1"/></td>
-              <td><Form.Control type="date" className="border-0 p-1"/></td>
-              <td><Form.Control type="date" className="border-0 p-1"/></td>
+              <td><Form.Control type="date" className="border-0 p-1" /></td>
+              <td><Form.Control type="date" className="border-0 p-1" /></td>
+              <td><Form.Control type="date" className="border-0 p-1" /></td>
             </tr>
             <tr>
               <th className="table-title">Replanejamento</th>
-              <td><Form.Control type="date" className="border-0 p-1"/></td>
-              <td><Form.Control type="date" className="border-0 p-1"/></td>
-              <td><Form.Control type="date" className="border-0 p-1"/></td>
+              <td><Form.Control type="date" className="border-0 p-1" /></td>
+              <td><Form.Control type="date" className="border-0 p-1" /></td>
+              <td><Form.Control type="date" className="border-0 p-1" /></td>
             </tr>
             <tr>
               <th className="table-title">Realizado</th>
-              <td><Form.Control type="date" className="border-0 p-1"/></td>
-              <td><Form.Control type="date" className="border-0 p-1"/></td>
-              <td><Form.Control type="date" className="border-0 p-1"/></td>
+              <td><Form.Control type="date" className="border-0 p-1" /></td>
+              <td><Form.Control type="date" className="border-0 p-1" /></td>
+              <td>< Form.Control type="date" className="border-0 p-1" /></td>
             </tr>
           </tbody>
         </Table>
@@ -74,9 +87,9 @@ const Emissao = () => {
 
       <Row className="mb-4">
         <Col>
-          <Form.Group controlId="formEscopoProjeto">
+          <Form.Group controlId="formJustificativa">
             <Form.Label>Justificativa</Form.Label>
-            <Form.Control as="textarea" rows={3} name="descrição" />
+            <Form.Control as="textarea" rows={3} name="justificativa" />
           </Form.Group>
         </Col>
       </Row>
@@ -95,27 +108,15 @@ const Emissao = () => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>Lorem ipsum dolor</td>
-              <td>Aprovada</td>
-              <td>12/02/2024</td>
-              <td>30/02/2024</td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>Lorem ipsum</td>
-              <td>Aprovada</td>
-              <td>30/03/2023</td>
-              <td>03/30/3003</td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>Lorem ipsum dolor sit amet</td>
-              <td>Reprovada</td>
-              <td>12/12/1212</td>
-              <td>11/11/1111</td>
-            </tr>
+            {emissoes.map((item, index) => (
+              <tr key={index}>
+                <td>{item.emissao}</td>
+                <td></td>
+                <td></td>
+                <td>{item.emitir_projeto_lb}</td>
+                <td>{item.comentar_projeto_lb}</td>
+              </tr>
+            ))}
           </tbody>
         </Table>
       </Row>
@@ -124,4 +125,4 @@ const Emissao = () => {
   )
 }
 
-export default Emissao;
+export default Emissoes;
