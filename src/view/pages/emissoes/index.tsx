@@ -24,7 +24,7 @@ const Emissao = () => {
   }, [id]);
 
   return (
-    <Container>
+    <>
       <div className="pagetitle mt-5 mb-3">
         <h1>Inserir Emissões</h1>
       </div>
@@ -121,7 +121,7 @@ const Emissao = () => {
         </Table>
       </Row>
       <Button variant="primary" type="submit">Salvar</Button>
-    </Container>
+    </>
   )
 }
 
