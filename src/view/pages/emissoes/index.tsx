@@ -1,27 +1,27 @@
-
 import React, { useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import { Form, Row, Col, Button, Breadcrumb } from 'react-bootstrap';
 import InputMask from 'react-input-mask';
 import { useParams } from 'react-router-dom';
-import Emissao from "../../../model/Emissao"; 
+import Emissao from '../../../model/Emissao';
+import { getEmissao } from '../../../controller/Emissao';
 import Table from 'react-bootstrap/Table';
 
-const Emissao = () => {
+const Emissoes = () => {
   const { id } = useParams();
-  const [historico, setHistorico] = useState<Emissao[]>([]);
+  const [emissoes, setEmissoes] = useState<Emissao[]>([]);
 
   useEffect(() => {
       const fetchData = async () => {
           try {
-              const res = await getByAs(id);
-              setHistorico(res);
+              const res = await getEmissao(id);
+              setEmissoes(res);
           } catch (error) {
               console.error('Falha ao obter dados:', error);
           }
       };
 
       fetchData();
-  }, [id]);
+  }, []);
 
   return (
     <>
@@ -108,13 +108,13 @@ const Emissao = () => {
             </tr>
           </thead>
           <tbody>
-            {historico.map((item, index) => (
+            {emissoes.map((item, index) => (
               <tr key={index}>
-                <td>{item.num_emissao}</td>
-                <td>{item.motivo}</td>
-                <td>{item.flag_aprov}</td>
-                <td>{item.emitir_proj_lb}</td>
-                <td>{item.coment_proj_lb}</td>
+                <td>{item.emissao}</td>
+                <td></td>
+                <td></td>
+                <td>{item.emitir_projeto_lb}</td>
+                <td>{item.comentar_projeto_lb}</td>
               </tr>
             ))}
           </tbody>
@@ -125,4 +125,4 @@ const Emissao = () => {
   )
 }
 
-export default Emissao;
+export default Emissoes;
