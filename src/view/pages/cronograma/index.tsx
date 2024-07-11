@@ -11,111 +11,139 @@ const Cronograma = () => {
       </div>
 
       <Container>
-        <Row className="mb-4 table-responsive">
-          <Table hover className=" table-striped">
-            <thead>
-              <tr>
-                <th   className="table-title"></th>
-                <th   className="table-title">Data da criação da AS</th>
-                <th   className="table-title">Petrobras emitir ET</th>
-                <th   className="table-title">Concluir análise ET</th>
-                <th   className="table-title">Reunião pré visita</th>
-                <th   className="table-title">Visita Técnica (IDA)</th>
-                <th   className="table-title">Visita Técnica (VOLTA)</th>
-                <th   className="table-title">Emitir RL visita técnica</th>
-                <th   className="table-title">Petrobras aprovar RL</th>
-                <th   className="table-title">Emitir orçamento</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row" className="table-title text-nowrap">Planejamento LB</th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <th scope="row" className="table-title">Replanejamento</th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <th scope="row" className="table-title">Realizado</th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-            </tbody>
-          </Table>
-        </Row>
-
-        <Row className="mb-4 table-responsive">
-          <Table hover className="table-striped">
+        <Row className="mb-4 table-responsive text-nowrap">
+          <Table hover className="table table-striped table-bordered ">
             <thead>
               <tr>
                 <th className="table-title"></th>
-                <th className="table-title">PB aprovar orçamento</th>
-                <th className="table-title">Emitir PEP</th>
-                <th className="table-title">PB aprov./ coment. PEP</th>
-                <th className="table-title">Emitir projeto Comentário</th>
-                <th className="table-title">PB comentar projeto</th>
-                <th className="table-title">Atender comentários</th>
-                <th className="table-title">PB aprova Data Book</th>
-                <th className="table-title">Prazo desde aprov. PEP</th>
-                <th className="table-title">Prazo desde emissão ET</th>
+                <th className="table-title">Planejamento LB</th>
+                <th className="table-title">Planejamento LB</th>
+                <th className="table-title">Replanejamento</th>
+                <th className="table-title">Realizado</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <th scope="row" className="table-title text-nowrap">Planejamento LB</th>
-                <td></td>
-                <td>11/11/1111</td>
-                <td>11/11/1111</td>
-                <td></td>
-                <td></td>
+                <th scope="row" className="table-title">Data de criação AS</th>
                 <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
               </tr>
               <tr>
-                <th scope="row" className="table-title">Replanejamento</th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <th scope="row" className="table-title">Petrobras emitir ET</th>
                 <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
               </tr>
               <tr>
-                <th scope="row" className="table-title">Realizado</th>
+                <th scope="row" className="table-title">Concluir análise ET</th>
                 <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
+              </tr>
+              <tr>
+                <th scope="row" className="table-title">Reunião pré visita</th>
                 <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <th scope="row" className="table-title">Visita Técnica (IDA)</th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <th scope="row" className="table-title">Visita Técnica (VOLTA)</th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <th scope="row" className="table-title">Emitir RL visita técnica</th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <th scope="row" className="table-title">Petrobras aprovar RL</th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <th scope="row" className="table-title">Emitir orçamento</th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <th scope="row" className="table-title">PB aprovar orçamento</th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <th scope="row" className="table-title">Emitir PEP</th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <th scope="row" className="table-title">PB aprov./ coment. PEP</th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <th scope="row" className="table-title">Emitir projeto Comentário</th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <th scope="row" className="table-title">PB comentar projeto</th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <th scope="row" className="table-title">Atender comentários</th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <th scope="row" className="table-title">PB aprova Data Book</th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <th scope="row" className="table-title">Prazo desde aprov. PEP</th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <th scope="row" className="table-title">Prazo desde emissão ET</th>
                 <td></td>
                 <td></td>
                 <td></td>
