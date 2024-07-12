@@ -1152,20 +1152,7 @@ nav #btnPesquisar {
   margin-bottom: 24px;
   font-weight: 600;
 }
-.form-control:focus, .form-select {
-  border-color: #90ee90;
-  box-shadow: 0 0 0 0.25rem rgba(144, 238, 144, 0.5);
-}
 
-.btn:focus {
-  border-color: #90ee90;
-  box-shadow: 0 0 0 0.25rem rgba(144, 238, 144, 0.5);
-}
-
-select:focus {
-  outline: none;
-  box-shadow: 0 0 0 0.25rem rgba(144, 238, 144, 0.5); 
-}
 .contact .php-email-form .loading {
   display: none;
   background: #fff;
