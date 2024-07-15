@@ -1,3 +1,4 @@
+import { Container } from './styles';
 import React, { useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import { Form, Row, Col, Button, Breadcrumb } from 'react-bootstrap';
 import InputMask from 'react-input-mask';
@@ -24,7 +25,7 @@ const Emissoes = () => {
   }, []);
 
   return (
-    <>
+    <Container>
       <div className="pagetitle mt-5 mb-3">
         <h1>Inserir Emissões</h1>
       </div>
@@ -45,7 +46,7 @@ const Emissoes = () => {
         <Col>
           <Form.Group controlId="formMotivo">
             <Form.Label>Motivo</Form.Label>
-            <Form.Select name="motivo" id="motivo">
+            <Form.Select name="motivo" id="motivo" className="dark">
               <option>Selecione...</option>
             </Form.Select>
           </Form.Group>
@@ -121,7 +122,7 @@ const Emissoes = () => {
         </Table>
       </Row>
       <Button variant="primary" type="submit">Salvar</Button>
-    </>
+    </Container>
   )
 }
 

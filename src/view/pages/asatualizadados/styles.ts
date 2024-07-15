@@ -20,27 +20,21 @@ label {
   margin-bottom: 0;
 }
 
+select:focus {
+  border-color: #acc4a9;
+  box-shadow: 0 0 0 0.2rem rgba(50, 205, 50, 0.1);
+}
+
 .form-control {
   border-radius: 0.5rem;
   border-color: rgb(92, 95, 89, 0.25);
   margin-bottom: 1rem;
-}
-
-.form-control:focus, .form-select:focus {
-  border-color: #90ee90;
-  box-shadow: 0 0 0 0.25rem rgba(144, 238, 144, 0.5);
-}
-
-.btn:focus {
-  border-color: #90ee90;
-  box-shadow: 0 0 0 0.25rem rgba(144, 238, 144, 0.5);
 }
   
 button[type="submit"] {
   background-color: #008542;
   border: none;
   border-radius: 5px;
-
 }
 
 button[type="submit"]:hover {
