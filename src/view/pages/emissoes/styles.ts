@@ -56,7 +56,6 @@ button[type="submit"] {
   background-color: #008542;
   border: none;
   border-radius: 5px;
-
 }
 
 button[type="submit"]:hover {

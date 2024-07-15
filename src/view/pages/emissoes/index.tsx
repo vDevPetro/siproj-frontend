@@ -123,7 +123,6 @@ const Emissoes = () => {
             </tbody>
           </Table>
         </Row>
-
         <Row className="mb-4">
           <Col>
             <Form.Group controlId="formJustificativa">

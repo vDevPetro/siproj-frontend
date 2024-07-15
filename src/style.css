@@ -348,7 +348,7 @@ h6 {
 
 /* Form Control */
 .form-control:focus {
-  border-color: #32cd32;
+  border-color: #34b534;
   box-shadow: 0 0 0 0.2rem rgba(50, 205, 50, 0.1); 
 }
 
@@ -1047,7 +1047,7 @@ nav #btnPesquisar {
 .profile .profile-card h2 {
   font-size: 24px;
   font-weight: 700;
-  color: #afecaf;
+  color: #324e2c;
   margin: 10px 0 0 0;
 }
 
