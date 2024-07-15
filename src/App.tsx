@@ -8,6 +8,8 @@ import Login from './view/pages/login';
 import Header from './view/template/header';
 import { FilterProvider } from './context/HomeFilter';
 import { UserProvider } from './context/UserContext';
+import 'bootstrap/dist/css/bootstrap.min.css'
+import './style.css'
 
 const AppContainer = styled.div`
 `;

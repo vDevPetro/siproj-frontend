@@ -1,6 +1,6 @@
 import React from 'react';
-import { Container, Table, Row, Col, Button, Form } from 'react-bootstrap';
-import './styles';
+import { Table, Row, Col, Button, Form } from 'react-bootstrap';
+import { Container } from './styles';
 
 const Cronograma = () => {
 
@@ -12,11 +12,11 @@ const Cronograma = () => {
 
       <Container>
         <Row className="mb-4 table-responsive text-nowrap">
-          <Table hover className="table table-striped table-bordered ">
+          <Table hover className="table table-striped table-bordered">
             <thead>
               <tr>
                 <th className="table-title"></th>
-                <th className="table-title">Planejamento LB</th>
+                <th className="table-title">Linha de Base</th>
                 <th className="table-title">Planejamento LB</th>
                 <th className="table-title">Replanejamento</th>
                 <th className="table-title">Realizado</th>
@@ -24,7 +24,7 @@ const Cronograma = () => {
             </thead>
             <tbody>
               <tr>
-                <th scope="row" className="table-title">Data de criação AS</th>
+                <th className="table-title">Data de criação AS</th>
                 <td></td>
                 <td></td>
                 <td></td>
