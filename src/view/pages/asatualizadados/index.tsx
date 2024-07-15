@@ -5,6 +5,8 @@ import InputMask from 'react-input-mask';
 import { useParams } from 'react-router-dom';
 import Base from "../../../model/Base";
 import { getBaseById } from '../../../controller/Base';
+import resp_petro from '../../../data/resp_petro.json';
+import resp_contr from '../../../data/resp_contr.json';
 
 const AtualizarAS = () => {
   const [contrato_icj, setContratoIcj] = useState('');
@@ -28,7 +30,8 @@ const AtualizarAS = () => {
     realMes: undefined,         
     prevAno: undefined,         
     realAno: undefined,         
-    iefAno: undefined, 
+    iefAno: undefined,
+    iefMes: undefined, 
     objetivo: '', 
     escopo: '', 
     log: '' 
@@ -50,8 +53,14 @@ const AtualizarAS = () => {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    alert(as.contrato_icj);
+    const updatedData = updateData(as);
+    alert(JSON.stringify(updatedData, null, 2));
   }
+
+   const updateData = (data: Base) => {
+    const { prevMes, realMes, prevAno, realAno, iefAno, iefMes, ...filteredData } = data;
+    return filteredData;
+  };
 
   return (
     <Container>
@@ -84,11 +93,11 @@ const AtualizarAS = () => {
           <Col>
             <Form.Group controlId="formRespPetro">
               <Form.Label className="text-nowrap">Responsável Petrobras</Form.Label>
-              <Form.Select name="resp_petro" id="resp_petro" onChange={handleChange}>
+              <Form.Select name="resp_petro" id="resp_petro" value={as.resp_petro} onChange={handleChange}>
                 <option>Selecione...</option>
-                {as && (
-                  <option value={as.resp_petro} selected>{as.resp_petro}</option>
-                )}
+                {resp_petro.map((resp, index) => (
+                  <option key={index} value={as.resp_petro}>{resp.nome}</option>
+                ))}
               </Form.Select>
             </Form.Group>
           </Col>
@@ -97,9 +106,9 @@ const AtualizarAS = () => {
               <Form.Label className="text-nowrap">Responsável Rina</Form.Label>
               <Form.Select name="resp_contr" id="resp_contr" onChange={handleChange}>
                 <option>Selecione...</option>
-                {as && (
-                  <option value={as.resp_contr} selected>{as.resp_contr}</option>
-                )}
+                {resp_contr.map((resp, index) => (
+                  <option key={index} value={as.resp_contr}>{resp.nome}</option>
+                ))}
               </Form.Select>
             </Form.Group>
           </Col>
@@ -120,7 +129,7 @@ const AtualizarAS = () => {
           </Col>
           <Col>
             <Form.Group controlId="formContrato">
-              <Form.Label>Contrato SAP</Form.Label>
+              <Form.Label className="text-nowrap">Contrato SAP</Form.Label>
               <InputMask 
                   mask="9999999999" 
                   type="text" 
@@ -139,7 +148,7 @@ const AtualizarAS = () => {
         <Col sm="3">
             <Form.Group controlId="formIdGep">
               <Form.Label>ID GEP</Form.Label>
-              <Form.Control type="text" name="pep" value={as.pep} onChange={handleChange}/>
+              <Form.Control type="text" name="id" value={as.id ?? ''} onChange={handleChange}/>
             </Form.Group>
           </Col>
           <Col sm="2">
@@ -147,12 +156,21 @@ const AtualizarAS = () => {
               <Form.Label>Tipo GEP</Form.Label>
               <Form.Select>
                 <option>Selecione...</option>
+                <option>Paradas</option>
+                <option>Adequações</option>
+                <option>Corretivas de Grande Porte</option>
               </Form.Select>
             </Form.Group>
           </Col>
           <Col sm="2">
-            <Form.Group controlId="formPe">
+            <Form.Group controlId="formPep">
               <Form.Label>PEP</Form.Label>
+              <Form.Control type="text" name="pep" value={as.pep} onChange={handleChange}/>
+            </Form.Group>
+          </Col>
+          <Col sm="2">
+            <Form.Group controlId="formPe">
+              <Form.Label>Unidade</Form.Label>
               <Form.Control type="text" name="unidade" value={as.unidade} onChange={handleChange}/>
             </Form.Group>
           </Col>
@@ -177,9 +195,9 @@ const AtualizarAS = () => {
               <Form.Label>Criticidade</Form.Label>
               <Form.Select>
                 <option>Selecione...</option>
-                {as && (
-                  <option value={as.criticidade} selected>{as.criticidade}</option>
-                )}
+                <option>Alta</option>
+                <option>Média</option>
+                <option>Baixa</option>                
               </Form.Select>
             </Form.Group>
           </Col>
@@ -188,9 +206,9 @@ const AtualizarAS = () => {
               <Form.Label>Prioridade</Form.Label>
               <Form.Select>
               <option>Selecione...</option>
-              {as && (
-                <option value={as.prioridade} selected>{as.prioridade}</option>
-              )}
+              <option>Alta</option>
+              <option>Média</option>
+              <option>Baixa</option>
               </Form.Select>
             </Form.Group>
           </Col>
@@ -239,7 +257,7 @@ const AtualizarAS = () => {
 
         <Row>
           <Col>
-            <Form.Group controlId="formObjetivoProjeto">
+            <Form.Group controlId="formObjetivo">
               <Form.Label className="text-nowrap">Objetivo do Projeto</Form.Label>
               <Form.Control as="textarea" rows={3} name="objetivo_projeto" value={as?.objetivo}/>
             </Form.Group>
