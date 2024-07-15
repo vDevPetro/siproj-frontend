@@ -25,6 +25,27 @@ export const getEmissao = async (num_as:string | undefined): Promise<Emissao[]> 
   }
 };
 
+
+export const postEmissao = async (emissao: Emissao): Promise<{ status: number; data: any }> => {
+  try {
+    const response = await axios.post(apiUrl, emissao);
+    return { status: response.status, data: response.data };
+  } catch (error) {
+    console.error('Falha ao enviar os dados:', error);
+    throw error;
+  }
+};
+
+export const getNextAvailableId = async (): Promise<number> => {
+  try {
+      const response = await axios.get<{ nextId: number }>(`${apiUrl}/nextid`);
+      return response.data.nextId;
+  } catch (error) {
+      console.error('Falha ao obter o próximo ID disponível:', error);
+      throw error;
+  }
+}
+
 export const getEmissaoById = async (id: String): Promise<Emissao> => {
   try{
       const response = await axios.get<Emissao>(`${apiUrl}/${id}`);
