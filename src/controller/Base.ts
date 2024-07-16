@@ -100,38 +100,39 @@ export const getBaseById = async (id: String): Promise<Base> => {
   }
 };
 
-export const updateBase = async (base: Base): Promise<Base> => {
-  try {
-      const { id, ...updatedData } = base;
+export const updateBase = async (base: Base, email: string): Promise<{ status: number; data: any }> => {
+    try {
+        const response = await axios.put(`${apiUrl}/${base.id}`, {
+            tipo: base.tipo,
+            unidade: base.unidade,
+            resp_petro: base.resp_petro,
+            resp_contr: base.resp_contr,
+            contrato_icj: base.contrato_icj,
+            contrato_sap: base.contrato_sap,
+            pep: base.pep,
+            desc_projeto: base.desc_projeto,
+            porte: base.porte,
+            criticidade: base.criticidade,
+            prioridade: base.prioridade,
+            objetivo: base.objetivo,
+            escopo: base.escopo,
+            log: email + ' - ' + getCurrentDateTime()
+        });
+        return { status: response.status, data: response.data };
+    } catch (error) {
+        console.error('Falha ao enviar os dados:', error);
+        throw error;
+    }
+};
 
-      const response = await axios.put(`${apiUrl}/${id}`, updatedData);
+const getCurrentDateTime = (): string => {
+    const currentDate = new Date();
 
-      const updatedBase: Base = {
-          id: response.data.id,
-          tipo: response.data.tipo,
-          unidade: response.data.unidade,
-          resp_petro: response.data.resp_petro,
-          resp_contr: response.data.resp_contr,
-          contrato_icj: response.data.contrato_icj,
-          contrato_sap: response.data.contrato_sap,
-          pep: response.data.pep,
-          desc_projeto: response.data.desc_projeto,
-          porte: response.data.porte,
-          criticidade: response.data.criticidade,
-          prioridade: response.data.prioridade,
-          prevMes: response.data.prevMes,
-          realMes: response.data.realMes,
-          prevAno: response.data.prevAno,
-          realAno: response.data.realAno,
-          iefAno: response.data.iefAno,
-          objetivo: response.data.objetivo,
-          escopo: response.data.escopo,
-          log: response.data.log,
-      };
+    const day = currentDate.getDate().toString().padStart(2, '0');
+    const month = (currentDate.getMonth() + 1).toString().padStart(2, '0'); // Mês começa do zero, por isso é necessário adicionar 1
+    const year = currentDate.getFullYear().toString();
+    const hours = currentDate.getHours().toString().padStart(2, '0');
+    const minutes = currentDate.getMinutes().toString().padStart(2, '0');
 
-      return updatedBase;
-  } catch (error) {
-      console.error('Falha ao atualizar os dados:', error);
-      throw error;
-  }
+    return `${day}/${month}/${year} ${hours}:${minutes}`;
 };
