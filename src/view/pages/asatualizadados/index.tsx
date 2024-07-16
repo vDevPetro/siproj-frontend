@@ -4,7 +4,7 @@ import { Form, Row, Col, Button, Breadcrumb } from 'react-bootstrap';
 import InputMask from 'react-input-mask';
 import { useParams } from 'react-router-dom';
 import Base from "../../../model/Base";
-import { getBaseById } from '../../../controller/Base';
+import { getBaseById, updateBase } from '../../../controller/Base';
 import resp_petro from '../../../data/resp_petro.json';
 import resp_contr from '../../../data/resp_contr.json';
 
@@ -84,7 +84,7 @@ const AtualizarAS = () => {
           <Col>
             <Form.Group controlId="formDescProjeto">
               <Form.Label className="text-nowrap">Descrição do Projeto</Form.Label>
-              <Form.Control as="textarea" rows={1} name="escopo_projeto" value={as?.desc_projeto}/>
+              <Form.Control as="textarea" rows={1} name="escopo_projeto" value={as?.desc_projeto} onChange={handleChange}/>
             </Form.Group>
           </Col>
         </Row>
@@ -220,13 +220,13 @@ const AtualizarAS = () => {
           <Col>
             <Form.Group controlId="formPrevMes">
               <Form.Label className="text-nowrap">Previsão Mês %</Form.Label>
-              <Form.Control type="text" name="prev_mes" />
+              <Form.Control type="text" name="prev_mes" onChange={handleChange}/>
             </Form.Group>
           </Col>
           <Col>
             <Form.Group controlId="formRealMes">
               <Form.Label className="text-nowrap">Real Mês %</Form.Label>
-              <Form.Control type="text" name="real_mes" />
+              <Form.Control type="text" name="real_mes" onChange={handleChange}/>
             </Form.Group>
           </Col>
           <Col>
@@ -238,19 +238,19 @@ const AtualizarAS = () => {
           <Col>
             <Form.Group controlId="formPrevAno">
               <Form.Label className="text-nowrap">Previsão Ano %</Form.Label>
-              <Form.Control type="text" name="prev_ano" />
+              <Form.Control type="text" name="prev_ano" onChange={handleChange}/>
             </Form.Group>
           </Col>
           <Col>
             <Form.Group controlId="formRealAno">
               <Form.Label className="text-nowrap">Real Ano %</Form.Label>
-              <Form.Control type="text" name="real_ano"  />
+              <Form.Control type="text" name="real_ano"  onChange={handleChange}/>
             </Form.Group>
           </Col>
           <Col>
             <Form.Group controlId="formIefAno">
               <Form.Label className="text-nowrap">IEF Ano %</Form.Label>
-              <Form.Control type="text" name="ief_ano"  />
+              <Form.Control type="text" name="ief_ano"  onChange={handleChange}/>
             </Form.Group>
           </Col>
         </Row>
@@ -259,13 +259,13 @@ const AtualizarAS = () => {
           <Col>
             <Form.Group controlId="formObjetivo">
               <Form.Label className="text-nowrap">Objetivo do Projeto</Form.Label>
-              <Form.Control as="textarea" rows={3} name="objetivo_projeto" value={as?.objetivo}/>
+              <Form.Control as="textarea" rows={3} name="objetivo_projeto" value={as?.objetivo} onChange={handleChange}/>
             </Form.Group>
           </Col>
           <Col>
             <Form.Group controlId="formEscopoProjeto">
               <Form.Label>Escopo do Projeto</Form.Label>
-              <Form.Control as="textarea" rows={3} name="escopo_projeto" value={as?.escopo}/>
+              <Form.Control as="textarea" rows={3} name="escopo_projeto" value={as?.escopo} onChange={handleChange}/>
             </Form.Group>
           </Col>
         </Row>
