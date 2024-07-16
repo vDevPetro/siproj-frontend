@@ -16,6 +16,7 @@ type Base = {
     prevAno?: number;
     realAno?: number;
     iefAno?: number;
+    iefMes?: number;
     objetivo?: string;
     escopo?: string;
     log?: string;

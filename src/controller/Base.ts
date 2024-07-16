@@ -99,3 +99,39 @@ export const getBaseById = async (id: String): Promise<Base> => {
       throw error;
   }
 };
+
+export const updateBase = async (base: Base): Promise<Base> => {
+  try {
+      const { id, ...updatedData } = base;
+
+      const response = await axios.put(`${apiUrl}/${id}`, updatedData);
+
+      const updatedBase: Base = {
+          id: response.data.id,
+          tipo: response.data.tipo,
+          unidade: response.data.unidade,
+          resp_petro: response.data.resp_petro,
+          resp_contr: response.data.resp_contr,
+          contrato_icj: response.data.contrato_icj,
+          contrato_sap: response.data.contrato_sap,
+          pep: response.data.pep,
+          desc_projeto: response.data.desc_projeto,
+          porte: response.data.porte,
+          criticidade: response.data.criticidade,
+          prioridade: response.data.prioridade,
+          prevMes: response.data.prevMes,
+          realMes: response.data.realMes,
+          prevAno: response.data.prevAno,
+          realAno: response.data.realAno,
+          iefAno: response.data.iefAno,
+          objetivo: response.data.objetivo,
+          escopo: response.data.escopo,
+          log: response.data.log,
+      };
+
+      return updatedBase;
+  } catch (error) {
+      console.error('Falha ao atualizar os dados:', error);
+      throw error;
+  }
+};

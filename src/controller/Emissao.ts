@@ -25,7 +25,6 @@ export const getEmissao = async (num_as:string | undefined): Promise<Emissao[]> 
   }
 };
 
-
 export const postEmissao = async (emissao: Emissao): Promise<{ status: number; data: any }> => {
   try {
     const response = await axios.post(apiUrl, emissao);
