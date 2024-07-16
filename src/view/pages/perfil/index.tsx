@@ -1,6 +1,9 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { useUserContext } from "../../../context/UserContext";
+import { auth } from "../../../controller/ConnectionFactory";
+import { updatePassword, reauthenticateWithCredential, EmailAuthProvider } from "firebase/auth";
+import { Alert } from "react-bootstrap";
 
 const Container = styled.div`
     font-family: Nunito;
@@ -13,12 +16,55 @@ const Container = styled.div`
         box-shadow:  7px 7px 28px #d4d9d1,
                     -7px -7px 28px #ffffff;
     }
+
+    .bi {
+        cursor: pointer;
+    }
 `;
 
 const Perfil = () => {
-    const { user, loading, error } = useUserContext();
-    const [showSenha, setShowSenha] = useState(false);
-    const [showExcluir, setShowExcluir] = useState(false);
+    const { user } = useUserContext();
+    const [currentPassword, setCurrentPassword] = useState('');
+    const [newPassword, setNewPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [error, setError] = useState<string | null>(null);
+    const [success, setSuccess] = useState<string | null>(null);
+    const [hide, setHide] = useState(true);
+
+    
+    const handleChangePassword = async (event: React.FormEvent) => {
+        event.preventDefault();
+
+        if (newPassword !== confirmPassword) {
+            setError('Senhas não coincidem!');
+            return;
+        }
+        
+        const user = auth.currentUser;
+
+        if (user) {
+            try {
+                const credential = EmailAuthProvider.credential(user.email!, currentPassword);
+
+                await reauthenticateWithCredential(user, credential);
+
+                await updatePassword(user, newPassword);
+                setSuccess('Senha atualizada com sucesso!');
+                setError(null);
+            } catch (error: any) {
+                if (error.message === 'Firebase: Error (auth/requires-recent-login).') {
+                    setError('Para alterar a senha voce precisa ter logado recentemente. Saia e entre novamente.');
+                    setSuccess(null);
+                } else {
+                    setError(error.message);
+                    setSuccess(null);
+                }                
+            }
+        } else {
+            setError('Erro: não foi possivel identificar o usuário logado!');
+            setSuccess(null);
+        }
+    };
 
     return (
         <Container className="container-lg d-flex justify-content-center">
@@ -59,55 +105,44 @@ const Perfil = () => {
                 <div className="col-12">
                     <hr></hr>
                 </div>
-                <div className="d-flex">
-                    <button className="btn btn-success me-md-2" onClick={() => {setShowExcluir(false);setShowSenha(true)}}>Alterar senha</button>
-                    <button className="btn btn-danger" onClick={() => {setShowSenha(false);setShowExcluir(true)}}>Excluir conta</button>
+                <div className="mt-4">
+                    <h4>Alterar Senha <i className={`ms-2 bi bi-eye${hide ? '-slash' : ''}`} onClick={() => setHide(!hide   )}/></h4>
+                    <form onSubmit={handleChangePassword}>
+                        <div className="row mt-2">
+                            <label className="col-4 col-form-label text-end">Senha atual:</label>
+                            <div className="col-8">
+                                <input type={hide ? 'password' : 'text'} name="old" className="form-control" value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)}/>
+                            </div>
+                        </div>
+                        <div className="row mt-md-2">
+                            <label className="col-4 col-form-label text-end">Senha nova:</label>
+                            <div className="col-8">
+                                <input type={hide ? 'password' : 'text'} name="old" className="form-control" value={newPassword} onChange={(e) => setNewPassword(e.target.value)}/>
+                            </div>
+                        </div>
+                        <div className="row mt-md-2">
+                            <label className="col-4 col-form-label text-end">Repetir:</label>
+                            <div className="col-8">
+                                <input type={hide ? 'password' : 'text'} name="old" className="form-control" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}/>
+                            </div>
+                        </div>
+                        <div className="row mt-md-3 px-3">
+                            <button type="submit" className="btn btn-primary"><i className="bi bi-floppy me-2" />Alterar</button>
+                        </div>
+                    </form>
                 </div>
-                {showSenha &&
-                    <div className="mt-4">
-                        <h4>Alterar Senha</h4>
-                        <form>
-                            <div className="row mt-2">
-                                <label className="col-4 col-form-label text-end">Senha atual:</label>
-                                <div className="col-8">
-                                    <input type="password" name="old" className="form-control"/>
-                                </div>
-                            </div>
-                            <div className="row mt-md-2">
-                                <label className="col-4 col-form-label text-end">Senha nova:</label>
-                                <div className="col-8">
-                                    <input type="password" name="old" className="form-control"/>
-                                </div>
-                            </div>
-                            <div className="row mt-md-2">
-                                <label className="col-4 col-form-label text-end">Repetir:</label>
-                                <div className="col-8">
-                                    <input type="password" name="old" className="form-control"/>
-                                </div>
-                            </div>
-                            <div className="row mt-md-3 px-3">
-                                <button type="submit" className="btn btn-primary"><i className="bi bi-floppy me-2" />Alterar</button>
-                            </div>
-                        </form>
-                    </div>
-                }
-                {showExcluir &&
-                    <div className="mt-4">
-                        <h4>Excluir conta</h4>
-                        <p>Digite seu e-mail para confirmar a exclusão</p>
-                        <form>
-                            <div className="row">
-                                <label className="col-4 col-form-label text-end">E-mail:</label>
-                                <div className="col-8">
-                                    <input type="email" name="email" className="form-control"/>
-                                </div>
-                            </div>
-                            <div className="row mt-md-3 px-3">
-                                <button type="submit" className="btn btn-danger"><i className="bi bi-trash me-2" />Excluir</button>
-                            </div>
-                        </form>
-                    </div>   
-                }
+                <div className="mt-2">
+                    {success &&
+                        <Alert variant="success" onClose={() => setSuccess(null)} dismissible>
+                            {success}
+                        </Alert>
+                    }
+                    {error &&
+                        <Alert variant="danger" onClose={() => setError(null)} dismissible>
+                            {error}
+                        </Alert>
+                    }
+                </div>
             </div>
         </Container>
     )
