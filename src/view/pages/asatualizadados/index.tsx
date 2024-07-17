@@ -11,8 +11,6 @@ import { useUserContext } from '../../../context/UserContext';
 import { Modal } from 'react-bootstrap';
 
 const AtualizarAS = () => {
-  const [contrato_icj, setContratoIcj] = useState('');
-  const [contrato_sap, setContratoSap] = useState('');
   const [status, SetStatus] = useState<number | null>(null);
   const [show, SetShow] = useState(false);
   const [res, setRes] = useState<any>(null);
