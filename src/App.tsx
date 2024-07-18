@@ -8,19 +8,19 @@ import Login from './view/pages/login';
 import Header from './view/template/header';
 import { FilterProvider } from './context/HomeFilter';
 import { UserProvider } from './context/UserContext';
-import 'bootstrap/dist/css/bootstrap.min.css'
-import './style.css'
 
 const AppContainer = styled.div`
 `;
 
 function App() {
   const [user, setUser] = useState<User>();
+  const [email, setEmail] = useState<string | null>(null);
 
   useEffect(() => {
     onAuthStateChanged(auth, async(user) => {
       if(user){
           setUser(user);
+          setEmail(user.email);
       }
       else{
         setUser(undefined);
@@ -28,13 +28,13 @@ function App() {
     })
   }, []);
 
-  if(user === undefined){
+  if(!email || user === undefined){
     return (<Login/>);
   }
   else{
     return (
       <AppContainer> 
-        <UserProvider email={user.email}>
+        <UserProvider email={email}>
         <FilterProvider>
         <Router>
           <Header/>

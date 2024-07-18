@@ -10,13 +10,13 @@ interface UserContextProps {
 
 const UserContext = createContext<UserContextProps | undefined>(undefined);
 
-export const UserProvider: React.FC<{ email: string | null; children: React.ReactNode }> = ({email, children}) => {
+export const UserProvider: React.FC<{ email: string; children: React.ReactNode }> = ({email, children}) => {
     const [user, setUser] = useState<Usuario | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        const fetchUser = async (email: string | null) => {
+        const fetchUser = async (email: string) => {
             if (email) {
                 try {
                     await getUser(email).then((res) => {
