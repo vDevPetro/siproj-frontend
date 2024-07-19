@@ -41,3 +41,13 @@ export const getUser = async(email: string): Promise<Usuario> => {
         throw error;
     }
 }
+
+export const updateUsers = async() => {
+    try{
+        const response = await axios.get(apiUrl+'/export-users');
+        return response.status;
+    } catch(error) {
+        console.error('Falha em atualizar usuarios: ', error);
+        throw error;
+    }
+}

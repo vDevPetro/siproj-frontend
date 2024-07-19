@@ -158,27 +158,20 @@ const ConsultarAs = () => {
 
     return(
         <Container className="container-lg">
-            <div className="pagetitle">
+            <div className="pagetitle mt-5 pt-1 pt-md-2">
                 <h1>Consultar Autorização de Serviço</h1>
-                <nav>
-                    <ol className="breadcrumb">
-                        <li className="breadcrumb-item"><a href="index.html">Home</a></li>
-                        <li className="breadcrumb-item active">Consultar AS</li>
-                    </ol>
-                </nav>
+            </div>
+            <div className="card px-2 py-1 px-md-4 py-md-2">
+                <div className="card-body">
+                    <MUIDataTable
+                        title={"Autorizações de Serviço"}
+                        data={autorizacoes}
+                        columns={columns}
+                        options={options}
+                    />
+                </div>
 
-                <div className="card px-2 py-1 px-md-4 py-md-2">
-                    <div className="card-body">
-                        <MUIDataTable
-                            title={"Autorizações de Serviço"}
-                            data={autorizacoes}
-                            columns={columns}
-                            options={options}
-                        />
-                    </div>
-
-                    <div>
-                    </div>
+                <div>
                 </div>
             </div>
         </Container>

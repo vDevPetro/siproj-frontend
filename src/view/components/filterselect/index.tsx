@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import filterOptions from '../../../data/filter_options.json';
 import { useFilters } from '../../../context/HomeFilter';
-import { Form, ListGroup, Button } from 'react-bootstrap';
+import { Form, ListGroup, Button, Popover, OverlayTrigger } from 'react-bootstrap';
 import styled from 'styled-components';
 
 interface FilterOption {
@@ -10,6 +10,16 @@ interface FilterOption {
     valor: string;
     label: string;
 }
+
+const popover = (
+    <Popover id="tooltip">
+       <Popover.Header as="h3">Filtros disponíveis</Popover.Header>
+        <Popover.Body>
+          Unidade, Responsável Petro e tipo.
+        </Popover.Body>
+    </Popover>
+  )
+  
 
 const Container = styled.div`
     position: relative;
@@ -32,6 +42,22 @@ const FilterSelect: React.FC = () => {
     const [query, setQuery] = useState('');
     const [filteredOptions, setFilteredOptions] = useState<FilterOption[]>([]);
     const [selectedFilter, setSelectedFilter] = useState<FilterOption | null>(null);
+    const [show, setShow] = useState(false);
+    let timeout: NodeJS.Timeout;
+
+    const handleMouseEnter = () => {
+        setShow(true);
+        // Definir um timeout para ocultar o OverlayTrigger após 3 segundos
+        timeout = setTimeout(() => {
+          setShow(false);
+        }, 3000);
+      };
+    
+    const handleMouseLeave = () => {
+    clearTimeout(timeout); // Limpar o timeout se o mouse sair antes dos 3 segundos
+    setShow(false);
+    };
+    
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
@@ -65,6 +91,7 @@ const FilterSelect: React.FC = () => {
         <Container>
             <div className='input-group'>
                 <Form.Group controlId="filterAutocomplete">
+                    <OverlayTrigger placement="left" show={show} onToggle={() => setShow(!show)} overlay={popover}>
                     <Form.Control
                         type="text"
                         placeholder="Pesquisar..."
@@ -72,7 +99,10 @@ const FilterSelect: React.FC = () => {
                         id="pesquisar"
                         value={query}
                         onChange={handleInputChange}
+                        onMouseEnter={handleMouseEnter}
+                        onMouseLeave={handleMouseLeave}
                     />
+                    </OverlayTrigger>
                 </Form.Group>
                 {filteredOptions.length > 0 && (
                     <ListGroup className="suggestion-list">

@@ -2,6 +2,7 @@ import * as C from './styles'
 import { FormEvent, useState, useEffect, ChangeEvent } from 'react';
 import { auth, db } from '../../../controller/ConnectionFactory';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import { updateUsers } from '../../../controller/Users';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, User } from 'firebase/auth';
 
 const Login = () => {
@@ -75,7 +76,8 @@ const Login = () => {
                             status: 'ATIVO',
                             uid: userCredential.user.uid,
                             profilePhoto: ''
-                        })                                            
+                        })                              
+                        await updateUsers();              
                         setShowAlert2(true);
                         setMessage('Usuário cadastrado com sucesso!');
                     }).catch((e) => {
@@ -235,7 +237,7 @@ const Login = () => {
                                     <button className="btn btn-primary w-100" type="submit">Criar conta</button>
                                 </div>
                                 <div className="col-12">
-                                    <p className="small mb-0">Já possui conta? <a href="#" onClick={() => setLogar(!logar)}>Logar</a></p>
+                                    <p className="small mb-0">Já possui conta? <a onClick={() => setLogar(!logar)}>Logar</a></p>
                                 </div>
                             </form>
                             {showAlert && 

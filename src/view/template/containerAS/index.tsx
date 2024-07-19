@@ -11,7 +11,7 @@ const ContainerAS = () => {
   const { id } = useParams<{ id: string }>();
 
   return (
-    <C.Container className='container-lg'>
+    <C.Container className='container-lg mt-5 pt-0 pt-md-2'>
         <div className="card px-2 py-1 py-md-4">
             <div className="card-body">
                 <Nav fill variant="tabs" defaultActiveKey={`/as/${id}/atualizar`}>

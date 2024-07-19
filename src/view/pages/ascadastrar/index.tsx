@@ -67,14 +67,8 @@ const InserirAs = () => {
 
   return (
       <Container className="container-lg">
-          <div className="pagetitle">
+          <div className="pagetitle mt-5 pt-1 pt-md-2">
             <h1>Inserir Autorização de Serviço</h1>
-            <nav className="mt-1">
-              <ol className="breadcrumb">
-                <li className="breadcrumb-item"><a href="#">Home</a></li>
-                <li className="breadcrumb-item active">Inserir Autorização de Serviço</li>
-              </ol>
-            </nav>
           </div>
 
           <div className="card px-2 py-1 py-md-4">

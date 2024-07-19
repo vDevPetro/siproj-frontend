@@ -96,19 +96,17 @@ const Home: React.FC = () => {
 
     return (
         <C.Container className='container-lg pt-5'>
-            <div className='col-12 mt-2 d-flex flex-column'>
-                {filters.length > 0 &&
-                    <div className="mb-4 ps-4">
-                        <h5>Filtros Ativos:</h5>
-                        <div className='d-flex chip-container'>
-                            {filters.map((filter, index) => (
-                                <Chip key={index} label={`${filter.label}: ${filter.valor}`} variant='outlined' onDelete={() => removeFilter(filter)} />
-                            ))}
+                    {filters.length > 0 &&
+                        <div className="mb-4 ps-4">
+                            <h5>Filtros Ativos:</h5>
+                            <div className='d-flex chip-container flex-wrap'>
+                                {filters.map((filter, index) => (
+                                    <Chip key={index} label={`${filter.label}: ${filter.valor}`} variant='outlined' onDelete={() => removeFilter(filter)} />
+                                ))}
+                            </div>
                         </div>
-                    </div>
-                }
-                <div className='d-flex flex-wrap justify-content-evenly'>
-                    
+                    }
+                <div className='mt-2 row row-cols-3 justify-content-evenly'>
                     {base.map((baseItem) => (
                         <Cartao
                             key={baseItem.id}
@@ -120,7 +118,6 @@ const Home: React.FC = () => {
                         />
                     ))}
                 </div>
-            </div>
         </C.Container>
     );
 };

@@ -13,6 +13,8 @@ import NavLink from "../containerAS/NavLink";
 import FilterSelect from "../../components/filterselect";
 import { useUserContext } from "../../../context/UserContext";
 import { Spinner } from "react-bootstrap";
+import { nomeAbreviado } from "../../../model/Usuario";
+
 
 
 const Header = () => {
@@ -154,7 +156,7 @@ const Header = () => {
                 </div>
                 <div className="d-flex flex-column flex-lg-row">
                   <FilterSelect/>
-                  <NavDropdown title={<><i className="bi bi-person-badge me-2" />{user?.email}</>} id="dropdown" className="ms-md-3">
+                  <NavDropdown title={<><i className="bi bi-person-badge me-2" />{nomeAbreviado(user.nome)}</>} id="dropdown" className="ms-md-3">
                     <NavDropdown.Item>
                       <NavLink to='/perfil'>
                         <i className="bi bi-person"></i>

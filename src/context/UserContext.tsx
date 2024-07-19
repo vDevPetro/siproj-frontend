@@ -1,5 +1,5 @@
 import React, {createContext, useContext, ReactNode, useState, useEffect } from "react";
-import Usuario from "../model/Usuario";
+import Usuario, { nomeAbreviado } from "../model/Usuario";
 import { getUser } from "../controller/Users";
 
 interface UserContextProps {

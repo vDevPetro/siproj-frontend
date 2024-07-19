@@ -4,7 +4,7 @@ import { db, auth } from '../../../../controller/ConnectionFactory';
 import { FormEvent, useEffect, useState } from 'react';
 import { createUserWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
 import Usuario from '../../../../model/Usuario';
-import { getUsers } from '../../../../controller/Users';
+import { getUsers, updateUsers } from '../../../../controller/Users';
 import { TextField, MenuItem, Select, InputLabel, FormControl, SelectChangeEvent } from '@mui/material';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
@@ -47,6 +47,7 @@ const Users = () => {
           stamp: dataAtual.toLocaleString().split(',')[0],
           profilePhoto: ''
         }).then(async () => {
+          await updateUsers();
           setMessage('Usuário cadastrado com sucesso!');
           setShowSuccess(true);
           setEmail('');
@@ -63,14 +64,8 @@ const Users = () => {
   return (
     <C.Container>
       <main className="container-lg">
-        <div className="pagetitle">
+        <div className="pagetitle mt-5 pt-1 pt-md-2">
           <h1>Usuários</h1>
-          <nav>
-            <ol className="breadcrumb">
-              <li className="breadcrumb-item"><a href="index.html">Home</a></li>
-              <li className="breadcrumb-item active">Usuários</li>
-            </ol>
-          </nav>
         </div>
 
         <section className="section">
@@ -152,8 +147,12 @@ const Users = () => {
 
               <div className="card">
                 <div className="card-body table-responsive-sm">
-                  <h5 className="card-title">Usuários cadastrados no sistema</h5>
-
+                  <div className="d-flex justify-content-between">
+                    <h5 className="card-title">Usuários cadastrados no sistema</h5>
+                    <div className='pt-3'>
+                    <button className='btn btn-outline-warning' onClick={() => updateUsers()}><i className="bi bi-arrow-repeat"/></button>
+                    </div>
+                  </div>
                   <table className="table table-striped table-hover ">
                     <thead>
                       <tr>
