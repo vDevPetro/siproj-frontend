@@ -15,6 +15,7 @@ const InserirAs = () => {
   const [id, setId] = useState<number | null>();
   const [contrato_icj, setContratoIcj] = useState('');
   const [contrato_sap, setContratoSap] = useState('');
+  const [fiscais, setFiscais] = useState('');
   const [resp_petro, setRespPetro] = useState('');
   const [resp_contr, setRespContr] = useState('');
   const [desc_projeto, setDescProj] = useState('');
@@ -27,6 +28,7 @@ const InserirAs = () => {
       try{
         const nova: Base = {
           id: id || 0,
+          fiscais: fiscais,
           contrato_icj: contrato_icj,
           contrato_sap: contrato_sap,
           resp_contr: resp_contr,

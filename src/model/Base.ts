@@ -2,6 +2,7 @@ type Base = {
     id: number;
     tipo?: string;
     unidade?: string;
+    fiscais: string;
     resp_petro: string;
     resp_contr: string;
     contrato_icj: string;

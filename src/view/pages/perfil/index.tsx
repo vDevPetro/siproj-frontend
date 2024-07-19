@@ -1,26 +1,10 @@
+import { Container } from './styles';
 import { useState } from "react";
 import styled from "styled-components";
 import { useUserContext } from "../../../context/UserContext";
 import { auth } from "../../../controller/ConnectionFactory";
 import { updatePassword, reauthenticateWithCredential, EmailAuthProvider } from "firebase/auth";
 import { Alert } from "react-bootstrap";
-
-const Container = styled.div`
-    font-family: Nunito;
-    padding: 2rem 0;
-
-    .profile-card {
-        border-radius: 1.5rem;
-        padding: 1.5rem 1.25rem;
-        background: #fff;
-        box-shadow:  7px 7px 28px #d4d9d1,
-                    -7px -7px 28px #ffffff;
-    }
-
-    .bi {
-        cursor: pointer;
-    }
-`;
 
 const Perfil = () => {
     const { user } = useUserContext();
