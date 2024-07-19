@@ -10,6 +10,7 @@ export const getBase = async (): Promise<Base[]> => {
             id: item.id,
             tipo: item.tipo,
             unidade: item.unidade,
+            fiscais: item.fiscais,
             resp_petro: item.resp_petro,
             resp_contr: item.resp_contr,
             contrato_icj: item.contrato_icj,
@@ -48,6 +49,7 @@ export const postBase = async (base: Base): Promise<{ status: number; data: any 
             desc_projeto: base.desc_projeto,
             porte: base.porte,
             prioridade: base.prioridade,
+            fiscais: base.fiscais,
             resp_petro: base.resp_petro,
             resp_contr: base.resp_contr,
         });
@@ -76,6 +78,7 @@ export const getBaseById = async (id: String): Promise<Base> => {
         id: Number(item.id),
         tipo: item.tipo,
         unidade: item.unidade,
+        fiscais: item.fiscais,
         resp_petro: item.resp_petro,
         resp_contr: item.resp_contr,
         contrato_icj: item.contrato_icj,
@@ -105,6 +108,7 @@ export const updateBase = async (base: Base, email: string): Promise<{ status: n
         const response = await axios.put(`${apiUrl}/${base.id}`, {
             tipo: base.tipo,
             unidade: base.unidade,
+            fiscais: base.fiscais,
             resp_petro: base.resp_petro,
             resp_contr: base.resp_contr,
             contrato_icj: base.contrato_icj,

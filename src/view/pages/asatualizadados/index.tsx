@@ -5,6 +5,7 @@ import InputMask from 'react-input-mask';
 import { useParams } from 'react-router-dom';
 import Base from "../../../model/Base";
 import { getBaseById, updateBase } from '../../../controller/Base';
+import fiscais from '../../../data/fiscais.json';
 import resp_petro from '../../../data/resp_petro.json';
 import resp_contr from '../../../data/resp_contr.json';
 import unidades from '../../../data/unidades.json';
@@ -22,6 +23,7 @@ const AtualizarAS = () => {
     id: 0,
     tipo: '',
     unidade: '',
+    fiscais: '',
     resp_petro: '',
     resp_contr: '',
     contrato_icj: '',
@@ -63,6 +65,7 @@ const AtualizarAS = () => {
         id: Number(id) | 0,
         tipo: as.tipo,
         unidade: as.unidade,
+        fiscais: as.fiscais,
         resp_petro: as.resp_petro,
         resp_contr: as.resp_contr,
         contrato_icj: as.contrato_icj,
@@ -111,17 +114,30 @@ const AtualizarAS = () => {
           </Col>
         </Row>
 
-        <Row>
+        <Row className="mb-3">
+          <Col>
+            <Form.Group controlId="formFiscais">
+              <Form.Label className="text-nowrap">Fiscal</Form.Label>
+              <Form.Select name="fiscais" id="fiscais" value={as.fiscais} onChange={handleChange}>
+                <option>Selecione...</option>
+                {fiscais
+                .sort((a, b) => a.nome.localeCompare(b.nome))
+                .map((resp, index) => (
+                  <option key={index} >{resp.nome}</option>
+                ))}
+              </Form.Select>
+            </Form.Group>
+          </Col>
           <Col>
             <Form.Group controlId="formRespPetro">
               <Form.Label className="text-nowrap">Responsável Petrobras</Form.Label>
               <Form.Select name="resp_petro" id="resp_petro" value={as.resp_petro} onChange={handleChange}>
                 <option>Selecione...</option>
-                {resp_petro
+                {/* {resp_petro
                 .sort((a, b) => a.nome.localeCompare(b.nome))
                 .map((resp, index) => (
-                  <option key={index} >{resp.nome}</option>
-                ))}
+                  <option key={index} > {resp.nome}</option>
+                ))} */}
               </Form.Select>
             </Form.Group>
           </Col>
@@ -131,14 +147,17 @@ const AtualizarAS = () => {
               <Form.Select name="resp_contr" id="resp_contr" value={as.resp_contr} onChange={handleChange}>
                 <option>Selecione...</option>
                 {resp_contr
-                .sort((a, b) => a.nome.localeCompare(b.nome))
+                 .sort((a, b) => a.nome.localeCompare(b.nome))
                 .map((resp, index) => (
                   <option key={index} >{resp.nome}</option>
-                ))}
+                ))} 
               </Form.Select>
             </Form.Group>
           </Col>
-          <Col>
+        </Row>
+
+        <Row>
+        <Col>
             <Form.Group controlId="formContratoIcj">
               <Form.Label className="text-nowrap">Contrato ICJ</Form.Label>
               <InputMask
@@ -170,10 +189,7 @@ const AtualizarAS = () => {
               />
             </Form.Group>
           </Col>
-        </Row>
-
-        <Row>
-          <Col sm="3">
+          <Col sm="2">
             <Form.Group controlId="formIdGep">
               <Form.Label>ID GEP</Form.Label>
               <Form.Control type="text" name="id_gep" id="id_gep" value='' onChange={handleChange} />
