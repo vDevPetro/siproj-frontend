@@ -1,17 +1,18 @@
 import Comentario from "../../../model/Comentario";
-import { getByAs, postComment } from "../../../controller/Comentarios";
+import { getByAs, postComment, deleteComment, updateComment } from "../../../controller/Comentarios";
 import { useParams } from "react-router-dom";
 import { FormEvent, useEffect, useState } from "react";
 import Timeline from "../../components/timeline";
 import styled from "styled-components";
 import { useUserContext } from "../../../context/UserContext";
+import { parse } from 'date-fns';
 
 interface ContainerProps {
     animationTime: string;
 }
 
 const Container = styled.div<ContainerProps>`
-    .form-control {
+    #novocoment {
         margin: 0 !important;
         padding: 0.75rem 1.5rem;
         border: 0;
@@ -21,7 +22,7 @@ const Container = styled.div<ContainerProps>`
                     -10px -10px 20px #ffffff;
     }
 
-    .form-control:focus {
+    #novocoment:focus {
         box-shadow: inset 8px 8px 23px #d9d9d9,
             inset -8px -8px 23px #ffffff;
     }
@@ -30,7 +31,7 @@ const Container = styled.div<ContainerProps>`
         border-radius: 2rem !important;
     }
 
-    .btn .bi {
+    form .btn .bi {
         font-size: 2.2rem; 
     }
 
@@ -68,7 +69,7 @@ const Container = styled.div<ContainerProps>`
 
 `
 
-const getCurrentDateTime = (): string => {
+export const getCurrentDateTime = (): string => {
     const currentDate = new Date();
 
     const day = currentDate.getDate().toString().padStart(2, '0');
@@ -87,15 +88,57 @@ const Historico = () => {
     const [status, setStatus] = useState<number | null>(null);
     const { user } = useUserContext();
     const [res, setRes] = useState<any>(null);
+    const [comentUpdate, setComentUpdate] = useState('');
 
     useEffect(() => {
         const fetchData = async () => {
             const res = await getByAs(id);
-            setHistorico(res);
+            const sortedRes = res.sort((a, b) => {
+                const dateA = parse(a.data_envio, 'dd/MM/yyyy HH:mm', new Date());
+                const dateB = parse(b.data_envio, 'dd/MM/yyyy HH:mm', new Date());
+                return dateA.getTime() - dateB.getTime();
+            })
+            setHistorico(sortedRes);
         }
 
         fetchData();
     }, []);
+
+    const fetch = async() => {
+        const res = await getByAs(id);
+        const sortedRes = res.sort((a, b) => {
+            const dateA = parse(a.data_envio, 'dd/MM/yyyy HH:mm', new Date());
+            const dateB = parse(b.data_envio, 'dd/MM/yyyy HH:mm', new Date());
+            return dateA.getTime() - dateB.getTime();
+        })
+        setHistorico(sortedRes);
+    }
+
+    const excluir = async(comentario: Comentario) => {
+        if (user && user.nome === comentario.user && comentario.id){
+            await deleteComment(comentario).then(async () => {
+                setHistorico(undefined);
+                await fetch();
+            })
+        } else {
+            alert('Você só pode excluir seus próprios comentários');
+        }
+    }
+
+    const editar = async(comentario: Comentario, update: string) => {
+        if (user && user.nome === comentario.user && comentario.id){
+            await updateComment(comentario, update).then(async (res) => {
+                if (res.status === 200) {
+                    setHistorico(undefined);
+                    await fetch();
+                } else {
+                    console.error(res.status + res.data);
+                }
+            })
+        } else {
+            alert('Você só pode editar seus próprios comentários');
+        }
+    }    
 
     const enviar = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -110,10 +153,11 @@ const Historico = () => {
                     perfil: user.nivel
                 }
                 const response = await postComment(novo);
+                setHistorico(undefined)
                 setStatus(response.status);
                 setRes(response.data);
                 setComentario('');
-                setHistorico(await getByAs(id));
+                await fetch();
             } catch (error) {
                 console.log(error);
                 setStatus(404);
@@ -125,11 +169,11 @@ const Historico = () => {
 
     return(
         <Container animationTime={`${historico?.length.toString()}`}>
-            <Timeline historico={historico}/>
+            <Timeline historico={historico} excluir={excluir} editar={editar}/>
             {historico &&
                 <form className="row col-12 px-2 px-sm-5 pt-2 pt-sm-5" onSubmit={enviar}>
                     <div className="d-flex col-10">
-                        <textarea rows={2} className="form-control" placeholder="Insira o comentário aqui..." value={comentario} onChange={(e) => setComentario(e.target.value)}/>
+                        <textarea rows={2} className="form-control" id="novocoment" placeholder="Insira o comentário aqui..." value={comentario} onChange={(e) => setComentario(e.target.value)}/>
                     </div>
                     <button className="btn btn-success col-2" type="submit"><i className="bi bi-chat-dots"/>Enviar</button>
                 </form>

@@ -7,4 +7,8 @@ type Comentario = {
     perfil: string;
 }
 
+export const throwDate = () => {
+    return new Date();
+}
+
 export default Comentario;

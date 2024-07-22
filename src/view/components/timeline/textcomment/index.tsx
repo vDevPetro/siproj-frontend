@@ -1,4 +1,10 @@
+import React, { useRef, useState } from "react";
 import styled from "styled-components";
+import { parse, isSameDay } from "date-fns";
+import Comentario, { throwDate } from "../../../../model/Comentario";
+import { getCurrentDateTime } from "../../../pages/historico";
+import { deleteComment } from "../../../../controller/Comentarios";
+import { useUserContext } from "../../../../context/UserContext";
 
 const Container = styled.div`
     padding: 1.25rem 2.125rem;
@@ -15,6 +21,17 @@ const Container = styled.div`
         }
     }
 
+    i {
+        cursor: pointer;
+    }
+
+    input.edit {
+        border: 0;
+    }
+
+    input.edit :focus {
+        border: 0;
+    }
 `;
 
 const Date = styled.small`
@@ -32,19 +49,57 @@ const Text = styled.p`
 `;
 
 type Props = {
-    nome: string | null;
-    data: string | null;
-    comentario: string | null;
+    comentario: Comentario;
+    excluir: (Comentario: Comentario) => void;
+    editar: (comentario: Comentario, update: string) => void;
 }
 
-const TextComment = ({nome, data, comentario} : Props) => {
+const ehoje = (dateString: string): boolean => {
+    const date = parse(dateString, 'dd/MM/yyyy HH:mm', throwDate());
+    const hoje = parse(getCurrentDateTime(), 'dd/MM/yyyy HH:mm', throwDate());
+    return isSameDay(date, hoje);
+}
+
+const TextComment = ({comentario, excluir, editar} : Props) => {
+    const [edit, SetEdit] = useState(false);
+    const inputRef = useRef<HTMLInputElement>(null);
+    const { user } = useUserContext();
+    const [updatedComment, setUpdatedComment] = useState(comentario.comentario);
+
+    const toggleEdit = () => {
+        SetEdit(!edit)
+        if (inputRef.current) {
+            inputRef.current.focus();
+        }
+    }
 
     return (
         <Container className="tl-text-box">
-            <h4>{nome}</h4>
-            <Date>{data}</Date>
+            <h4>{comentario.user}</h4>
+            <div className="d-flex justify-content-between">
+                <Date>{comentario.data_envio}</Date>
+                {ehoje(comentario.data_envio) ? 
+                    <div className="d-flex">
+                        <i className="bi bi-pencil me-3" onClick={toggleEdit}/>
+                        <i className="bi bi-trash" onClick={() => excluir(comentario)}/>                    
+                    </div> 
+                    : 
+                    <></>                
+                }
+                
+            </div>            
             <Text>
-                {comentario}
+                {edit ? 
+                    <>
+                        <textarea  className="form-control" value={updatedComment} onChange={(e) => setUpdatedComment(e.target.value)}/>
+                        <div className="d-flex justify-content-end">
+                            <button type="button" className="btn btn-success" onClick={() => editar(comentario, updatedComment)}><i className="bi bi-floppy"/></button>
+                        </div>
+                    </>
+                    :
+                    comentario.comentario
+                }
+                
             </Text>
         </Container>
     )

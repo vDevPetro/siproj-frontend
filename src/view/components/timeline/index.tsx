@@ -6,6 +6,8 @@ import { Spinner } from "react-bootstrap";
 
 type Props = {
     historico: Comentario[] | undefined;
+    excluir: (comentario: Comentario) => void;
+    editar: (comentario: Comentario, update: string) => void;
 }
 
 const Container = styled.div`
@@ -20,16 +22,16 @@ const Container = styled.div`
     }
 `;
 
-const Timeline = ({ historico } : Props) => {
+const Timeline = ({ historico, excluir, editar } : Props) => {
 
     if(historico){
         return(
             <Container className="timeline">
                 {historico.map(item => 
                     item.perfil === 'CONTRATADA' ? (
-                        <LeftComment item={item} />
+                        <LeftComment item={item} excluir={excluir} editar={editar} />
                     ) : (
-                        <RightComment item={item} />
+                        <RightComment item={item} excluir={excluir} editar={editar} />
                     )
                 )}
             </Container>
