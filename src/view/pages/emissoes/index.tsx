@@ -95,8 +95,12 @@ const Emissoes = () => {
           </div>
           <div className='col-sm-5'>
               <label htmlFor="motivo" className="form-label">Motivo</label>
-              <select name="motivo" id="motivo" className="form-select" value={novaEmissao.motivo} onChange={handleChange}>
-
+              <select name="motivo" id="motivo" className="form-select" value={novaEmissao.motivo} onChange={handleChange} required>
+                <option selected>Selecione...</option>
+                <option value="Ajuste de padronização / Qualidade">Ajuste de padronização / Qualidade</option>
+                <option value="Alteração de Escopo">Alteração de Escopo</option>
+                <option value="Reprovação técnica">Reprovação técnica</option>
+                <option value="Não atendimento ao escopo">Não atendimento ao escopo</option>
               </select>
             </div>
         </div>
@@ -136,8 +140,8 @@ const Emissoes = () => {
         <Row className="mb-4">
           <Col>
             <Form.Group controlId="formJustificativa">
-              <Form.Label>Justificativa</Form.Label>
-              <Form.Control as="textarea" rows={3} name="justificativa" value={novaEmissao.justificativa} onChange={handleChange} />
+              <Form.Label className='d-flex justify-content-between'>Justificativa {novaEmissao.justificativa && <small>Caractéres: {novaEmissao.justificativa?.length} | 150</small>}</Form.Label>
+              <Form.Control as="textarea" rows={3} name="justificativa" value={novaEmissao.justificativa} onChange={handleChange} required />
             </Form.Group>
           </Col>
         </Row>
