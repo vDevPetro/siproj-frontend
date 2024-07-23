@@ -1,7 +1,7 @@
 type Emissao = {
   id: string;
   num_as: string;
-  emissao: string;
+  emissao: number;
   motivo?: string;
   desc_motivo?: string;
   emitir_projeto_lb: string;

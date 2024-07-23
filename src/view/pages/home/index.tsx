@@ -7,7 +7,6 @@ import Base from '../../../model/Base';
 import Cartao from '../../components/card';
 import { Card, Placeholder } from 'react-bootstrap';
 import * as C from './styles';
-import { auth } from '../../../controller/ConnectionFactory';
 import { useFilters } from '../../../context/HomeFilter';
 import { Chip } from '@mui/material';
 

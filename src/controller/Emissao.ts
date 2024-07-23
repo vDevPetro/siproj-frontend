@@ -9,15 +9,14 @@ export const getEmissao = async (num_as:string | undefined): Promise<Emissao[]> 
       return response.data.map(item => ({
         id: item.id,
         num_as: item.num_as,
-        emissao: item.emissao,
+        emissao: Number(item.emissao),
         motivo: item.motivo,
         emitir_projeto_lb: item.emitir_projeto_lb,
         comentar_projeto_lb: item.comentar_projeto_lb,
       }));
   } catch (error) {
       if (axios.isAxiosError(error) && error.response?.status === 404) {
-          console.error('Endpoint não encontrado (404):', error);
-          throw new Error('Endpoint não encontrado (404)');
+          return [];
       } else {
           console.error('Falha em obter os dados:', error);
           throw error;

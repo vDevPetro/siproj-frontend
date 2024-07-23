@@ -14,8 +14,11 @@ export const getByAs = async(num_as: String | undefined): Promise<Comentario[]> 
             num_as: item.num_as,
             user: item.user,
             perfil: item.perfil
-        }))
-    } catch(error) {
+        }));
+    } catch(error: any) {
+        if (axios.isAxiosError(error) && error.response?.status === 404) {
+            return [];
+        }
         console.error('Falha ao obter dados:', error);
         throw error;
     }
