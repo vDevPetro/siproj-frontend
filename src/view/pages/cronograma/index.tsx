@@ -1,15 +1,34 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useState, useEffect } from 'react';
 import { Table, Row, Col, ProgressBar, Form, Alert } from 'react-bootstrap';
 import { Container } from './styles';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { storage } from '../../../controller/ConnectionFactory';
 import { useParams } from 'react-router-dom';
+import { updateUrl } from '../../../controller/Cronograma';
+import CronogramaModel from '../../../model/Cronograma';
+import { getCronogramaByAs } from '../../../controller/Cronograma';
+import { Spinner } from "react-bootstrap";
 
 const Cronograma = () => {
-  const [file, setFile] = useState<File | null>(null);
+  const [file, setFile] = useState<File | undefined>(undefined);
   const [uploadProgress, setUploadProgress] = useState(0);
-  const [url, SetUrl] = useState<String | null>(null);
+  const [url, setUrl] = useState<string | null>(null);
+  const [status, setStatus] = useState<Number | null>(null);
+  const [response, setResponse] = useState<any | null>(null);
+  const [cronograma, setCronograma] = useState<CronogramaModel[] | null>(null);
   const { id } = useParams();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await getCronogramaByAs(id || '');
+      setCronograma(res);
+      if (res) {
+        setUrl(res[0].url);
+      }
+    }
+
+    fetchData();
+  }, [cronograma])
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -17,11 +36,24 @@ const Cronograma = () => {
     }
   }
 
+  const sendUpdate = async (url: string) => {
+    try {
+      if (id && url) {
+        
+        const res = await updateUrl(id, url);
+        setStatus(res.status);
+        setResponse(res.data);
+      }      
+    } catch (error) {
+      console.error('Erro no componente ao enviar url:', error);
+    }
+  }
+
   const handleUpload = () => {
     if (!file || !id) return;
 
     setUploadProgress(1);
-    const storageRef = ref(storage, 'cronogramas/'+id);
+    const storageRef = ref(storage, 'cronogramas/'+id+'.mpp');
     const uploadTask = uploadBytesResumable(storageRef, file) ;
 
     uploadTask.on(
@@ -35,13 +67,25 @@ const Cronograma = () => {
         console.error('Upload failed', error);
       },
       () => {
-        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          SetUrl(downloadURL);
+        getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+          setUrl(downloadURL);
+          setFile(undefined);
+          sendUpdate(downloadURL);
         });
+        
       }
     );
   }
 
+  if(!cronograma) {
+    return (
+      <Container className="d-flex justify-content-center mt-4">
+        <Spinner animation="border" role="status" variant="success">
+          <span className="visually-hidden">Loading...</span>
+        </Spinner>
+      </Container>
+    )
+  }
   return (
     <>
       <div className="pagetitle mt-5 mb-3">
@@ -59,15 +103,21 @@ const Cronograma = () => {
           <Col md={7}>
             <Form.Group>
                 <Form.Label>Arquivo do MS Project .mpp</Form.Label>
-                <Form.Control type="file" accept='.mpp' onChange={handleFileChange}/>
+                <Form.Control type="file" accept='.mpp' onChange={handleFileChange} />
             </Form.Group>
             <div className="d-flex">
-              <button className="btn btn-success me-md-4" type='button' onClick={handleUpload}>
+              <button className="btn btn-success me-2 me-md-4" type='button' onClick={handleUpload}>
                 <i className="bi bi-cloud-upload me-2"/> Enviar
               </button>
-              <button className="btn btn-outline-success me-md-4">
-                <i className="bi bi-cloud-download me-2"/> Baixar
-              </button>
+              { url ? 
+                <a href={url || undefined} className="btn btn-outline-success me-2 me-md-4" download >
+                  <i className="bi bi-cloud-download me-2" /> Baixar
+                </a> 
+                : 
+                <button className="btn btn-outline-success me-2 me-md-4" disabled>
+                  <i className="bi bi-cloud-download me-2"/> Baixar
+                </button>
+              }              
               <button className='btn btn-warning' type='button'>
                 <i className='bi bi-arrow-repeat'/>
               </button>
@@ -75,9 +125,9 @@ const Cronograma = () => {
             { uploadProgress > 0 && uploadProgress < 100 &&
               <ProgressBar animated now={uploadProgress} variant='success' striped className='mt-3'/>
             }
-            { url &&
-              <Alert variant='success' dismissible onClose={() => SetUrl(null)} className='mt-3'>
-                Cronograma enviado! Url: {url}
+            { status === 200  &&
+              <Alert variant='success' dismissible onClose={() => setUrl(null)} className='mt-3'>
+                Cronograma enviado!
               </Alert>
             }
           </Col>
@@ -88,7 +138,6 @@ const Cronograma = () => {
               <tr>
                 <th className="table-title"></th>
                 <th className="table-title">Linha de Base</th>
-                <th className="table-title">Planejamento LB</th>
                 <th className="table-title">Replanejamento</th>
                 <th className="table-title">Realizado</th>
               </tr>
@@ -99,123 +148,105 @@ const Cronograma = () => {
                 <td></td>
                 <td></td>
                 <td></td>
-                <td></td>
               </tr>
               <tr>
                 <th scope="row" className="table-title">Petrobras emitir ET</th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>{cronograma[0].emissao_et_petro_lb}</td>
+                <td>{cronograma[0]?.emissao_et_petro_rp}</td>
+                <td>{cronograma[0]?.emissao_et_petro_real}</td>
               </tr>
               <tr>
                 <th scope="row" className="table-title">Concluir análise ET</th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>{cronograma[0]?.analise_et_lb}</td>
+                <td>{cronograma[0]?.analise_et_rp}</td>
+                <td>{cronograma[0]?.analise_et_real}</td>
               </tr>
               <tr>
                 <th scope="row" className="table-title">Reunião pré visita</th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>{cronograma[0]?.reuniao_pre_lb}</td>
+                <td>{cronograma[0]?.reuniao_pre_rp}</td>
+                <td>{cronograma[0]?.reuniao_pre_real}</td>
               </tr>
               <tr>
                 <th scope="row" className="table-title">Visita Técnica (IDA)</th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>{cronograma[0].visita_ida_lb}</td>
+                <td>{cronograma[0]?.visita_ida_rp}</td>
+                <td>{cronograma[0]?.visita_ida_real}</td>
               </tr>
               <tr>
                 <th scope="row" className="table-title">Visita Técnica (VOLTA)</th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>{cronograma[0].visita_volta_lb}</td>
+                <td>{cronograma[0]?.visita_volta_rp}</td>
+                <td>{cronograma[0]?.visita_volta_real}</td>
               </tr>
               <tr>
                 <th scope="row" className="table-title">Emitir RL visita técnica</th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>{cronograma[0].emitir_rl_visita_lb}</td>
+                <td>{cronograma[0]?.emitir_rl_visita_rp}</td>
+                <td>{cronograma[0]?.emitir_rl_visita_real}</td>
               </tr>
               <tr>
                 <th scope="row" className="table-title">Petrobras aprovar RL</th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>{cronograma[0].aprovar_rl_visita_lb}</td>
+                <td>{cronograma[0]?.aprovar_rl_visita_rp}</td>
+                <td>{cronograma[0]?.aprovar_rl_visita_real}</td>
               </tr>
               <tr>
                 <th scope="row" className="table-title">Emitir orçamento</th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>{cronograma[0].emitir_orc_lb}</td>
+                <td>{cronograma[0].emitir_orc_rp}</td>
+                <td>{cronograma[0]?.emitir_orc_real}</td>
               </tr>
               <tr>
                 <th scope="row" className="table-title">PB aprovar orçamento</th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>{cronograma[0].aprovar_orc_lb}</td>
+                <td>{cronograma[0].aprovar_orc_rp}</td>
+                <td>{cronograma[0]?.aprovar_orc_real}</td>
               </tr>
               <tr>
                 <th scope="row" className="table-title">Emitir PEP</th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>{cronograma[0].emitir_pep_lb}</td>
+                <td>{cronograma[0].emitir_pep_rp}</td>
+                <td>{cronograma[0]?.emitir_pep_real}</td>
               </tr>
               <tr>
                 <th scope="row" className="table-title">PB aprov./ coment. PEP</th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>{cronograma[0].aprovar_pep_lb}</td>
+                <td>{cronograma[0].aprovar_pep_rp}</td>
+                <td>{cronograma[0]?.aprovar_pep_real}</td>
               </tr>
               <tr>
                 <th scope="row" className="table-title">Emitir projeto Comentário</th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>{cronograma[0].emitir_projeto_lb}</td>
+                <td>{cronograma[0]?.emitir_projeto_rp}</td>
+                <td>{cronograma[0]?.emitir_projeto_real}</td>
               </tr>
               <tr>
                 <th scope="row" className="table-title">PB comentar projeto</th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>{cronograma[0].comentar_projeto_lb}</td>
+                <td>{cronograma[0]?.comentar_projeto_rp}</td>
+                <td>{cronograma[0]?.comentar_projeto_real}</td>
               </tr>
               <tr>
                 <th scope="row" className="table-title">Atender comentários</th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>{cronograma[0].atender_coment_projeto_lb}</td>
+                <td>{cronograma[0]?.atender_coment_projeto_rp}</td>
+                <td>{cronograma[0]?.atender_coment_projeto_real}</td>
               </tr>
               <tr>
                 <th scope="row" className="table-title">PB aprova Data Book</th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>{cronograma[0].data_book_lb}</td>
+                <td>{cronograma[0]?.data_book_rp}</td>
+                <td>{cronograma[0]?.data_book_real}</td>
               </tr>
               <tr>
                 <th scope="row" className="table-title">Prazo desde aprov. PEP</th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>{cronograma[0].prazo_lb}</td>
+                <td>{cronograma[0].prazo_rp}</td>
+                <td>{cronograma[0].prazo_real}</td>
               </tr>
               <tr>
                 <th scope="row" className="table-title">Prazo desde emissão ET</th>
-                <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
