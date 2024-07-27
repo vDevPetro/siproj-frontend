@@ -32,6 +32,10 @@ th {
   font-weight: 600;
 }
 
+tr {
+  cursor: pointer;
+}
+
 label {
   color: #043a00;
   margin-bottom: 0;

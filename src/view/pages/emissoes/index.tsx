@@ -32,6 +32,7 @@ const Emissoes = () => {
     desc_motivo: '',
     emitir_projeto_lb: '',
     comentar_projeto_lb: '',
+    justificativa: ''
   });
 
   useEffect(() => {
@@ -56,6 +57,9 @@ const Emissoes = () => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    if (novaEmissao.justificativa && novaEmissao.justificativa?.length < 150){
+      return alert('A justificativa deve conter no minimo 150 caracteres.');
+    }
     try {
       const res = await postEmissao(novaEmissao);
       setEmissoes(prev => [...prev, novaEmissao]);
@@ -182,12 +186,12 @@ const Emissoes = () => {
             </thead>
             <tbody>
               {emissoes.map((item, index) => (
-                <tr key={index} id={item.id} onClick={() => {}}>
+                <tr key={index} id={item.id} onClick={() => setNovaEmissao(item)}>
                   <td>{item.emissao}</td>
                   <td>{item.motivo}</td>
                   <td>{item.flag_aprov}</td>
-                  <td>{convertDate(item.emitir_projeto_lb)}</td>
-                  <td>{convertDate(item.comentar_projeto_lb)}</td>
+                  <td>{item.emitir_projeto_lb}</td>
+                  <td>{item.comentar_projeto_lb}</td>
                 </tr>
               ))}
             </tbody>

@@ -2,6 +2,10 @@ import styled from "styled-components";
  
 export const Container = styled.div`
 
+span {
+  font-family: Open Sans !important;
+}
+
 body {
   background-color: #f2f2f2;
 }

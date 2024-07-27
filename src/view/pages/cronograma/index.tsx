@@ -79,7 +79,7 @@ const Cronograma = () => {
 
   if(!cronograma) {
     return (
-      <Container className="d-flex justify-content-center mt-4">
+      <Container className="d-flex justify-content-center mt-5 pt-3">
         <Spinner animation="border" role="status" variant="success">
           <span className="visually-hidden">Loading...</span>
         </Spinner>

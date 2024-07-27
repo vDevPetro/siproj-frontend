@@ -9,7 +9,3 @@ export const Container = styled.div`
         margin-right: 0.75rem;
     }
 `; 
-
-export const CardContainer = styled.div`
-    width: 30%;
-`;

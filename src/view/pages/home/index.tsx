@@ -50,34 +50,32 @@ const Home: React.FC = () => {
         }
     }, [filters, originalBase]);
 
-    if (loading) {
+    if (loading ) {
         return (
             <C.Container className='container-lg pt-5'>
-                <div className='col-12 mt-2'>
-                    <div className='d-flex flex-wrap justify-content-evenly'>
-                        {[...Array(9)].map((_, index) => (
-                            <C.CardContainer className='d-flex  row' key={index}>
-                                <Card>
-                                    <Placeholder as={Card.Header} animation="glow">
-                                        <Placeholder xs={1} /> <Placeholder xs={2} />
+                <div className='mt-2 row row-cols-3 justify-content-evenly'>
+                    {[...Array(9)].map((_, index) => (
+                        <div className='col-12 col-sm-10 col-md-6 col-lg-4' key={index}>
+                            <Card style={{minHeight: '20rem'}} >
+                                <Placeholder as={Card.Header} animation="glow">
+                                    <Placeholder xs={1} /> <Placeholder xs={2} />
+                                </Placeholder>
+                                <Card.Body>
+                                    <Placeholder as={Card.Title} animation="glow">
+                                        <Placeholder xs={6} />
                                     </Placeholder>
-                                    <Card.Body>
-                                        <Placeholder as={Card.Title} animation="glow">
-                                            <Placeholder xs={6} />
-                                        </Placeholder>
-                                        <Placeholder as={Card.Text} animation="glow">
-                                            <Placeholder xs={7} /> <Placeholder xs={4} /> <Placeholder xs={4} />{' '}
-                                            <Placeholder xs={7} /> <Placeholder xs={8} /> <Placeholder xs={3} />
-                                        </Placeholder>
-                                        <Placeholder as={Card.Footer} animation="glow">
-                                            <Placeholder xs={4} /> <Placeholder xs={6} />
-                                        </Placeholder>
-                                        <Placeholder.Button variant="success" xs={3} />
-                                    </Card.Body>
-                                </Card>
-                            </C.CardContainer>
-                        ))}
-                    </div>
+                                    <Placeholder as={Card.Text} animation="glow">
+                                        <Placeholder xs={7} /> <Placeholder xs={4} /> <Placeholder xs={4} />{' '}
+                                        <Placeholder xs={7} /> <Placeholder xs={8} /> <Placeholder xs={3} />
+                                    </Placeholder>
+                                    <Placeholder as={Card.Footer} animation="glow">
+                                        <Placeholder xs={4} /> <Placeholder xs={6} />
+                                    </Placeholder>
+                                    <Placeholder.Button variant="success" xs={3} />
+                                </Card.Body>
+                            </Card>
+                        </div>
+                    ))}
                 </div>
             </C.Container>
         );
