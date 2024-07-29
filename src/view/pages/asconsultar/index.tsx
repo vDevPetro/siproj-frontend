@@ -140,8 +140,11 @@ const ConsultarAs = () => {
     }
 
     const [autorizacoes, setAutorizacoes] = useState([{}]);
+    const hasFetchedData = useRef(false);
 
     useEffect(() => {
+        if (hasFetchedData.current) return; 
+        hasFetchedData.current = true;
         const CarregarBase = async() => {
             const data = await getBase();
             const sortedData = data.sort((a, b) => a.id - b.id);

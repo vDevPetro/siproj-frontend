@@ -1,4 +1,4 @@
-import { useState, FormEvent, ChangeEvent, useEffect } from "react";
+import { useState, FormEvent, ChangeEvent, useEffect, useRef } from "react";
 import styled from "styled-components";
 import InputMask from 'react-input-mask';
 import {Container} from './styles';
@@ -22,6 +22,8 @@ const InserirAs = () => {
   const [porte, setPorte] = useState('');
   const [prioridade, setPrioridade] = useState('');
   const navigate = useNavigate();
+  const hasFetchedData = useRef(false);
+
 
   const cadastrar = async (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
@@ -48,6 +50,9 @@ const InserirAs = () => {
   }
 
   useEffect(() => {
+    if (hasFetchedData.current) return; 
+    hasFetchedData.current = true;
+    
     const fetchNextId = async () => {
       try {
         const id = await getNextAvailableId();

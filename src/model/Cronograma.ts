@@ -1,6 +1,7 @@
 type Cronograma = {
     id: string;
     num_as: string;
+    situacao?: string;
     emissao_et_petro_lb: string;
     emissao_et_petro_rp?: string;
     emissao_et_petro_real?: string;

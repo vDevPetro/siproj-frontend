@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState, useEffect } from 'react';
+import React, { ChangeEvent, useState, useEffect, useRef } from 'react';
 import { Table, Row, Col, ProgressBar, Form, Alert } from 'react-bootstrap';
 import { Container } from './styles';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
@@ -17,8 +17,12 @@ const Cronograma = () => {
   const [response, setResponse] = useState<any | null>(null);
   const [cronograma, setCronograma] = useState<CronogramaModel[] | null>(null);
   const { id } = useParams();
+  const hasFetchedData = useRef(false);
 
   useEffect(() => {
+    if (hasFetchedData.current) return; 
+    hasFetchedData.current = true;
+
     const fetchData = async () => {
       console.log('foi executada');
       const res = await getCronogramaByAs(id || '');
@@ -29,7 +33,7 @@ const Cronograma = () => {
     }
 
     fetchData();
-  }, [cronograma])
+  }, [])
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -98,7 +102,7 @@ const Cronograma = () => {
           <Col md={4}>
             <Form.Group>
                 <Form.Label>Situação da AS</Form.Label>
-                <Form.Control type='text' readOnly/>
+                <Form.Control type='text' value={cronograma[0].situacao} readOnly/>
             </Form.Group>
           </Col>
           <Col md={7}>

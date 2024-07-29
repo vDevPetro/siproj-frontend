@@ -1,5 +1,5 @@
 import { Container } from './styles';
-import React, { useState, ChangeEvent, FormEvent, useEffect } from 'react';
+import React, { useState, ChangeEvent, FormEvent, useEffect, useRef } from 'react';
 import { Form, Row, Col, Button, Breadcrumb } from 'react-bootstrap';
 import InputMask from 'react-input-mask';
 import { useParams } from 'react-router-dom';
@@ -20,6 +20,7 @@ const AtualizarAS = () => {
   const [res, setRes] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const { user } = useUserContext();
+  const hasFetchedData = useRef(false);
 
   const { id } = useParams();
   const [as, setAs] = useState<Base>({
@@ -93,6 +94,8 @@ const AtualizarAS = () => {
   ];
 
   useEffect(() => {
+    if (hasFetchedData.current) return; 
+    hasFetchedData.current = true;
     const fetchData = async () => {
       const res = await getBaseById(id || '');
       setAs(res);

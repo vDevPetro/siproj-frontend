@@ -6,6 +6,7 @@ import Timeline from "../../components/timeline";
 import styled from "styled-components";
 import { useUserContext } from "../../../context/UserContext";
 import { parse } from 'date-fns';
+import { useRef } from "react";
 
 interface ContainerProps {
     animationTime: string;
@@ -89,8 +90,12 @@ const Historico = () => {
     const { user } = useUserContext();
     const [res, setRes] = useState<any>(null);
     const [comentUpdate, setComentUpdate] = useState('');
+    const hasFetchedData = useRef(false);
 
     useEffect(() => {
+        if (hasFetchedData.current) return; 
+        hasFetchedData.current = true;
+
         const fetchData = async () => {
             const res = await getByAs(id);
             const sortedRes = res.sort((a, b) => {

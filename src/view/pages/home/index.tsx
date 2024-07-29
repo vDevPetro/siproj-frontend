@@ -1,5 +1,5 @@
 // src/components/Home.tsx
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { User, onAuthStateChanged } from 'firebase/auth';
 import { getBase } from '../../../controller/Base';
@@ -17,8 +17,11 @@ const Home: React.FC = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const { filters, removeFilter } = useFilters();
+    const hasFetchedData = useRef(false);
 
     useEffect(() => {
+        if (hasFetchedData.current) return; 
+        hasFetchedData.current = true;
         const fetchData = async () => {
             try {
                 const data = await getBase();
