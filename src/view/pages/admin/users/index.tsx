@@ -111,8 +111,8 @@ const Users = () => {
                         }}>
                           <MenuItem value="" ><em>Nível</em></MenuItem>
                           <MenuItem value="ADMINISTRADOR">1 - Administrador</MenuItem>
-                          <MenuItem value="OPERACIONAL">2 - Usuário Operacional</MenuItem>
-                          <MenuItem value="CLIENTE">3 - Usuário Cliente</MenuItem>
+                          <MenuItem value="CONTRATADA">2 - Usuário Contratada</MenuItem>
+                          <MenuItem value="PETRO">3 - Usuário Petrobras</MenuItem>
                         </Select>
                       </FormControl>
                     </div>

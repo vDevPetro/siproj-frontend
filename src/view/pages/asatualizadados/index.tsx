@@ -223,19 +223,19 @@ const AtualizarAS = () => {
         <Row>
           <Col xs="4" sm="2" xl="1">
             <Form.Group controlId="formAs">
-              <Form.Label>AS</Form.Label>
+              <Form.Label htmlFor='id'>AS</Form.Label>
               <Form.Control readOnly type="text" name="id" id="id" value={id} onChange={handleChange} />
             </Form.Group>
           </Col>
           <Col xs="4" sm="2" xl="1">
             <Form.Group controlId="formTipo">
-              <Form.Label className="text-nowrap">Tipo</Form.Label>
-              <Form.Control type="text" name="tipo" id="tipo" value={as.tipo} onChange={handleChange} />
+              <Form.Label className="text-nowrap" htmlFor='tipo'>Tipo</Form.Label>
+              <Form.Control type="text" name="tipo" id="tipo" value={as.tipo} onChange={handleChange} readOnly/>
             </Form.Group>
           </Col>
           <Col className='mt-2 mt-sm-0'>
             <Form.Group controlId="formDescProjeto">
-              <Form.Label className="text-nowrap">Descrição do Projeto</Form.Label>
+              <Form.Label className="text-nowrap" htmlFor='desc_projeto'>Descrição do Projeto</Form.Label>
               <Form.Control as="textarea" rows={1} id="desc_projeto" name="desc_projeto" value={as?.desc_projeto} onChange={handleChange} />
             </Form.Group>
           </Col>
@@ -244,7 +244,7 @@ const AtualizarAS = () => {
         <Row className="mt-2 mt-sm-0 mb-3">
           <Col xs="6" md="4">
             <Form.Group controlId="formFiscais">
-              <Form.Label className="text-nowrap">Fiscal</Form.Label>
+              <Form.Label className="text-nowrap" htmlFor='fiscais'>Fiscal</Form.Label>
               <Form.Select name="fiscais" id="fiscais" value={as.fiscais} onChange={handleChange}>
                 <option>Selecione...</option>
                 {fiscais
@@ -257,7 +257,7 @@ const AtualizarAS = () => {
           </Col>
           <Col xs="6" md="4">
             <Form.Group controlId="formRespPetro">
-              <Form.Label className="text-nowrap">Responsável Petrobras</Form.Label>
+              <Form.Label className="text-nowrap" htmlFor='resp_petro'>Responsável Petrobras</Form.Label>
               <Form.Select name="resp_petro" id="resp_petro" value={as.resp_petro} onChange={handleChange}>
                 <option>Selecione...</option>
                 {/* {resp_petro
@@ -270,7 +270,7 @@ const AtualizarAS = () => {
           </Col>
           <Col className='mt-2 mt-md-0' md="4">
             <Form.Group controlId="resp_contr">
-              <Form.Label className="text-nowrap">Responsável Rina</Form.Label>
+              <Form.Label className="text-nowrap" htmlFor='resp_contr'>Responsável Rina</Form.Label>
               <Form.Select name="resp_contr" id="resp_contr" value={as.resp_contr} onChange={handleChange}>
                 <option>Selecione...</option>
                 {resp_contr
@@ -286,7 +286,7 @@ const AtualizarAS = () => {
         <Row>
           <Col xs="6" md="5" lg="3" >
             <Form.Group controlId="formContratoIcj">
-              <Form.Label className="text-nowrap">Contrato ICJ</Form.Label>
+              <Form.Label className="text-nowrap" htmlFor='contrato_icj'>Contrato ICJ</Form.Label>
               <InputMask
                 mask="9999.9999999.99.9"
                 type="text"
@@ -302,7 +302,7 @@ const AtualizarAS = () => {
           </Col>
           <Col xs="6" md="5" lg="3">
             <Form.Group controlId="formContrato">
-              <Form.Label className="text-nowrap">Contrato SAP</Form.Label>
+              <Form.Label className="text-nowrap" htmlFor='contrato_sap'>Contrato SAP</Form.Label>
               <InputMask
                 mask="9999999999"
                 type="text"
@@ -318,30 +318,30 @@ const AtualizarAS = () => {
           </Col>
           <Col xs="4" sm="2" xxl="1">
             <Form.Group controlId="formIdGep">
-              <Form.Label>ID GEP</Form.Label>
+              <Form.Label htmlFor='id_gep'>ID GEP</Form.Label>
               <Form.Control type="text" name="id_gep" id="id_gep" value='' onChange={handleChange} />
             </Form.Group>
           </Col>
           <Col xs="8" sm="10" md="4" xxl="2">
             <Form.Group controlId="formPorte">
-              <Form.Label>Tipo GEP</Form.Label>
+              <Form.Label htmlFor='tipo_gep'>Tipo GEP</Form.Label>
               <Form.Select id="tipo_gep">
                 <option>Selecione...</option>
-                <option>Paradas</option>
-                <option>Adequações</option>
-                <option>Corretivas de Grande Porte</option>
+                <option value="Paradas">Paradas</option>
+                <option value="Adequações">Adequações</option>
+                <option value="Corretivas de Grande Porte">Corretivas de Grande Porte</option>
               </Form.Select>
             </Form.Group>
           </Col>
           <Col xs="8" sm="7" md="5" lg="4" xxl="3">
             <Form.Group controlId="formPep">
-              <Form.Label>PEP</Form.Label>
+              <Form.Label htmlFor='pep'>PEP</Form.Label>
               <Form.Control type="text" id="pep" name="pep" value={as.pep} onChange={handleChange} />
             </Form.Group>
           </Col>
           <Col xs="4" sm="5" md="3" xxl="2">
             <Form.Group controlId="formUnidade">
-              <Form.Label>Unidade</Form.Label>
+              <Form.Label htmlFor='unidade'>Unidade</Form.Label>
               <Form.Select name="unidade" id="unidade" value={as.unidade} onChange={handleChange}>
                 <option>Selecione...</option>
                 {unidades
@@ -359,20 +359,20 @@ const AtualizarAS = () => {
         <Row className="mb-3 px-5 justify-content-between">
           <Col md="3">
             <Form.Group controlId="formPorte">
-              <Form.Label>Porte</Form.Label>
-              <Slider marks={porteMarks} step={1} min={1} max={3} color='success' onChange={handlePorteChange} name="porte" value={getRangeValue("porte")}/>
+              <Form.Label htmlFor='porte'>Porte</Form.Label>
+              <Slider marks={porteMarks} step={1} min={1} max={3} color='success' id="porte" onChange={handlePorteChange} name="porte" value={getRangeValue("porte")}/>
             </Form.Group>
           </Col>
           <Col md="3">
             <Form.Group controlId="formCriticidade">
-              <Form.Label>Criticidade</Form.Label>
-              <Slider marks={criticidadeMarks} step={1} min={1} max={3} color='success' onChange={handleCriticidadeChange} name="criticade" value={getRangeValue("criticidade")}/>
+              <Form.Label htmlFor='criticidade'>Criticidade</Form.Label>
+              <Slider marks={criticidadeMarks} step={1} min={1} max={3} color='success' id="criticidade" onChange={handleCriticidadeChange} name="criticade" value={getRangeValue("criticidade")}/>
             </Form.Group>
           </Col>
           <Col md="3">
             <Form.Group controlId="formPrioridade">
-              <Form.Label>Prioridade</Form.Label>
-              <Slider marks={prioridadeMarks} step={1} min={1} max={3} color='success' onChange={handlePrioridadeChange} name="prioridade" value={getRangeValue("prioridade")}/>
+              <Form.Label htmlFor='prioridade'>Prioridade</Form.Label>
+              <Slider marks={prioridadeMarks} step={1} min={1} max={3} color='success' id="prioridade" onChange={handlePrioridadeChange} name="prioridade" value={getRangeValue("prioridade")}/>
             </Form.Group>
           </Col>
         </Row>
@@ -388,54 +388,18 @@ const AtualizarAS = () => {
           <Col md="4">
               <IefChart />
           </Col>
-          {/* <Col>
-            <Form.Group controlId="formPrevMes">
-              <Form.Label className="text-nowrap">Previsão Mês %</Form.Label>
-              <Form.Control type="text" name="prev_mes" id="prev_mes" readOnly />
-            </Form.Group>
-          </Col>
-          <Col>
-            <Form.Group controlId="formRealMes">
-              <Form.Label className="text-nowrap">Real Mês %</Form.Label>
-              <Form.Control type="text" name="real_mes" id="real_mes" readOnly />
-            </Form.Group>
-          </Col>
-          <Col>
-            <Form.Group controlId="formIefMes">
-              <Form.Label className="text-nowrap">IEF Mês %</Form.Label>
-              <Form.Control type="text" name="ief_mes" id="ief_mes" readOnly />
-            </Form.Group>
-          </Col>
-          <Col>
-            <Form.Group controlId="formPrevAno">
-              <Form.Label className="text-nowrap">Previsão Ano %</Form.Label>
-              <Form.Control type="text" name="prev_ano" id="prev_ano" readOnly />
-            </Form.Group>
-          </Col>
-          <Col>
-            <Form.Group controlId="formRealAno">
-              <Form.Label className="text-nowrap">Real Ano %</Form.Label>
-              <Form.Control type="text" name="real_ano" id="real_ano" readOnly />
-            </Form.Group>
-          </Col>
-          <Col>
-            <Form.Group controlId="formIefAno">
-              <Form.Label className="text-nowrap">IEF Ano %</Form.Label>
-              <Form.Control type="text" name="ief_ano" id="ief_ano" readOnly />
-            </Form.Group>
-          </Col> */}
         </Row>
 
         <Row className='mt-4'>
           <Col xs="12" lg="6">
             <Form.Group controlId="formObjetivo">
-              <Form.Label className="text-nowrap">Objetivo do Projeto</Form.Label>
+              <Form.Label className="text-nowrap" htmlFor='objetivo'>Objetivo do Projeto</Form.Label>
               <Form.Control as="textarea" rows={3} name="objetivo" id="objetivo" value={as?.objetivo} onChange={handleChange} />
             </Form.Group>
           </Col>
           <Col xs="12" lg="6">
             <Form.Group controlId="formEscopoProjeto">
-              <Form.Label>Escopo do Projeto</Form.Label>
+              <Form.Label htmlFor='escopo'>Escopo do Projeto</Form.Label>
               <Form.Control as="textarea" rows={3} name="escopo" id="escopo" value={as?.escopo} onChange={handleChange} />
             </Form.Group>
           </Col>

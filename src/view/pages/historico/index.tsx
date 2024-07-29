@@ -175,7 +175,7 @@ const Historico = () => {
                     <div className="d-flex col-10">
                         <textarea rows={2} className="form-control" id="novocoment" placeholder="Insira o comentário aqui..." value={comentario} onChange={(e) => setComentario(e.target.value)}/>
                     </div>
-                    <button className="btn btn-success col-2" type="submit"><i className="bi bi-chat-dots"/>Enviar</button>
+                    <button className="btn btn-success col-2 d-flex justify-content-center" type="submit"><i className="bi bi-chat-dots my-auto"/><p className="d-none d-md-block ms-2 my-auto">Enviar</p></button>
                 </form>
             }
         </Container>

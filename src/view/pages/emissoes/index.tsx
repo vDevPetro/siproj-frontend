@@ -174,7 +174,8 @@ const Emissoes = () => {
           <div className="pagetitle mt-5 mb-3">
             <h1>Consultar Emissões</h1>
           </div>
-          <Table hover className="table-sm text-nowrap table-striped">
+          <div className='table-responsive'>
+          <Table hover className="table-sm text-nowrap table-striped ">
             <thead>
               <tr>
                 <th scope="col" className="table-title">N° Emissão</th>
@@ -196,6 +197,7 @@ const Emissoes = () => {
               ))}
             </tbody>
           </Table>
+          </div>
         </>
       }
     </Container>

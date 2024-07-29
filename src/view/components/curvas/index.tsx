@@ -51,6 +51,8 @@ const data = [
 
 const CurvaS = () => {
   return (
+    <>
+    <p className='text-center fw-semibold'>Curva S</p>
     <ResponsiveContainer width="100%" height="100%">
         <LineChart
           width={500}
@@ -58,8 +60,7 @@ const CurvaS = () => {
           data={data}
           margin={{
             top: 5,
-            right: 30,
-            left: 20,
+            right: 20,
             bottom: 5,
           }}
         >
@@ -67,10 +68,11 @@ const CurvaS = () => {
           <YAxis tickCount={5} tickSize={0} axisLine={false} tickMargin={10} />
           <Tooltip />
           <Legend />
-          <Line type="monotone" dataKey="real" stroke="#0d6efd" strokeWidth={2}/>
+          <Line type="monotone" dataKey="real" stroke="#a6d482" strokeWidth={2}/>
           <Line type="monotone" dataKey="programado" stroke="#198754" strokeWidth={2} />
         </LineChart>
       </ResponsiveContainer>
+      </>
   );
 };
 
