@@ -20,6 +20,7 @@ const Cronograma = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+      console.log('foi executada');
       const res = await getCronogramaByAs(id || '');
       setCronograma(res);
       if (res) {
@@ -114,8 +115,8 @@ const Cronograma = () => {
                   <i className="bi bi-cloud-download me-2" /> Baixar
                 </a> 
                 : 
-                <button className="btn btn-outline-success me-2 me-md-4" disabled>
-                  <i className="bi bi-cloud-download me-2"/> Baixar
+                <button className="btn btn-outline-success me-2 me-md-4" >
+                  <i className="bi bi-cloud-download me-2"/> Baixar padrão
                 </button>
               }              
               <button className='btn btn-warning' type='button'>
@@ -198,7 +199,7 @@ const Cronograma = () => {
                 <td>{cronograma[0]?.emitir_orc_real}</td>
               </tr>
               <tr>
-                <th scope="row" className="table-title">PB aprovar orçamento</th>
+                <th scope="row" className={`table-title ${cronograma[0].aprovar_orc_na === "1" ? 'text-decoration-line-through' : ''}`}>PB aprovar orçamento {cronograma[0].aprovar_orc_na === "1" ? <i className='bi bi-slash-circle ms-2'/> : <></>}</th>
                 <td>{cronograma[0].aprovar_orc_lb}</td>
                 <td>{cronograma[0].aprovar_orc_rp}</td>
                 <td>{cronograma[0]?.aprovar_orc_real}</td>
