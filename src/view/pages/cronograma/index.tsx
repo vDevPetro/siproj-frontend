@@ -107,7 +107,7 @@ const Cronograma = () => {
           </Col>
           <Col md={7}>
             <Form.Group>
-                <Form.Label>Arquivo do MS Project .mpp</Form.Label>
+                <Form.Label>Arquivo do MS Project .mpp - {url ? 'Cronograma armazenado' : 'Cronograma ausente' }</Form.Label>
                 <Form.Control type="file" accept='.mpp' onChange={handleFileChange} />
             </Form.Group>
             <div className="d-flex">
@@ -122,10 +122,7 @@ const Cronograma = () => {
                 <button className="btn btn-outline-success me-2 me-md-4" >
                   <i className="bi bi-cloud-download me-2"/> Baixar padrão
                 </button>
-              }              
-              <button className='btn btn-warning' type='button'>
-                <i className='bi bi-arrow-repeat'/>
-              </button>
+              }        
             </div>
             { uploadProgress > 0 && uploadProgress < 100 &&
               <ProgressBar animated now={uploadProgress} variant='success' striped className='mt-3'/>
@@ -150,9 +147,7 @@ const Cronograma = () => {
             <tbody>
               <tr>
                 <th className="table-title">Data de criação AS</th>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td colSpan={3}>{cronograma[0]?.criacao}</td>
               </tr>
               <tr>
                 <th scope="row" className="table-title">Petrobras emitir ET</th>
@@ -250,12 +245,12 @@ const Cronograma = () => {
                 <td>{cronograma[0].prazo_rp}</td>
                 <td>{cronograma[0].prazo_real}</td>
               </tr>
-              <tr>
+              {/* <tr>
                 <th scope="row" className="table-title">Prazo desde emissão ET</th>
                 <td></td>
                 <td></td>
                 <td></td>
-              </tr>
+              </tr> */}
             </tbody>
           </Table>
         </Row>
