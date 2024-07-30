@@ -13,6 +13,8 @@ import { useUserContext } from '../../../context/UserContext';
 import { Modal, Spinner } from 'react-bootstrap';
 import { Slider } from '@mui/material';
 import IefChart from '../../components/iefchart';
+import Usuario, { nomeAbreviado } from '../../../model/Usuario';
+import { getUsers } from '../../../controller/Users';
 
 const AtualizarAS = () => {
   const [status, SetStatus] = useState<number | null>(null);
@@ -21,6 +23,7 @@ const AtualizarAS = () => {
   const [loading, setLoading] = useState(true);
   const { user } = useUserContext();
   const hasFetchedData = useRef(false);
+  const [respContr, setRespContr] = useState<Usuario[]>([]);
 
   const { id } = useParams();
   const [as, setAs] = useState<Base>({
@@ -96,12 +99,20 @@ const AtualizarAS = () => {
   useEffect(() => {
     if (hasFetchedData.current) return; 
     hasFetchedData.current = true;
+
     const fetchData = async () => {
       const res = await getBaseById(id || '');
       setAs(res);
     }
 
+    const fetchUsers = async () => {
+      const res = await getUsers();
+      const contr = res.filter(usuario => usuario.nivel === "CONTRATADA");
+      setRespContr(contr);
+    }
+
     fetchData();
+    fetchUsers();
     setLoading(false);
   }, [])
 
@@ -276,11 +287,9 @@ const AtualizarAS = () => {
               <Form.Label className="text-nowrap" htmlFor='resp_contr'>Responsável Rina</Form.Label>
               <Form.Select name="resp_contr" id="resp_contr" value={as.resp_contr} onChange={handleChange}>
                 <option>Selecione...</option>
-                {resp_contr
-                 .sort((a, b) => a.nome.localeCompare(b.nome))
-                .map((resp, index) => (
-                  <option key={index} >{resp.nome}</option>
-                ))} 
+                {respContr.map((item, key) => (
+                  <option key={key} value={item.nome}>{nomeAbreviado(item.email)}</option>
+                ))}
               </Form.Select>
             </Form.Group>
           </Col>

@@ -120,7 +120,7 @@ const Historico = () => {
     }
 
     const excluir = async(comentario: Comentario) => {
-        if (user && user.nome === comentario.user && comentario.id){
+        if (user && user.email === comentario.user && comentario.id){
             await deleteComment(comentario).then(async () => {
                 setHistorico(undefined);
                 await fetch();
@@ -131,7 +131,7 @@ const Historico = () => {
     }
 
     const editar = async(comentario: Comentario, update: string) => {
-        if (user && user.nome === comentario.user && comentario.id){
+        if (user && user.email === comentario.user && comentario.id){
             await updateComment(comentario, update).then(async (res) => {
                 if (res.status === 200) {
                     setHistorico(undefined);
@@ -152,10 +152,11 @@ const Historico = () => {
                 const data = getCurrentDateTime();
                 const novo: Comentario = {
                     comentario: comentario,
-                    user: user.nome,
+                    user: user.email,
                     data_envio: data,
                     num_as: id.toString(),
-                    perfil: user.nivel
+                    perfil: user.nivel,
+                    nome: user.nome
                 }
                 const response = await postComment(novo);
                 setHistorico(undefined)

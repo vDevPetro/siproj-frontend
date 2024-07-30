@@ -1,7 +1,7 @@
 import * as C from './types';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { db, auth } from '../../../../controller/ConnectionFactory';
-import { FormEvent, useEffect, useState } from 'react';
+import { FormEvent, useEffect, useState, useRef } from 'react';
 import { createUserWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
 import Usuario from '../../../../model/Usuario';
 import { getUsers, updateUsers } from '../../../../controller/Users';
@@ -15,8 +15,12 @@ const Users = () => {
   const [showAlert, setShowAlert] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [usuarios, setUsuarios] = useState<Usuario[]>([]);
+  const hasFetchedData = useRef(false);
 
   useEffect(() => {
+    if (hasFetchedData.current) return; 
+    hasFetchedData.current = true;
+    
     const CarregarUsers = async () => {
       setUsuarios(await getUsers());
     }

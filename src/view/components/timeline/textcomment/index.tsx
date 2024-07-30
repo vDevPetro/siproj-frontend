@@ -3,8 +3,8 @@ import styled from "styled-components";
 import { parse, isSameDay } from "date-fns";
 import Comentario, { throwDate } from "../../../../model/Comentario";
 import { getCurrentDateTime } from "../../../pages/historico";
-import { deleteComment } from "../../../../controller/Comentarios";
 import { useUserContext } from "../../../../context/UserContext";
+import { nomeAbreviado } from "../../../../model/Usuario";
 
 const Container = styled.div`
     padding: 1.25rem 2.125rem;
@@ -75,7 +75,7 @@ const TextComment = ({comentario, excluir, editar} : Props) => {
 
     return (
         <Container className="tl-text-box">
-            <h4>{comentario.user}</h4>
+            <h4>{nomeAbreviado(comentario.nome || '')}</h4>
             <div className="d-flex justify-content-between">
                 <Date>{comentario.data_envio}</Date>
                 {ehoje(comentario.data_envio) ? 

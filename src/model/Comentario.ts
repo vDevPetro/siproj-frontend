@@ -5,6 +5,7 @@ type Comentario = {
     num_as: string;
     user?: string;
     perfil: string;
+    nome?: string;
 }
 
 export const throwDate = () => {

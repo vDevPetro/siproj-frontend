@@ -13,7 +13,8 @@ export const getByAs = async(num_as: String | undefined): Promise<Comentario[]> 
             data_envio: item.data_envio,
             num_as: item.num_as,
             user: item.user,
-            perfil: item.perfil
+            perfil: item.perfil,
+            nome: item.nome
         }));
     } catch(error: any) {
         if (axios.isAxiosError(error) && error.response?.status === 404) {
@@ -31,7 +32,8 @@ export const postComment = async(comentario: Comentario): Promise<{ status: numb
             user: comentario.user,
             data_envio: comentario.data_envio,
             num_as: comentario.num_as,
-            perfil: comentario.perfil
+            perfil: comentario.perfil,
+            nome: comentario.nome
         })
         return { status: response.status, data: response.data };
     } catch (error) {

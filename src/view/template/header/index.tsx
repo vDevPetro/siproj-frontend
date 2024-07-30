@@ -184,11 +184,11 @@ const Header = () => {
         </Container>
       </Navbar>
     );
-  } else if (user?.nivel === 'OPERACIONAL') {
+  } else if (user?.nivel === 'CONTRATADA' || user?.nivel === 'PETROBRAS') {
     return (
-      <Navbar expand="lg" className="bg-body-tertiary mb-3" bg="dark" data-bs-theme="dark">
+      <Navbar expand="lg" className="bg-body-tertiary mb-3" bg="dark" data-bs-theme="dark" sticky="top">
         <Container >
-          <Navbar.Brand ><img src="https://firebasestorage.googleapis.com/v0/b/siproj-a2d22.appspot.com/o/assets%2Flogo-removebg-preview.png?alt=media&token=a9e1311c-f182-4c95-92e4-c419c37f4471" height={42} className="" id="logo" /></Navbar.Brand>
+          <Navbar.Brand><img src="https://firebasestorage.googleapis.com/v0/b/siproj-a2d22.appspot.com/o/assets%2Flogo-removebg-preview.png?alt=media&token=a9e1311c-f182-4c95-92e4-c419c37f4471" height={42} className="" id="logo" /></Navbar.Brand>
           <Navbar.Toggle aria-controls="offcanvas" />
           <Navbar.Offcanvas
             id="offcanvas"
@@ -196,17 +196,29 @@ const Header = () => {
             placement="end"
           >
             <Offcanvas.Header closeButton>
+              <Offcanvas.Title id="title">
+                <img src="https://firebasestorage.googleapis.com/v0/b/siproj-a2d22.appspot.com/o/assets%2Flogo-removebg-preview.png?alt=media&token=a9e1311c-f182-4c95-92e4-c419c37f4471" height={42} className="" id="logo" />
+              </Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>
               <Nav className="justify-content-between flex-grow-1 pe-3">
-                <div className="d-flex flex-column flex-md-row ps-md-3">
-                  <Nav.Item>
-                    <NavLink to='/'>Home</NavLink>
+                <div className="d-flex flex-column flex-lg-row ps-md-3">
+                  <Nav.Item className="me-md-3">
+                    <NavLink to='/'><i className="bi bi-house me-2" />Home</NavLink>
                   </Nav.Item>
-                  <NavDropdown title="Autorização" id="dropdownas" >
+                  <NavDropdown
+                    title={
+                      <>
+                        <i className="bi bi-ui-checks me-2" />
+                        Autorização
+                      </>
+                    }
+                    id="dropdownas"
+                    className="me-md-3"
+                  >
                     <NavDropdown.Item>
                       <NavLink to='/inserirautorizacao'>
-                        <i className="bi bi-ui-checks"></i>
+                        <i className="bi bi-folder-plus"></i>
                         Inserir
                       </NavLink>
                     </NavDropdown.Item>
@@ -217,18 +229,10 @@ const Header = () => {
                       </NavLink>
                     </NavDropdown.Item>
                   </NavDropdown>
-                  <Nav.Item>
-                    <NavLink to='/users'>Usuários</NavLink>
-                  </Nav.Item>
                 </div>
-                <div className="d-flex flex-column flex-md-row">
-                  <Form className="d-flex">
-                    <div className="input-group bs-body-bg-dark">
-                      <input type="text" className="form-control" placeholder="Pesquisar..." id="pesquisar" />
-                      <Button variant="outline-success" id="btnPesquisar"><i className="bi bi-search" /></Button>
-                    </div>
-                  </Form>
-                  <NavDropdown title={user?.email} id="dropdown" className="ms-md-3">
+                <div className="d-flex flex-column flex-lg-row">
+                  <FilterSelect/>
+                  <NavDropdown title={<><i className="bi bi-person-badge me-2" />{nomeAbreviado(user.nome)}</>} id="dropdown" className="ms-md-3">
                     <NavDropdown.Item>
                       <NavLink to='/perfil'>
                         <i className="bi bi-person"></i>
@@ -243,8 +247,10 @@ const Header = () => {
                     </NavDropdown.Item>
                     <NavDropdown.Divider />
                     <NavDropdown.Item onClick={logout} >
-                      <i className="bi bi-door-open" />
-                      Sair
+                      <div className="d-flex ms-md-2">
+                        <i className="bi bi-door-open" />
+                        Sair
+                      </div>
                     </NavDropdown.Item>
                   </NavDropdown>
                 </div>
@@ -256,9 +262,9 @@ const Header = () => {
     );
   } else {
     return (
-      <Navbar expand="lg" className="bg-body-tertiary mb-3" bg="dark" data-bs-theme="dark">
+      <Navbar expand="lg" className="bg-body-tertiary mb-3" bg="dark" data-bs-theme="dark" sticky="top">
         <Container >
-          <Navbar.Brand ><img src="https://firebasestorage.googleapis.com/v0/b/siproj-a2d22.appspot.com/o/assets%2Flogo-removebg-preview.png?alt=media&token=a9e1311c-f182-4c95-92e4-c419c37f4471" height={42} className="" id="logo" /></Navbar.Brand>
+          <Navbar.Brand><img src="https://firebasestorage.googleapis.com/v0/b/siproj-a2d22.appspot.com/o/assets%2Flogo-removebg-preview.png?alt=media&token=a9e1311c-f182-4c95-92e4-c419c37f4471" height={42} className="" id="logo" /></Navbar.Brand>
           <Navbar.Toggle aria-controls="offcanvas" />
           <Navbar.Offcanvas
             id="offcanvas"
@@ -266,18 +272,29 @@ const Header = () => {
             placement="end"
           >
             <Offcanvas.Header closeButton>
-              <img src="https://firebasestorage.googleapis.com/v0/b/siproj-a2d22.appspot.com/o/assets%2Flogo-removebg-preview.png?alt=media&amp;token=a9e1311c-f182-4c95-92e4-c419c37f4471" height={42} className="" id="logo"/>
+              <Offcanvas.Title id="title">
+                <img src="https://firebasestorage.googleapis.com/v0/b/siproj-a2d22.appspot.com/o/assets%2Flogo-removebg-preview.png?alt=media&token=a9e1311c-f182-4c95-92e4-c419c37f4471" height={42} className="" id="logo" />
+              </Offcanvas.Title>
             </Offcanvas.Header>
-            <Offcanvas.Body data-bs-theme="dark">
+            <Offcanvas.Body>
               <Nav className="justify-content-between flex-grow-1 pe-3">
-                <div className="d-flex flex-column flex-md-row ps-md-3">
-                  <Nav.Item>
-                    <NavLink to='/'>Home</NavLink>
+                <div className="d-flex flex-column flex-lg-row ps-md-3">
+                  <Nav.Item className="me-md-3">
+                    <NavLink to='/'><i className="bi bi-house me-2" />Home</NavLink>
                   </Nav.Item>
-                  <NavDropdown title="Autorização" id="dropdownas" >
+                  <NavDropdown
+                    title={
+                      <>
+                        <i className="bi bi-ui-checks me-2" />
+                        Autorização
+                      </>
+                    }
+                    id="dropdownas"
+                    className="me-md-3"
+                  >
                     <NavDropdown.Item>
                       <NavLink to='/inserirautorizacao'>
-                        <i className="bi bi-ui-checks"></i>
+                        <i className="bi bi-folder-plus"></i>
                         Inserir
                       </NavLink>
                     </NavDropdown.Item>
@@ -288,18 +305,10 @@ const Header = () => {
                       </NavLink>
                     </NavDropdown.Item>
                   </NavDropdown>
-                  <Nav.Item>
-                    <NavLink to='/users'>Usuários</NavLink>
-                  </Nav.Item>
                 </div>
-                <div className="d-flex flex-column flex-md-row">
-                  <Form className="d-flex">
-                    <div className="input-group">
-                      <input type="text" className="form-control" placeholder="Pesquisar..." id="pesquisar" />
-                      <Button variant="outline-success" id="btnPesquisar"><i className="bi bi-search" /></Button>
-                    </div>
-                  </Form>
-                  <NavDropdown title={user?.email} id="dropdown" className="ms-md-3">
+                <div className="d-flex flex-column flex-lg-row">
+                  <FilterSelect/>
+                  <NavDropdown title={<><i className="bi bi-person-badge me-2" /></>} id="dropdown" className="ms-md-3">
                     <NavDropdown.Item>
                       <NavLink to='/perfil'>
                         <i className="bi bi-person"></i>
@@ -313,9 +322,11 @@ const Header = () => {
                       </NavLink>
                     </NavDropdown.Item>
                     <NavDropdown.Divider />
-                    <NavDropdown.Item onClick={logout}>
-                      <i className="bi bi-door-open" />
-                      Sair
+                    <NavDropdown.Item onClick={logout} >
+                      <div className="d-flex ms-md-2">
+                        <i className="bi bi-door-open" />
+                        Sair
+                      </div>
                     </NavDropdown.Item>
                   </NavDropdown>
                 </div>
