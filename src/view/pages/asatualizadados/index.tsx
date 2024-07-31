@@ -276,7 +276,7 @@ const AtualizarAS = () => {
           </Col>
           <Col className='mt-2 mt-md-0' md="4">
             <Form.Group controlId="resp_contr">
-              <Form.Label className="text-nowrap" htmlFor='resp_contr'>Responsável Rina</Form.Label>
+              <Form.Label className="text-nowrap" htmlFor='resp_contr'>Responsável Contratada</Form.Label>
               <Form.Select name="resp_contr" id="resp_contr" value={as.resp_contr} onChange={handleChange}>
                 <option>Selecione...</option>
                 {respContr.map((item, key) => (
