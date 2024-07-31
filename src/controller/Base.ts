@@ -20,11 +20,8 @@ export const getBase = async (): Promise<Base[]> => {
             porte: item.porte,
             criticidade: item.criticidade,
             prioridade: item.prioridade,
-            prevMes: item.prevMes,
-            realMes: item.realMes,
-            prevAno: item.prevAno,
-            realAno: item.realAno,
-            iefAno: item.iefAno,
+            id_gep: item.id_gep,
+            tipo_gep: item.tipo_gep,
             objetivo: item.objetivo,
             escopo: item.escopo,
             log: item.log,
@@ -88,13 +85,10 @@ export const getBaseById = async (id: String): Promise<Base> => {
         porte: item.porte,
         criticidade: item.criticidade,
         prioridade: item.prioridade,
-        prevMes: item.prevMes,
-        realMes: item.realMes,
-        prevAno: item.prevAno,
-        realAno: item.realAno,
-        iefAno: item.iefAno,
         objetivo: item.objetivo,
         escopo: item.escopo,
+        id_gep: item.id_gep,
+        tipo_gep: item.tipo_gep,
         log: item.log,
       }
   } catch (error) {
@@ -120,6 +114,8 @@ export const updateBase = async (base: Base, email: string): Promise<{ status: n
             prioridade: base.prioridade,
             objetivo: base.objetivo,
             escopo: base.escopo,
+            id_gep: base.id_gep,
+            tipo_gep: base.tipo_gep,
             log: email + ' - ' + getCurrentDateTime()
         });
         return { status: response.status, data: response.data };

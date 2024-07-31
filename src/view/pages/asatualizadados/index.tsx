@@ -40,12 +40,6 @@ const AtualizarAS = () => {
     porte: '',
     criticidade: '',
     prioridade: '',
-    prevMes: undefined,
-    realMes: undefined,
-    prevAno: undefined,
-    realAno: undefined,
-    iefAno: undefined,
-    iefMes: undefined,
     objetivo: '',
     escopo: '',
     log: ''
@@ -207,7 +201,9 @@ const AtualizarAS = () => {
         criticidade: as.criticidade,
         prioridade: as.prioridade,
         objetivo: as.objetivo,
-        escopo: as.escopo
+        escopo: as.escopo,
+        id_gep: as.id_gep,
+        tipo_gep: as.tipo_gep
       }
       const response = await updateBase(updated, user?.email || '')
       SetStatus(response.status);
@@ -274,11 +270,7 @@ const AtualizarAS = () => {
               <Form.Label className="text-nowrap" htmlFor='resp_petro'>Responsável Petrobras</Form.Label>
               <Form.Select name="resp_petro" id="resp_petro" value={as.resp_petro} onChange={handleChange}>
                 <option>Selecione...</option>
-                {/* {resp_petro
-                .sort((a, b) => a.nome.localeCompare(b.nome))
-                .map((resp, index) => (
-                  <option key={index} > {resp.nome}</option>
-                ))} */}
+                <option selected>{as.resp_petro}</option>
               </Form.Select>
             </Form.Group>
           </Col>
@@ -331,13 +323,13 @@ const AtualizarAS = () => {
           <Col xs="4" sm="2" xxl="1">
             <Form.Group controlId="formIdGep">
               <Form.Label htmlFor='id_gep'>ID GEP</Form.Label>
-              <Form.Control type="text" name="id_gep" id="id_gep" value='' onChange={handleChange} />
+              <Form.Control type="text" name="id_gep" id="id_gep" value={as.id_gep} onChange={handleChange} />
             </Form.Group>
           </Col>
           <Col xs="8" sm="10" md="4" xxl="2">
             <Form.Group controlId="formPorte">
               <Form.Label htmlFor='tipo_gep'>Tipo GEP</Form.Label>
-              <Form.Select id="tipo_gep">
+              <Form.Select id="tipo_gep" value={as.tipo_gep}>
                 <option>Selecione...</option>
                 <option value="Paradas">Paradas</option>
                 <option value="Adequações">Adequações</option>

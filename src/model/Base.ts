@@ -12,12 +12,8 @@ type Base = {
     porte: string;
     criticidade?: string;
     prioridade?: string;
-    prevMes?: number;
-    realMes?: number;
-    prevAno?: number;
-    realAno?: number;
-    iefAno?: number;
-    iefMes?: number;
+    id_gep?: string;
+    tipo_gep?: string;
     objetivo?: string;
     escopo?: string;
     log?: string;
