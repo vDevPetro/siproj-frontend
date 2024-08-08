@@ -6,6 +6,9 @@ import { useParams } from 'react-router-dom';
 import Emissao from '../../../model/Emissao';
 import { getEmissao, postEmissao, putEmissao } from '../../../controller/Emissao';
 import Table from 'react-bootstrap/Table';
+import { Radio, RadioGroup, FormControlLabel, FormControl, FormLabel } from '@mui/material'
+import { Spinner } from "react-bootstrap";
+import { useUserContext } from '../../../context/UserContext';
 
 const convertDate = (dateString: string): string => {
   if (!dateString) return dateString;
@@ -23,6 +26,7 @@ const convertDate = (dateString: string): string => {
 
 const Emissoes = () => {
   const { id } = useParams();
+  const { user } = useUserContext();
   const [emissoes, setEmissoes] = useState<Emissao[]>([]);
   const [edit, setEdit] = useState(false);
   const [show, setShow] = useState(true);
@@ -42,13 +46,23 @@ const Emissoes = () => {
     atender_coment_proj_lb: '',
     atender_coment_proj_rp: '',
     atender_coment_proj_real: '',
-    flag_aprov: false,
-    flag_aprov_coment: false,
-    flag_reprov: false,
+    situacao: '',
     justificativa: '',
     log: ''
   });
   const hasFetchedData = useRef(false);
+
+  const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setNovaEmissao(prevState => ({ ...prevState, situacao: event.target.value}))
+  };
+
+  const controlProps = (item: string) => ({
+    checked: novaEmissao.situacao === item,
+    onChange: handleRadioChange,
+    value: item,
+    name: 'color-radio-button-demo',
+    inputProps: { 'aria-label': item },
+  });
 
   useEffect(() => {
     if (hasFetchedData.current) return; 
@@ -74,7 +88,7 @@ const Emissoes = () => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    if (novaEmissao.justificativa && novaEmissao.justificativa?.length < 150){
+    if (novaEmissao.justificativa && novaEmissao.justificativa?.length < 150 && user?.nivel === 'CONTRATADA'){
       return alert('A justificativa deve conter no minimo 150 caracteres.');
     }
     try {
@@ -105,9 +119,7 @@ const Emissoes = () => {
           atender_coment_proj_lb: '',
           atender_coment_proj_rp: '',
           atender_coment_proj_real: '',
-          flag_aprov: false,
-          flag_aprov_coment: false,
-          flag_reprov: false,
+          situacao: '',
           justificativa: '',
           log: ''
         });
@@ -141,9 +153,7 @@ const Emissoes = () => {
       atender_coment_proj_lb: '',
       atender_coment_proj_rp: '',
       atender_coment_proj_real: '',
-      flag_aprov: false,
-      flag_aprov_coment: false,
-      flag_reprov: false,
+      situacao: '',
       justificativa: '',
       log: ''
     });
@@ -159,14 +169,15 @@ const Emissoes = () => {
             <h1>Consultar Emissões</h1>
           </div>
           <div className='table-responsive'>
-          <Table hover className="table-sm text-nowrap table-striped ">
+          <Table hover className="table-sm text-nowrap table-striped table-bordered">
             <thead>
               <tr>
                 <th scope="col" className="table-title">N° Emissão</th>
                 <th scope="col" className="table-title">Motivo</th>
                 <th scope="col" className="table-title">Situação</th>
                 <th scope="col" className="table-title">Emitir Projeto LB</th>
-                <th scope="col" className="table-title">Comentário Projeto LB</th>
+                {/* <th scope="col" className="table-title">Comentário Projeto LB</th> */}
+                <th scope="col" className='table-title'>Editar</th>
               </tr>
             </thead>
             <tbody>
@@ -174,9 +185,10 @@ const Emissoes = () => {
                 <tr key={index} id={item.id} onClick={() => handleEdit(item)}>
                   <td>{item.emissao}</td>
                   <td>{item.motivo}</td>
-                  <td>{item.flag_aprov}</td>
+                  <td>{item.situacao === 'aprov'? 'Aprovada' : item.situacao === 'aprov_coment' ? 'Aprov. com comentários' : 'Reprovada'}</td>
                   <td>{convertDate(item.emitir_proj_lb)}</td>
-                  <td>{convertDate(item.coment_proj_lb)}</td>
+                  {/* <td>{convertDate(item.coment_proj_lb)}</td> */}
+                  <td><button className='btn btn-success '><i className='bi bi-pencil'/></button></td>
                 </tr>
               ))}
             </tbody>
@@ -195,60 +207,85 @@ const Emissoes = () => {
               <label htmlFor="num_as" className="form-label">AS</label>
               <input type="text" name="num_as" id="num_as" className="form-control" value={novaEmissao.num_as} readOnly/>
             </div>
-            <div className='col-sm-2 ms-4'>
+            <div className='col-sm-2 mx-1 ms-sm-4'>
               <label htmlFor="emissao" className="form-label">Emissão</label>
               <input type="text" name="emissao" id="emissao" className="form-control" value={novaEmissao.emissao} onChange={handleChange} readOnly/>
             </div>
           </div>
+          
           <div className='col-sm-5'>
-              <label htmlFor="motivo" className="form-label">Motivo</label>
-              <select name="motivo" id="motivo" className="form-select" value={novaEmissao.motivo} onChange={handleChange} required>
-                <option selected>Selecione...</option>
-                <option value="Ajuste de padronização / Qualidade">Ajuste de padronização / Qualidade</option>
-                <option value="Alteração de Escopo">Alteração de Escopo</option>
-                <option value="Reprovação técnica">Reprovação técnica</option>
-                <option value="Não atendimento ao escopo">Não atendimento ao escopo</option>
-              </select>
-            </div>
+            <label htmlFor="motivo" className="form-label">Motivo</label>
+            <select name="motivo" id="motivo" className="form-select" value={novaEmissao.motivo} onChange={handleChange} required>
+              <option selected>Selecione...</option>
+              <option value="Ajuste de padronização / Qualidade">Ajuste de padronização / Qualidade</option>
+              <option value="Alteração de Escopo">Alteração de Escopo</option>
+              <option value="Reprovação técnica">Reprovação técnica</option>
+              <option value="Não atendimento ao escopo">Não atendimento ao escopo</option>
+            </select>
+          </div>
         </div>
-
-        <Row className="mb-4 table-responsive">
-          <Table bordered hover className="table-sm">
-            <thead>
-              <tr>
-                <td></td>
-                <th className="table-title">Emitir projeto comentário</th>
-                <th className="table-title">PB comentar projeto</th>
-                <th className="table-title">Atender comentários</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th className="table-title">Planejamento</th>
-                <td><Form.Control type="date" name="emitir_proj_lb" value={novaEmissao.emitir_proj_lb} onChange={handleChange} className="border-0 p-1" /></td>
-                <td><Form.Control type="date" name="coment_proj_lb" value={novaEmissao.coment_proj_lb} onChange={handleChange} className="border-0 p-1" /></td>
-                <td><Form.Control type="date" name="atender_coment_proj_lb" value={novaEmissao.atender_coment_proj_lb} onChange={handleChange} className="border-0 p-1" /></td>
-              </tr>
-              <tr>
-                <th className="table-title">Replanejamento</th>
-                <td><Form.Control type="date" name="emitir_proj_rp" value={novaEmissao.emitir_proj_rp} onChange={handleChange} className="border-0 p-1" /></td>
-                <td><Form.Control type="date" name="coment_proj_rp" value={novaEmissao.coment_proj_rp} onChange={handleChange} className="border-0 p-1" /></td>
-                <td><Form.Control type="date" name="atender_coment_proj_rp" value={novaEmissao.atender_coment_proj_rp} onChange={handleChange} className="border-0 p-1" /></td>
-              </tr>
-              <tr>
-                <th className="table-title">Realizado</th>
-                <td><Form.Control type="date" name="emitir_proj_real" value={novaEmissao.emitir_proj_real} onChange={handleChange} className="border-0 p-1" /></td>
-                <td><Form.Control type="date" name="coment_proj_real" value={novaEmissao.coment_proj_real} onChange={handleChange} className="border-0 p-1" /></td>
-                <td><Form.Control type="date" name="atender_coment_proj_real" value={novaEmissao.atender_coment_proj_real} onChange={handleChange} className="border-0 p-1" /></td>
-              </tr>
-            </tbody>
-          </Table>
+        { novaEmissao.emissao === 0 ? 
+          <Container className="d-flex justify-content-center mt-5 pt-3">
+            <Spinner animation="border" role="status" variant="success">
+              <span className="visually-hidden">Loading...</span>
+            </Spinner>
+          </Container>
+        :
+          <Row className="mb-4 table-responsive">
+            <Table bordered hover className="table-sm">
+              <thead>
+                <tr>
+                  <td></td>
+                  <th className="table-title">Emitir projeto comentário</th>
+                  <th className="table-title">PB comentar projeto</th>
+                  <th className="table-title">Atender comentários</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th className="table-title">Planejamento</th>
+                  <td><Form.Control type="date" name="emitir_proj_lb" value={novaEmissao.emitir_proj_lb} onChange={handleChange} className="border-0 p-1" /></td>
+                  <td><Form.Control type="date" name="coment_proj_lb" value={novaEmissao.coment_proj_lb} onChange={handleChange} className="border-0 p-1" /></td>
+                  <td><Form.Control type="date" name="atender_coment_proj_lb" value={novaEmissao.atender_coment_proj_lb} onChange={handleChange} className="border-0 p-1" /></td>
+                </tr>
+                <tr>
+                  <th className="table-title">Replanejamento</th>
+                  <td><Form.Control type="date" name="emitir_proj_rp" value={novaEmissao.emitir_proj_rp} onChange={handleChange} className="border-0 p-1" /></td>
+                  <td><Form.Control type="date" name="coment_proj_rp" value={novaEmissao.coment_proj_rp} onChange={handleChange} className="border-0 p-1" /></td>
+                  <td><Form.Control type="date" name="atender_coment_proj_rp" value={novaEmissao.atender_coment_proj_rp} onChange={handleChange} className="border-0 p-1" /></td>
+                </tr>
+                <tr>
+                  <th className="table-title">Realizado</th>
+                  <td><Form.Control type="date" name="emitir_proj_real" value={novaEmissao.emitir_proj_real} onChange={handleChange} className="border-0 p-1" /></td>
+                  <td><Form.Control type="date" name="coment_proj_real" value={novaEmissao.coment_proj_real} onChange={handleChange} className="border-0 p-1" /></td>
+                  <td><Form.Control type="date" name="atender_coment_proj_real" value={novaEmissao.atender_coment_proj_real} onChange={handleChange} className="border-0 p-1" /></td>
+                </tr>
+              </tbody>
+            </Table>
+          </Row>
+        }
+        <Row>
+          { user?.nivel !== 'CONTRATADA' && edit ? 
+              <RadioGroup
+                className='mb-4'
+                row
+                aria-labelledby="demo-row-radio-buttons-group-label"
+                name="row-radio-buttons-group"
+                
+              >
+                <FormControlLabel value="aprov" control={<Radio color='success' {...controlProps('aprov')} />} label="Aprovado" />
+                <FormControlLabel value="aprov_coment" control={<Radio color='success' {...controlProps('aprov_coment')} />} label="Aprovado com comentários" />
+                <FormControlLabel value="repr" control={<Radio color='success' {...controlProps('repr')} />} label="Reprovado" />
+              </RadioGroup>
+              :
+              <></>
+            }
         </Row>
         <Row className="mb-4">
           <Col>
             <Form.Group controlId="formJustificativa">
               <Form.Label className='d-flex justify-content-between'>Justificativa {novaEmissao.justificativa && <small>Caractéres: {novaEmissao.justificativa?.length} | 150</small>}</Form.Label>
-              <Form.Control as="textarea" rows={3} name="justificativa" value={novaEmissao.justificativa} onChange={handleChange} required />
+              <Form.Control as="textarea" rows={3} name="justificativa" value={novaEmissao.justificativa} onChange={handleChange} required={user?.nivel !== 'CONTRATADA' ? false : true} />
             </Form.Group>
           </Col>
         </Row>

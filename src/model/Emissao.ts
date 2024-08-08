@@ -13,9 +13,7 @@ type Emissao = {
   atender_coment_proj_lb?: string;
   atender_coment_proj_rp?: string;
   atender_coment_proj_real?: string;
-  flag_aprov: boolean;
-  flag_aprov_coment: boolean;
-  flag_reprov: boolean;
+  situacao?: string;
   justificativa?: string;
   log?: string;
 }

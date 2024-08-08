@@ -21,9 +21,7 @@ export const getEmissao = async (num_as:string | undefined): Promise<Emissao[]> 
         atender_coment_proj_lb: item.atender_coment_proj_lb,
         atender_coment_proj_rp: item.atender_coment_proj_rp,
         atender_coment_proj_real: item.atender_coment_proj_real,
-        flag_aprov: item.flag_aprov,
-        flag_aprov_coment: item.flag_aprov_coment,
-        flag_reprov: item.flag_reprov,
+        situacao: item.situacao,
         justificativa: item.justificativa,
         log: ''
       }));
@@ -53,9 +51,7 @@ export const putEmissao = async (emissao: Emissao): Promise<{ status: number; da
       atender_coment_proj_lb: emissao.atender_coment_proj_lb,
       atender_coment_proj_rp: emissao.atender_coment_proj_rp,
       atender_coment_proj_real: emissao.atender_coment_proj_real,
-      flag_aprov: emissao.flag_aprov,
-      flag_aprov_coment: emissao.flag_aprov_coment,
-      flag_reprov: emissao.flag_reprov,
+      situacao: emissao.situacao,
       justificativa: emissao.justificativa,
       log: ''
     });
@@ -82,9 +78,7 @@ export const postEmissao = async (emissao: Emissao): Promise<{ status: number; d
       atender_coment_proj_lb: emissao.atender_coment_proj_lb,
       atender_coment_proj_rp: emissao.atender_coment_proj_rp,
       atender_coment_proj_real: emissao.atender_coment_proj_real,
-      flag_aprov: emissao.flag_aprov.toString(),
-      flag_aprov_coment: emissao.flag_aprov_coment.toString(),
-      flag_reprov: emissao.flag_reprov.toString(),
+      situacao: emissao.situacao,
       justificativa: emissao.justificativa,
       log: ''
     });
@@ -124,9 +118,7 @@ export const getEmissaoById = async (id: String): Promise<Emissao> => {
         atender_coment_proj_lb: item.atender_coment_proj_lb,
         atender_coment_proj_rp: item.atender_coment_proj_rp,
         atender_coment_proj_real: item.atender_coment_proj_real,
-        flag_aprov: item.flag_aprov,
-        flag_aprov_coment: item.flag_aprov_coment,
-        flag_reprov: item.flag_reprov,
+        situacao: item.situacao,
         justificativa: item.justificativa,
         log: item.log,
         }

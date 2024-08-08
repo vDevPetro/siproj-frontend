@@ -29,6 +29,10 @@ body::-webkit-scrollbar-thumb {
   border-radius: 50%;
 }
 
+.css-ahj2mt-MuiTypography-root {
+  font-family: Open Sans !important;
+}
+
 a {
   color: #009220;
   text-decoration: none;

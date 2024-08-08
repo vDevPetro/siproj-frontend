@@ -7,7 +7,6 @@ import Base from "../../../model/Base";
 import { getBaseById, updateBase } from '../../../controller/Base';
 import fiscais from '../../../data/fiscais.json';
 import CurvaS from '../../components/curvas';
-import resp_contr from '../../../data/resp_contr.json';
 import unidades from '../../../data/unidades.json';
 import { useUserContext } from '../../../context/UserContext';
 import { Modal, Spinner } from 'react-bootstrap';
@@ -24,6 +23,7 @@ const AtualizarAS = () => {
   const { user } = useUserContext();
   const hasFetchedData = useRef(false);
   const [respContr, setRespContr] = useState<Usuario[]>([]);
+  const [respPetro, setRespPetro] = useState<Usuario[]>([]);
 
   const { id } = useParams();
   const [as, setAs] = useState<Base>({
@@ -102,7 +102,9 @@ const AtualizarAS = () => {
     const fetchUsers = async () => {
       const res = await getUsers();
       const contr = res.filter(usuario => usuario.nivel === "CONTRATADA");
-      setRespContr(contr);
+      const petro = res.filter(usuario => usuario.nivel === "PETROBRAS");
+      setRespContr(contr.sort((a, b) => a.nome.localeCompare(b.nome)));
+      setRespPetro(petro.sort((a, b) => a.nome.localeCompare(b.nome)));
     }
 
     fetchData();
@@ -256,11 +258,11 @@ const AtualizarAS = () => {
             <Form.Group controlId="formFiscais">
               <Form.Label className="text-nowrap" htmlFor='fiscais'>Fiscal</Form.Label>
               <Form.Select name="fiscais" id="fiscais" value={as.fiscais} onChange={handleChange}>
-                <option>Selecione...</option>
+                <option value="">Selecione...</option>
                 {fiscais
                 .sort((a, b) => a.nome.localeCompare(b.nome))
                 .map((resp, index) => (
-                  <option key={index} >{resp.nome}</option>
+                  <option key={index} value={resp.nome} >{resp.nome}</option>
                 ))}
               </Form.Select>
             </Form.Group>
@@ -269,18 +271,20 @@ const AtualizarAS = () => {
             <Form.Group controlId="formRespPetro">
               <Form.Label className="text-nowrap" htmlFor='resp_petro'>Responsável Petrobras</Form.Label>
               <Form.Select name="resp_petro" id="resp_petro" value={as.resp_petro} onChange={handleChange}>
-                <option>Selecione...</option>
-                <option selected>{as.resp_petro}</option>
+                <option value="">Selecione...</option>
+                {respPetro.map((item, key) => (
+                  <option key={key} value={item.nome}>{item.nome}</option>
+                ))}
               </Form.Select>
             </Form.Group>
           </Col>
           <Col className='mt-2 mt-md-0' md="4">
             <Form.Group controlId="resp_contr">
-              <Form.Label className="text-nowrap" htmlFor='resp_contr'>Responsável Contratada</Form.Label>
+              <Form.Label className="text-nowrap" htmlFor='resp_contr'>Responsável Contratada {as.resp_contr}</Form.Label>
               <Form.Select name="resp_contr" id="resp_contr" value={as.resp_contr} onChange={handleChange}>
-                <option>Selecione...</option>
+                <option value="">Selecione...</option>
                 {respContr.map((item, key) => (
-                  <option key={key} value={item.nome}>{nomeAbreviado(item.email)}</option>
+                  <option key={key} value={item.nome}>{item.nome}</option>
                 ))}
               </Form.Select>
             </Form.Group>
