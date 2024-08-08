@@ -11,8 +11,21 @@ export const getEmissao = async (num_as:string | undefined): Promise<Emissao[]> 
         num_as: item.num_as,
         emissao: Number(item.emissao),
         motivo: item.motivo,
-        emitir_projeto_lb: item.emitir_projeto_lb,
-        comentar_projeto_lb: item.comentar_projeto_lb,
+        desc_motivo: item.desc_motivo,
+        emitir_proj_lb: item.emitir_proj_lb,
+        emitir_proj_rp: item.emitir_proj_rp,
+        emitir_proj_real: item.emitir_proj_real,
+        coment_proj_lb: item.coment_proj_lb,
+        coment_proj_rp: item.coment_proj_rp,
+        coment_proj_real: item.coment_proj_real,
+        atender_coment_proj_lb: item.atender_coment_proj_lb,
+        atender_coment_proj_rp: item.atender_coment_proj_rp,
+        atender_coment_proj_real: item.atender_coment_proj_real,
+        flag_aprov: item.flag_aprov,
+        flag_aprov_coment: item.flag_aprov_coment,
+        flag_reprov: item.flag_reprov,
+        justificativa: item.justificativa,
+        log: ''
       }));
   } catch (error) {
       if (axios.isAxiosError(error) && error.response?.status === 404) {
@@ -24,9 +37,57 @@ export const getEmissao = async (num_as:string | undefined): Promise<Emissao[]> 
   }
 };
 
+export const putEmissao = async (emissao: Emissao): Promise<{ status: number; data: any}> => {
+  try {
+    const response = await axios.put(`${apiUrl}/${emissao.num_as}/${emissao.emissao}`, {
+      num_as: emissao.num_as,
+      emissao: emissao.emissao.toString(),
+      motivo: emissao.motivo,
+      desc_motivo: emissao.desc_motivo,
+      emitir_proj_lb: emissao.emitir_proj_lb,
+      emitir_proj_rp: emissao.emitir_proj_rp,
+      emitir_proj_real: emissao.emitir_proj_real,
+      coment_proj_lb: emissao.coment_proj_lb,
+      coment_proj_rp: emissao.coment_proj_rp,
+      coment_proj_real: emissao.coment_proj_real,
+      atender_coment_proj_lb: emissao.atender_coment_proj_lb,
+      atender_coment_proj_rp: emissao.atender_coment_proj_rp,
+      atender_coment_proj_real: emissao.atender_coment_proj_real,
+      flag_aprov: emissao.flag_aprov,
+      flag_aprov_coment: emissao.flag_aprov_coment,
+      flag_reprov: emissao.flag_reprov,
+      justificativa: emissao.justificativa,
+      log: ''
+    });
+    return { status: response.status, data: response.data }
+  } catch (error) {
+    console.error('Falha ao atualizar emissao: ', error);
+    throw error;
+  }
+};
+
 export const postEmissao = async (emissao: Emissao): Promise<{ status: number; data: any }> => {
   try {
-    const response = await axios.post(apiUrl, emissao);
+    const response = await axios.post(apiUrl, {
+      num_as: emissao.num_as,
+      emissao: emissao.emissao.toString(),
+      motivo: emissao.motivo,
+      desc_motivo: emissao.desc_motivo,
+      emitir_proj_lb: emissao.emitir_proj_lb,
+      emitir_proj_rp: emissao.emitir_proj_rp,
+      emitir_proj_real: emissao.emitir_proj_real,
+      coment_proj_lb: emissao.coment_proj_lb,
+      coment_proj_rp: emissao.coment_proj_rp,
+      coment_proj_real: emissao.coment_proj_real,
+      atender_coment_proj_lb: emissao.atender_coment_proj_lb,
+      atender_coment_proj_rp: emissao.atender_coment_proj_rp,
+      atender_coment_proj_real: emissao.atender_coment_proj_real,
+      flag_aprov: emissao.flag_aprov.toString(),
+      flag_aprov_coment: emissao.flag_aprov_coment.toString(),
+      flag_reprov: emissao.flag_reprov.toString(),
+      justificativa: emissao.justificativa,
+      log: ''
+    });
     return { status: response.status, data: response.data };
   } catch (error) {
     console.error('Falha ao enviar os dados:', error);
@@ -54,10 +115,10 @@ export const getEmissaoById = async (id: String): Promise<Emissao> => {
         emissao: item.emissao,
         motivo: item.motivo,
         desc_motivo: item.desc_motivo,
-        emitir_projeto_lb: item.emitir_projeto_lb,
+        emitir_proj_lb: item.emitir_proj_lb,
         emitir_proj_rp: item.emitir_proj_rp,
         emitir_proj_real: item.emitir_proj_real,
-        comentar_projeto_lb: item.comentar_projeto_lb,
+        coment_proj_lb: item.coment_proj_lb,
         coment_proj_rp: item.coment_proj_rp,
         coment_proj_real: item.coment_proj_real,
         atender_coment_proj_lb: item.atender_coment_proj_lb,

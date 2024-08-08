@@ -4,24 +4,27 @@ import { Form, Row, Col, Button, Modal } from 'react-bootstrap';
 import InputMask from 'react-input-mask';
 import { useParams } from 'react-router-dom';
 import Emissao from '../../../model/Emissao';
-import { getEmissao, postEmissao } from '../../../controller/Emissao';
+import { getEmissao, postEmissao, putEmissao } from '../../../controller/Emissao';
 import Table from 'react-bootstrap/Table';
 
 const convertDate = (dateString: string): string => {
-  if (!dateString) return dateString; 
+  if (!dateString) return dateString;
   try {
-    const date = new Date(dateString);
+    // Quebra a data em ano, mês e dia
+    const [year, month, day] = dateString.split('-').map(Number);
+    // Cria um objeto Date no formato local (ano, mês -1, dia)
+    const date = new Date(year, month - 1, day);
     return new Intl.DateTimeFormat('pt-BR').format(date);
   } catch (error) {
     console.error('Invalid date format:', error);
-    return dateString; 
+    return dateString;
   }
 };
 
 const Emissoes = () => {
   const { id } = useParams();
   const [emissoes, setEmissoes] = useState<Emissao[]>([]);
-  const [edit, setEdit] = useState<Emissao | null>(null);
+  const [edit, setEdit] = useState(false);
   const [show, setShow] = useState(true);
   const [status, setStatus] = useState<number | null>(null);
   const [novaEmissao, setNovaEmissao] = useState<Emissao>({
@@ -30,9 +33,20 @@ const Emissoes = () => {
     emissao: 0,
     motivo: '',
     desc_motivo: '',
-    emitir_projeto_lb: '',
-    comentar_projeto_lb: '',
-    justificativa: ''
+    emitir_proj_lb: '',
+    emitir_proj_rp: '',
+    emitir_proj_real: '',
+    coment_proj_lb: '',
+    coment_proj_rp: '',
+    coment_proj_real: '',
+    atender_coment_proj_lb: '',
+    atender_coment_proj_rp: '',
+    atender_coment_proj_real: '',
+    flag_aprov: false,
+    flag_aprov_coment: false,
+    flag_reprov: false,
+    justificativa: '',
+    log: ''
   });
   const hasFetchedData = useRef(false);
 
@@ -64,29 +78,115 @@ const Emissoes = () => {
       return alert('A justificativa deve conter no minimo 150 caracteres.');
     }
     try {
-      const res = await postEmissao(novaEmissao);
-      setEmissoes(prev => [...prev, novaEmissao]);
-      setNovaEmissao({
-        id: '',
-        num_as: id || '',
-        emissao: emissoes.length + 1,
-        motivo: '',
-        desc_motivo: '',
-        emitir_projeto_lb: '',
-        comentar_projeto_lb: '',
-      });
-      setStatus(res.status);
-      setShow(true);
+      if (edit) {
+        const status = await putEmissao(novaEmissao);
+        const res = await getEmissao(id);
+        const sorted = res.sort((a, b) => a.emissao - b.emissao)
+        setNovaEmissao(prevState => ({ ...prevState, emissao: sorted.length + 1}))
+        setEmissoes(sorted);
+        setStatus(status.status);
+        setShow(true);
+      } 
+      else {
+        const res = await postEmissao(novaEmissao);
+        setEmissoes(prev => [...prev, novaEmissao]);
+        setNovaEmissao({
+          id: '',
+          num_as: id || '',
+          emissao: 0,
+          motivo: '',
+          desc_motivo: '',
+          emitir_proj_lb: '',
+          emitir_proj_rp: '',
+          emitir_proj_real: '',
+          coment_proj_lb: '',
+          coment_proj_rp: '',
+          coment_proj_real: '',
+          atender_coment_proj_lb: '',
+          atender_coment_proj_rp: '',
+          atender_coment_proj_real: '',
+          flag_aprov: false,
+          flag_aprov_coment: false,
+          flag_reprov: false,
+          justificativa: '',
+          log: ''
+        });
+        setStatus(res.status);
+        setShow(true);
+      }
     } catch (error) {
       console.error('Falha ao cadastrar emissão:', error);
       alert('Falha ao cadastrar emissão');
     }
   };
 
+  const handleEdit = (item: Emissao) => {
+    setEdit(true);
+    setNovaEmissao(item);
+  }
+
+  const handleClose = () => {
+    setNovaEmissao({
+      id: '',
+      num_as: id || '',
+      emissao: 0,
+      motivo: '',
+      desc_motivo: '',
+      emitir_proj_lb: '',
+      emitir_proj_rp: '',
+      emitir_proj_real: '',
+      coment_proj_lb: '',
+      coment_proj_rp: '',
+      coment_proj_real: '',
+      atender_coment_proj_lb: '',
+      atender_coment_proj_rp: '',
+      atender_coment_proj_real: '',
+      flag_aprov: false,
+      flag_aprov_coment: false,
+      flag_reprov: false,
+      justificativa: '',
+      log: ''
+    });
+    setNovaEmissao(prevState => ({ ...prevState, emissao: emissoes.length + 1}))
+    setEdit(false);
+  }
+
   return (
     <Container>
+      {emissoes.length > 0 && 
+        <>
+          <div className="pagetitle mt-5 mb-3">
+            <h1>Consultar Emissões</h1>
+          </div>
+          <div className='table-responsive'>
+          <Table hover className="table-sm text-nowrap table-striped ">
+            <thead>
+              <tr>
+                <th scope="col" className="table-title">N° Emissão</th>
+                <th scope="col" className="table-title">Motivo</th>
+                <th scope="col" className="table-title">Situação</th>
+                <th scope="col" className="table-title">Emitir Projeto LB</th>
+                <th scope="col" className="table-title">Comentário Projeto LB</th>
+              </tr>
+            </thead>
+            <tbody>
+              {emissoes.map((item, index) => (
+                <tr key={index} id={item.id} onClick={() => handleEdit(item)}>
+                  <td>{item.emissao}</td>
+                  <td>{item.motivo}</td>
+                  <td>{item.flag_aprov}</td>
+                  <td>{convertDate(item.emitir_proj_lb)}</td>
+                  <td>{convertDate(item.coment_proj_lb)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+          </div>
+        </>
+      }
+
       <div className="pagetitle mt-5 mb-3">
-        <h1>Inserir Emissões</h1>
+        <h1>{edit ? 'Editar emissão' : 'Inserir emissão'}</h1>
       </div>
       <Form onSubmit={handleSubmit}>
         <div className='d-flex justify-content-between mb-3'>
@@ -125,8 +225,8 @@ const Emissoes = () => {
             <tbody>
               <tr>
                 <th className="table-title">Planejamento</th>
-                <td><Form.Control type="date" name="emitir_projeto_lb" value={novaEmissao.emitir_projeto_lb} onChange={handleChange} className="border-0 p-1" /></td>
-                <td><Form.Control type="date" name="comentar_projeto_lb" value={novaEmissao.comentar_projeto_lb} onChange={handleChange} className="border-0 p-1" /></td>
+                <td><Form.Control type="date" name="emitir_proj_lb" value={novaEmissao.emitir_proj_lb} onChange={handleChange} className="border-0 p-1" /></td>
+                <td><Form.Control type="date" name="coment_proj_lb" value={novaEmissao.coment_proj_lb} onChange={handleChange} className="border-0 p-1" /></td>
                 <td><Form.Control type="date" name="atender_coment_proj_lb" value={novaEmissao.atender_coment_proj_lb} onChange={handleChange} className="border-0 p-1" /></td>
               </tr>
               <tr>
@@ -153,16 +253,17 @@ const Emissoes = () => {
           </Col>
         </Row>
 
-        <Button variant="primary" type="submit">Salvar</Button>
+        <Button variant="primary" type="submit"><i className={`bi bi-${edit ? 'floppy' : 'cloud-upload'} me-2`}/>{edit ? 'Salvar' : 'Inserir'}</Button>
+        {edit && <button type='button' onClick={handleClose} className="btn btn-outline-warning rounded-circle ms-4"><i className='bi bi-x-lg'/></button>}
       </Form>
 
-      {show && status === 201 &&
+      {show && status &&
         <Modal show onHide={() => setShow(false)} backdrop="static" keyboard={false}>
           <Modal.Header closeButton>
-            <Modal.Title>Sucesso</Modal.Title>
+            <Modal.Title>{status >= 200 ? 'Sucesso' : 'Erro'}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            {novaEmissao.emissao}ª Emissão para a AS {id} cadastrada com sucesso!
+            { status === 200 ? 'Emissão alterada com sucesso' : 'Emissão cadastrada com sucesso'} 
           </Modal.Body>
           <Modal.Footer>
             <Button  className="btn btn-success" onClick={() => setShow(false)}>
@@ -170,38 +271,6 @@ const Emissoes = () => {
             </Button>
           </Modal.Footer>
         </Modal>
-      }
-
-      {emissoes.length > 0 && 
-        <>
-          <div className="pagetitle mt-5 mb-3">
-            <h1>Consultar Emissões</h1>
-          </div>
-          <div className='table-responsive'>
-          <Table hover className="table-sm text-nowrap table-striped ">
-            <thead>
-              <tr>
-                <th scope="col" className="table-title">N° Emissão</th>
-                <th scope="col" className="table-title">Motivo</th>
-                <th scope="col" className="table-title">Situação</th>
-                <th scope="col" className="table-title">Emitir Projeto LB</th>
-                <th scope="col" className="table-title">Comentário Projeto LB</th>
-              </tr>
-            </thead>
-            <tbody>
-              {emissoes.map((item, index) => (
-                <tr key={index} id={item.id} onClick={() => setNovaEmissao(item)}>
-                  <td>{item.emissao}</td>
-                  <td>{item.motivo}</td>
-                  <td>{item.flag_aprov}</td>
-                  <td>{item.emitir_projeto_lb}</td>
-                  <td>{item.comentar_projeto_lb}</td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
-          </div>
-        </>
       }
     </Container>
   );
