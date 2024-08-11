@@ -1,13 +1,20 @@
 type Indicador = {
-    num_as: string;
+    
     data: [{
         date: string;
-        baselineWork: number;
-        work: number;
-        actualWork: number;
+        trabalho_lb: number;
+        trabalho: number;
+        trabalho_real: number;
     }];
-    iefMes?: string;
-    iefAno?: string;
+    num_as: string;
+    maxWork: number;
+    iefMes: number;
+    prevMes: number;
+    realMes: number;
+    iefAno: number;
+    prevAno: number;
+    realAno: number;
+    statusDate?: string;
 }
 
 export default Indicador;

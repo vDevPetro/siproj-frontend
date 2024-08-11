@@ -2,30 +2,13 @@
 
 import { RadialBar, RadialBarChart, Legend, Tooltip, ResponsiveContainer, Text } from "recharts";
 
-const data = [
-    {
-        "name": "Real",
-        "mes": 0.79,
-        "ano": 0.97,
-        "fill": "#a3b18a"
-    },
-    {
-    "name": "Prev",
-    "mes": 0.84,
-    "ano": 1,
-    "fill": "#588157"
-    },
-    {
-        "name": "IEF",
-        "mes": 0.93,
-        "ano": 0.97,
-        "fill": "#3a5a40"
-    }
-];
-
 const formatPercentage = (value: number) => `${(value * 100).toFixed(0)}%`;
 
-const IefChart = () => {
+type Props = {
+    chartData: any[];
+}
+
+const IefChart = ({chartData} : Props) => {
     return (
         <div className="d-flex flex-wrap justify-content-center my-4 my-md-0">
             <div className="col-12 col-sm-6 my-3 my-sm-0">
@@ -34,7 +17,7 @@ const IefChart = () => {
                     <RadialBarChart 
                         innerRadius="35%" 
                         outerRadius="120%" 
-                        data={data} 
+                        data={chartData} 
                         startAngle={180} 
                         endAngle={0}
                     >
@@ -58,7 +41,7 @@ const IefChart = () => {
                     <RadialBarChart 
                         innerRadius="35%" 
                         outerRadius="120%" 
-                        data={data} 
+                        data={chartData} 
                         startAngle={180} 
                         endAngle={0}
                     >

@@ -3,16 +3,18 @@ import { useEffect, useState } from 'react';
 import { LineChart, Line, XAxis, YAxis, ReferenceLine, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 type Props = {
+  max: number;
   dados: [{
     date: string;
-    baselineWork: number;
-    work: number;
-    actualWork: number;
+    trabalho_lb: number;
+    trabalho: number;
+    trabalho_real: number;
   }]
 }
 
-const CurvaS = ({dados}: Props) => {
-
+const CurvaS = ({dados, max}: Props) => {
+  const arredondado = Math.ceil(max / 500) * 500;
+  
   return (
     <>
     <p className='text-center fw-semibold'>Curva S</p>
@@ -26,11 +28,11 @@ const CurvaS = ({dados}: Props) => {
           }}
         >
           <XAxis dataKey="date" />
-          <YAxis tickCount={6} tickSize={0} axisLine={false} tickMargin={10} domain={[0, 2500]} scale='auto' type='number' />
+          <YAxis tickCount={5} tickSize={0} axisLine={false} tickMargin={10} domain={[0, arredondado]} scale='auto' type='number' />
           <Tooltip />
           <Legend />
-          <Line type="monotone" dataKey="actualWork" label="Trabalho" stroke="#a6d482" strokeWidth={2} />
-          <Line type="monotone" dataKey="baselineWork" stroke="#198754" strokeWidth={2} />
+          <Line type="monotone" dataKey="trabalho_real" label="Trabalho" stroke="#a6d482" strokeWidth={2} />
+          <Line type="monotone" dataKey="trabalho_lb" stroke="#198754" strokeWidth={2} />
         </LineChart>
       </ResponsiveContainer>
       </>

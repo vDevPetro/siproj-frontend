@@ -6,6 +6,8 @@ import Base from "../../../model/Base";
 import { getNextAvailableId, postBase } from "../../../controller/Base";
 import { Modal, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { getUsers } from "../../../controller/Users";
+import Usuario from "../../../model/Usuario";
 
 const InserirAs = () => {
   const [message, setMessage] = useState('');
@@ -23,6 +25,8 @@ const InserirAs = () => {
   const [prioridade, setPrioridade] = useState('');
   const navigate = useNavigate();
   const hasFetchedData = useRef(false);
+  const [respContr, setRespC] = useState<Usuario[]>([]);
+  const [respPetro, setRespP] = useState<Usuario[]>([]);
 
 
   const cadastrar = async (e: FormEvent<HTMLFormElement>) => {
@@ -62,6 +66,15 @@ const InserirAs = () => {
       }
     };
 
+    const fetchUsers = async () => {
+      const res = await getUsers();
+      const contr = res.filter(usuario => usuario.nivel === "CONTRATADA");
+      const petro = res.filter(usuario => usuario.nivel === "PETROBRAS");
+      setRespC(contr.sort((a, b) => a.nome.localeCompare(b.nome)));
+      setRespP(petro.sort((a, b) => a.nome.localeCompare(b.nome)));
+    }
+
+    fetchUsers();
     fetchNextId();
   }, []);
 
@@ -116,19 +129,19 @@ const InserirAs = () => {
                       <div className="form-group col-md-6 col-lg-5">
                         <label htmlFor="respPetrobras" className="text-nowrap">Responsável Petrobras</label>
                         <select className="form-control" id="resp_petro" name="resp_petro" onChange={(e) => setRespPetro(e.target.value)} value={resp_petro} required>
-                          <option selected >Selecione...</option>
-                          <option value="Roniere/ Carlos Jesus">Roniere/ Carlos Jesus</option>
-                          <option value="Y">Y</option>
-                          <option value="Z">Z</option>
+                          <option value="" selected>Selecione...</option>
+                            {respPetro.map((item, key) => (
+                              <option key={key} value={item.nome}>{item.nome}</option>
+                            ))}
                         </select>
                       </div>
                       <div className="form-group col-md-6 col-lg-5">
                         <label htmlFor="respRina">Responsável Rina</label>
                         <select className="form-control" id="resp_contr" name="resp_contr" onChange={(e) => setRespContr(e.target.value)} value={resp_contr} required>
-                          <option selected >Selecione...</option>
-                          <option value="X">X</option>
-                          <option value="Y">Y</option>
-                          <option value="z">Z</option>
+                          <option selected value="" >Selecione...</option>
+                          {respContr.map((item, key) => (
+                            <option key={key} value={item.nome}>{item.nome}</option>
+                          ))}
                         </select>
                       </div>
                     </div>

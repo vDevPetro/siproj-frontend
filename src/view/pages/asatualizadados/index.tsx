@@ -27,6 +27,8 @@ const AtualizarAS = () => {
   const [respContr, setRespContr] = useState<Usuario[]>([]);
   const [respPetro, setRespPetro] = useState<Usuario[]>([]);
   const [indicadores, setIndicadores] = useState<Indicador | null>(null);
+  const [maxWork, setMaxWork] = useState(0);
+  const [iefData, setIefData] = useState<any []>();
 
   const { id } = useParams();
   const [as, setAs] = useState<Base>({
@@ -102,6 +104,27 @@ const AtualizarAS = () => {
       const curvas = await getIndicadores(id || '');
       setAs(res);
       setIndicadores(curvas);
+      setMaxWork(curvas.maxWork);
+      setIefData([
+          {
+              "name": "Real",
+              "mes": curvas.realMes,
+              "ano": curvas.realAno,
+              "fill": "#a3b18a"
+          },
+          {
+            "name": "Prev",
+            "mes": curvas.prevMes,
+            "ano": curvas.prevAno,
+            "fill": "#588157"
+          },
+          {
+              "name": "IEF",
+              "mes": curvas.iefMes,
+              "ano": curvas.iefAno,
+              "fill": "#3a5a40"
+          }
+      ]);
     }
 
     const fetchUsers = async () => {
@@ -221,7 +244,7 @@ const AtualizarAS = () => {
     }
   }
 
-  if(as.id === 0 || loading) {
+  if( loading ) {
     return(
       <div className='d-flex justify-content-center mt-5 pt-3'>
         <Spinner animation="border" role="status" variant="success">
@@ -390,18 +413,23 @@ const AtualizarAS = () => {
           </Col>
         </Row>
 
-        <Form.Label className='mt-4'>Avanço Físico </Form.Label>
+        <Form.Label className='mt-4'>Avanço Físico {indicadores ? ` - Data do status: ${indicadores.statusDate}` : ''}</Form.Label>
         <hr />
         <Row>
           <Col md="8"  className='mb-3'>
             <div className='d-flex flex-column' style={{width: '100%', height: '20rem'}}>
-              {indicadores &&
-              <CurvaS dados={indicadores.data}/>
+              {indicadores && maxWork !== 0 ? 
+              <CurvaS dados={indicadores.data} max={maxWork}/>
+              :
+              <>
+              </>
               }
             </div>
           </Col>
           <Col md="4">
-              <IefChart />
+              {iefData &&
+              <IefChart chartData={iefData}/>
+              }
           </Col>
         </Row>
 
