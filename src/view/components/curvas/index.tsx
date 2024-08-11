@@ -1,26 +1,23 @@
 'use client';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { useEffect, useState } from 'react';
+import { LineChart, Line, XAxis, YAxis, ReferenceLine, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 type Props = {
   dados: [{
     date: string;
-    baselineWork: string;
-    work: string;
-    actualWork: string;
+    baselineWork: number;
+    work: number;
+    actualWork: number;
   }]
 }
 
 const CurvaS = ({dados}: Props) => {
-  const maxValue = Math.max(...dados.map(d => Math.max(Number(d.baselineWork), Number(d.work), Number(d.actualWork))));
-
 
   return (
     <>
     <p className='text-center fw-semibold'>Curva S</p>
-    <ResponsiveContainer width="100%" height="100%">
+    <ResponsiveContainer width="100%" >
         <LineChart
-          width={500}
-          height={300}
           data={dados}
           margin={{
             top: 5,
@@ -29,10 +26,10 @@ const CurvaS = ({dados}: Props) => {
           }}
         >
           <XAxis dataKey="date" />
-          <YAxis tickCount={4} tickSize={0} axisLine={false} tickMargin={10}  domain={[0, maxValue]} />
+          <YAxis tickCount={6} tickSize={0} axisLine={false} tickMargin={10} domain={[0, 2500]} scale='auto' type='number' />
           <Tooltip />
           <Legend />
-          <Line type="monotone" dataKey="actualWork" stroke="#a6d482" strokeWidth={2}/>
+          <Line type="monotone" dataKey="actualWork" label="Trabalho" stroke="#a6d482" strokeWidth={2} />
           <Line type="monotone" dataKey="baselineWork" stroke="#198754" strokeWidth={2} />
         </LineChart>
       </ResponsiveContainer>
