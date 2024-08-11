@@ -1,55 +1,19 @@
 'use client';
-
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
+type Props = {
+  dados: [{
+    date: string;
+    baselineWork: string;
+    work: string;
+    actualWork: string;
+  }]
+}
 
-const data = [
-    {
-      name: 'Mar/2023',
-      real: 24,
-      programado: 25,
-      lb: 2400,
-    },
-    {
-      name: 'Abr/2023',
-      real: 80,
-      programado: 120,
-      lb: 2210,
-    },
-    {
-      name: 'Jun/2023',
-      real: 150,
-      programado: 140,
-      lb: 2290,
-    },
-    {
-      name: 'Jul/2023',
-      real: 220,
-      programado: 220,
-      lb: 2000,
-    },
-    {
-      name: 'Ago/2023',
-      real: 260,
-      programado: 260,
-      lb: 2181,
-    },
-    {
-      name: 'Set/2023',
-      real: 380,
-      programado: 400,
-      lb: 2500,
-    },
-    {
-      name: 'Out/2023',
-      real: 400,
-      programado: 420,
-      lb: 2100,
-    },
-  ];
-  
+const CurvaS = ({dados}: Props) => {
+  const maxValue = Math.max(...dados.map(d => Math.max(Number(d.baselineWork), Number(d.work), Number(d.actualWork))));
 
-const CurvaS = () => {
+
   return (
     <>
     <p className='text-center fw-semibold'>Curva S</p>
@@ -57,19 +21,19 @@ const CurvaS = () => {
         <LineChart
           width={500}
           height={300}
-          data={data}
+          data={dados}
           margin={{
             top: 5,
             right: 20,
             bottom: 5,
           }}
         >
-          <XAxis dataKey="name" />
-          <YAxis tickCount={5} tickSize={0} axisLine={false} tickMargin={10} />
+          <XAxis dataKey="date" />
+          <YAxis tickCount={4} tickSize={0} axisLine={false} tickMargin={10}  domain={[0, maxValue]} />
           <Tooltip />
           <Legend />
-          <Line type="monotone" dataKey="real" stroke="#a6d482" strokeWidth={2}/>
-          <Line type="monotone" dataKey="programado" stroke="#198754" strokeWidth={2} />
+          <Line type="monotone" dataKey="actualWork" stroke="#a6d482" strokeWidth={2}/>
+          <Line type="monotone" dataKey="baselineWork" stroke="#198754" strokeWidth={2} />
         </LineChart>
       </ResponsiveContainer>
       </>

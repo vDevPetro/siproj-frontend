@@ -14,6 +14,8 @@ import { Slider } from '@mui/material';
 import IefChart from '../../components/iefchart';
 import Usuario, { nomeAbreviado } from '../../../model/Usuario';
 import { getUsers } from '../../../controller/Users';
+import Indicador from '../../../model/Indicador';
+import { getIndicadores } from '../../../controller/Indicador';
 
 const AtualizarAS = () => {
   const [status, SetStatus] = useState<number | null>(null);
@@ -24,6 +26,7 @@ const AtualizarAS = () => {
   const hasFetchedData = useRef(false);
   const [respContr, setRespContr] = useState<Usuario[]>([]);
   const [respPetro, setRespPetro] = useState<Usuario[]>([]);
+  const [indicadores, setIndicadores] = useState<Indicador | null>(null);
 
   const { id } = useParams();
   const [as, setAs] = useState<Base>({
@@ -96,7 +99,9 @@ const AtualizarAS = () => {
 
     const fetchData = async () => {
       const res = await getBaseById(id || '');
+      const curvas = await getIndicadores(id || '');
       setAs(res);
+      setIndicadores(curvas);
     }
 
     const fetchUsers = async () => {
@@ -385,12 +390,14 @@ const AtualizarAS = () => {
           </Col>
         </Row>
 
-        <Form.Label className='mt-4'>Avanço Físico</Form.Label>
+        <Form.Label className='mt-4'>Avanço Físico </Form.Label>
         <hr />
         <Row>
           <Col md="8"  className='mb-3'>
             <div className='d-flex flex-column' style={{width: '100%', height: '20rem'}}>
-              <CurvaS/>
+              {indicadores &&
+              <CurvaS dados={indicadores.data}/>
+              }
             </div>
           </Col>
           <Col md="4">
