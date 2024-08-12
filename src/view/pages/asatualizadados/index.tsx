@@ -100,31 +100,33 @@ const AtualizarAS = () => {
     hasFetchedData.current = true;
 
     const fetchData = async () => {
-      const res = await getBaseById(id || '');
-      const curvas = await getIndicadores(id || '');
-      setAs(res);
-      setIndicadores(curvas);
-      setMaxWork(curvas.maxWork);
-      setIefData([
-          {
-              "name": "Real",
-              "mes": curvas.realMes,
-              "ano": curvas.realAno,
-              "fill": "#a3b18a"
-          },
-          {
-            "name": "Prev",
-            "mes": curvas.prevMes,
-            "ano": curvas.prevAno,
-            "fill": "#588157"
-          },
-          {
-              "name": "IEF",
-              "mes": curvas.iefMes,
-              "ano": curvas.iefAno,
-              "fill": "#3a5a40"
-          }
-      ]);
+      const base = await getBaseById(id || '');
+      const res = await getIndicadores(id || '');
+      setAs(base);
+      if (res.status === 200) {
+        setIndicadores(res.data);
+        setMaxWork(res.data.maxWork);
+        setIefData([
+            {
+                "name": "Real",
+                "mes": res.data.realMes,
+                "ano": res.data.realAno,
+                "fill": "#a3b18a"
+            },
+            {
+              "name": "Prev",
+              "mes": res.data.prevMes,
+              "ano": res.data.prevAno,
+              "fill": "#588157"
+            },
+            {
+                "name": "IEF",
+                "mes": res.data.iefMes,
+                "ano": res.data.iefAno,
+                "fill": "#3a5a40"
+            }
+        ]);
+      }
     }
 
     const fetchUsers = async () => {
@@ -417,14 +419,15 @@ const AtualizarAS = () => {
         <hr />
         <Row>
           <Col md="8"  className='mb-3'>
+          {indicadores && maxWork !== 0 ? 
             <div className='d-flex flex-column' style={{width: '100%', height: '20rem'}}>
-              {indicadores && maxWork !== 0 ? 
               <CurvaS dados={indicadores.data} max={maxWork}/>
-              :
-              <>
-              </>
-              }
             </div>
+            :
+            <div>
+              Atualize o cronograma para obter os indicadores!
+            </div>
+          }
           </Col>
           <Col md="4">
               {iefData &&

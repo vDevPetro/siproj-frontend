@@ -24,7 +24,6 @@ const Cronograma = () => {
     hasFetchedData.current = true;
 
     const fetchData = async () => {
-      console.log('foi executada');
       const res = await getCronogramaByAs(id || '');
       setCronograma(res);
       if (res) {
@@ -119,9 +118,9 @@ const Cronograma = () => {
                   <i className="bi bi-cloud-download me-2" /> Baixar
                 </a> 
                 : 
-                <button className="btn btn-outline-success me-2 me-md-4" >
-                  <i className="bi bi-cloud-download me-2"/> Baixar padrão
-                </button>
+                <a href="https://firebasestorage.googleapis.com/v0/b/siproj2-5ff69.appspot.com/o/padrao%2FMODELO%20CRONOGRAMA%20SIPROJ.mpp?alt=media&token=a7343117-8847-4e04-8762-d4c214499074" className="btn btn-outline-success me-2 me-md-4" download >
+                  <i className="bi bi-cloud-download me-2" /> Baixar padrão
+                </a> 
               }        
             </div>
             { uploadProgress > 0 && uploadProgress < 100 &&

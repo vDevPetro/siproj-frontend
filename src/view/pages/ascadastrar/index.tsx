@@ -8,6 +8,7 @@ import { Modal, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { getUsers } from "../../../controller/Users";
 import Usuario from "../../../model/Usuario";
+import { postCronograma } from "../../../controller/Cronograma";
 
 const InserirAs = () => {
   const [message, setMessage] = useState('');
@@ -27,31 +28,6 @@ const InserirAs = () => {
   const hasFetchedData = useRef(false);
   const [respContr, setRespC] = useState<Usuario[]>([]);
   const [respPetro, setRespP] = useState<Usuario[]>([]);
-
-
-  const cadastrar = async (e: FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-      try{
-        const nova: Base = {
-          id: id || 0,
-          fiscais: fiscais,
-          contrato_icj: contrato_icj,
-          contrato_sap: contrato_sap,
-          resp_contr: resp_contr,
-          resp_petro: resp_petro,
-          desc_projeto: desc_projeto,
-          porte: porte,
-          prioridade: prioridade
-        }
-        const response = await postBase(nova);
-        setStatus(response.status);
-        setRes(response.data);
-        setShow(true);
-      } catch (error) {
-        setRes(error);
-        setShow(true);
-      }
-  }
 
   useEffect(() => {
     if (hasFetchedData.current) return; 
@@ -81,6 +57,31 @@ const InserirAs = () => {
   const handleClose = () => {
     setShow(false);
     navigate('/home');
+  }
+
+  const cadastrar = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try{
+      const nova: Base = {
+        id: id || 0,
+        fiscais: fiscais,
+        contrato_icj: contrato_icj,
+        contrato_sap: contrato_sap,
+        resp_contr: resp_contr,
+        resp_petro: resp_petro,
+        desc_projeto: desc_projeto,
+        porte: porte,
+        prioridade: prioridade
+      }
+      const response = await postBase(nova);
+      await postCronograma(nova.id.toString());
+      setStatus(response.status);
+      setRes(response.data);
+      setShow(true);
+    } catch (error) {
+      setRes(error);
+      setShow(true);
+    }
   }
 
   return (

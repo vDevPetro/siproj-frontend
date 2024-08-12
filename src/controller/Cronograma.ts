@@ -29,3 +29,15 @@ export const getCronogramaByAs = async (num_as: string): Promise<Cronograma[] | 
         throw error;
     }
 }
+
+export const postCronograma = async (num_as: string): Promise<{status: number; data: any}> => {
+    try {
+        const res = await axios.post(apiUrl, {
+            num_as: num_as
+        });
+        return { status: res.status, data: res.data };
+    } catch (error) {
+        console.error('Falha ao adicionar cronograma:', error);
+        throw error;
+    }  
+}
