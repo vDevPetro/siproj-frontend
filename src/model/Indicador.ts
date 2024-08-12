@@ -2,9 +2,9 @@ type Indicador = {
     
     data: [{
         date: string;
-        trabalho_lb: number;
-        trabalho: number;
-        trabalho_real: number;
+        trabalho_lb: string;
+        trabalho: string;
+        trabalho_real: string;
     }];
     num_as: string;
     maxWork: number;

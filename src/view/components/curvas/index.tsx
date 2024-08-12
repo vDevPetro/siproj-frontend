@@ -6,9 +6,9 @@ type Props = {
   max: number;
   dados: [{
     date: string;
-    trabalho_lb: number;
-    trabalho: number;
-    trabalho_real: number;
+    trabalho_lb: string;
+    trabalho: string;
+    trabalho_real: string;
   }]
 }
 
@@ -28,8 +28,24 @@ const CurvaS = ({dados, max}: Props) => {
           }}
         >
           <XAxis dataKey="date" />
-          <YAxis tickCount={5} tickSize={0} axisLine={false} tickMargin={10} domain={[0, arredondado]} scale='auto' type='number' />
-          <Tooltip />
+          <YAxis 
+            tickCount={3} 
+            ticks={[0, 0.5, 1]}
+            tickSize={0} 
+            axisLine={false} 
+            tickMargin={10} 
+            domain={[0, 1]} 
+            scale='auto' 
+            type='number'
+            tickFormatter={(value) => `${(value * 100)}%`} 
+          />
+          <Tooltip formatter={(value) => {
+            if (typeof value === 'number') {
+                  return `${(value * 100).toFixed(2)}%`;
+              }
+              return value;
+            }} 
+          />
           <Legend />
           <Line type="monotone" dataKey="trabalho_real" label="Trabalho" stroke="#a6d482" strokeWidth={2} />
           <Line type="monotone" dataKey="trabalho_lb" stroke="#198754" strokeWidth={2} />
