@@ -26,6 +26,11 @@ const Header = () => {
     navigate('/');
   }
 
+  const handleNavigate = () => {
+    window.open("https://firebasestorage.googleapis.com/v0/b/siproj2-5ff69.appspot.com/o/padrao%2FPasso%20a%20Passo%20SIPROJ.pdf?alt=media&token=d7be82d9-c4a1-4d01-acfd-e0c2047b4ef5", "_blank");
+  }
+  
+
   if (loading) {
     <Navbar expand="lg" className="bg-body-tertiary mb-3" bg="dark" data-bs-theme="dark" sticky="top">
         <Container >
@@ -164,10 +169,11 @@ const Header = () => {
                       </NavLink>
                     </NavDropdown.Item>
                     <NavDropdown.Item>
-                      <NavLink to='/ajuda'>
+                      <a onClick={(e) => handleNavigate()} href="#" className="nav-link">
+            
                         <i className="bi bi-question-circle"></i>
                         Ajuda
-                      </NavLink>
+                      </a>
                     </NavDropdown.Item>
                     <NavDropdown.Divider />
                     <NavDropdown.Item onClick={logout} >
@@ -240,10 +246,10 @@ const Header = () => {
                       </NavLink>
                     </NavDropdown.Item>
                     <NavDropdown.Item>
-                      <NavLink to='/ajuda'>
+                      <a href="#" onClick={() => handleNavigate()} className="nav-link">
                         <i className="bi bi-question-circle"></i>
                         Ajuda
-                      </NavLink>
+                      </a>
                     </NavDropdown.Item>
                     <NavDropdown.Divider />
                     <NavDropdown.Item onClick={logout} >
@@ -316,10 +322,10 @@ const Header = () => {
                       </NavLink>
                     </NavDropdown.Item>
                     <NavDropdown.Item>
-                      <NavLink to='/ajuda'>
+                      <a href="#" className="nav-link" onClick={() => handleNavigate()}>
                         <i className="bi bi-question-circle"></i>
                         Ajuda
-                      </NavLink>
+                      </a>
                     </NavDropdown.Item>
                     <NavDropdown.Divider />
                     <NavDropdown.Item onClick={logout} >

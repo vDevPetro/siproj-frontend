@@ -137,7 +137,7 @@ const InserirAs = () => {
                         </select>
                       </div>
                       <div className="form-group col-md-6 col-lg-5">
-                        <label htmlFor="respRina">Responsável Rina</label>
+                        <label htmlFor="respRina">Responsável Contratada</label>
                         <select className="form-control" id="resp_contr" name="resp_contr" onChange={(e) => setRespContr(e.target.value)} value={resp_contr} required>
                           <option selected value="" >Selecione...</option>
                           {respContr.map((item, key) => (
