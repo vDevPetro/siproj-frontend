@@ -86,51 +86,57 @@ const Emissoes = () => {
     setNovaEmissao(prevState => ({ ...prevState, [name]: value }));
   };
 
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    if (novaEmissao.justificativa && novaEmissao.justificativa?.length < 150 && user?.nivel === 'CONTRATADA'){
-      return alert('A justificativa deve conter no minimo 150 caracteres.');
+  const [loading, setLoading] = useState(false); 
+ 
+const handleSubmit = async (e: FormEvent) => {
+  e.preventDefault();
+  if (novaEmissao.justificativa && novaEmissao.justificativa.length < 150 && user?.nivel === 'CONTRATADA') {
+    return alert('A justificativa deve conter no mínimo 150 caracteres.');
+  }
+ 
+  setLoading(true); 
+ 
+  try {
+    if (edit) {
+      const status = await putEmissao(novaEmissao);
+      const res = await getEmissao(id);
+      const sorted = res.sort((a, b) => a.emissao - b.emissao);
+      setNovaEmissao(prevState => ({ ...prevState, emissao: sorted.length + 1 }));
+      setEmissoes(sorted);
+      setStatus(status.status);
+    } else {
+      const res = await postEmissao(novaEmissao);
+      setEmissoes(prev => [...prev, novaEmissao]);
+      setNovaEmissao({
+        id: '',
+        num_as: id || '',
+        emissao: 0,
+        motivo: '',
+        desc_motivo: '',
+        emitir_proj_lb: '',
+        emitir_proj_rp: '',
+        emitir_proj_real: '',
+        coment_proj_lb: '',
+        coment_proj_rp: '',
+        coment_proj_real: '',
+        atender_coment_proj_lb: '',
+        atender_coment_proj_rp: '',
+        atender_coment_proj_real: '',
+        situacao: '',
+        justificativa: '',
+        log: ''
+      });
+      setStatus(res.status);
     }
-    try {
-      if (edit) {
-        const status = await putEmissao(novaEmissao);
-        const res = await getEmissao(id);
-        const sorted = res.sort((a, b) => a.emissao - b.emissao)
-        setNovaEmissao(prevState => ({ ...prevState, emissao: sorted.length + 1}))
-        setEmissoes(sorted);
-        setStatus(status.status);
-        setShow(true);
-      } 
-      else {
-        const res = await postEmissao(novaEmissao);
-        setEmissoes(prev => [...prev, novaEmissao]);
-        setNovaEmissao({
-          id: '',
-          num_as: id || '',
-          emissao: 0,
-          motivo: '',
-          desc_motivo: '',
-          emitir_proj_lb: '',
-          emitir_proj_rp: '',
-          emitir_proj_real: '',
-          coment_proj_lb: '',
-          coment_proj_rp: '',
-          coment_proj_real: '',
-          atender_coment_proj_lb: '',
-          atender_coment_proj_rp: '',
-          atender_coment_proj_real: '',
-          situacao: '',
-          justificativa: '',
-          log: ''
-        });
-        setStatus(res.status);
-        setShow(true);
-      }
-    } catch (error) {
-      console.error('Falha ao cadastrar emissão:', error);
-      alert('Falha ao cadastrar emissão');
-    }
-  };
+    setShow(true);
+  } catch (error) {
+    console.error('Falha ao cadastrar emissão:', error);
+    alert('Falha ao cadastrar emissão');
+  } finally {
+    setLoading(false); 
+  }
+};
+
 
   const handleEdit = (item: Emissao) => {
     setEdit(true);
@@ -224,7 +230,7 @@ const Emissoes = () => {
             </select>
           </div>
         </div>
-        { novaEmissao.emissao === 0 ? 
+        { loading ? 
           <Container className="d-flex justify-content-center mt-5 pt-3">
             <Spinner animation="border" role="status" variant="success">
               <span className="visually-hidden">Loading...</span>
