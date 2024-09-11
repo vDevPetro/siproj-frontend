@@ -15,10 +15,6 @@ type Cronograma = {
     reuniao_pre_rp?: string;
     reuniao_pre_real?: string;
     reuniao_pre_na: string;
-    visita_ida_lb: string;
-    visita_ida_rp?: string;
-    visita_ida_real?: string;
-    visita_ida_na: string;
     visita_volta_lb: string;
     visita_volta_rp?: string;
     visita_volta_real?: string;
@@ -66,6 +62,26 @@ type Cronograma = {
     prazo_lb: string;
     prazo_rp: string;
     prazo_real: string;
+    comentar_pep_lb?: string;
+    comentar_pep_rp?: string;
+    comentar_pep_real?: string;
+    comentar_pep_na?: string;
+    atender_pep_lb?: string;
+    atender_pep_rp?: string;
+    atender_pep_real?: string;
+    atender_pep_na?: string;
+    aprovar_projeto_lb?: string;
+    aprovar_projeto_rp?: string;
+    aprovar_projeto_real?: string;
+    aprovar_projeto_na?: string;
+    emitir_databook_lb?: string;
+    emitir_databook_rp?: string;
+    emitir_databook_real?: string;
+    emitir_databook_na?: string;
+    comentar_databook_lb?: string;
+    comentar_databook_rp?: string;
+    comentar_databook_real?: string;
+    comentar_databook_na?: string;
     url : string;
 }
 

@@ -118,7 +118,7 @@ const Cronograma = () => {
                   <i className="bi bi-cloud-download me-2" /> Baixar
                 </a> 
                 : 
-                <a href="https://firebasestorage.googleapis.com/v0/b/siproj2-5ff69.appspot.com/o/padrao%2FCR%20-%20XXX-AS-PB%20-%20REV%3D0.mpp?alt=media&token=1d886393-f3a2-493d-9981-58f68e647f66" className="btn btn-outline-success me-2 me-md-4" download >
+                <a href="https://firebasestorage.googleapis.com/v0/b/siproj2-5ff69.appspot.com/o/padrao%2FCR%20-%20XXX-AS-PB%20-%20REV%3D0.mpp?alt=media&token=db1c3958-09ed-4e04-b045-c4e846df5399" className="btn btn-outline-success me-2 me-md-4" download >
                   <i className="bi bi-cloud-download me-2" /> Baixar padrão
                 </a> 
               }        
@@ -167,12 +167,6 @@ const Cronograma = () => {
                 <td>{cronograma[0]?.reuniao_pre_real}</td>
               </tr>
               <tr>
-                <th scope="row" className="table-title">Visita Técnica (IDA)</th>
-                <td>{cronograma[0].visita_ida_lb}</td>
-                <td>{cronograma[0]?.visita_ida_rp}</td>
-                <td>{cronograma[0]?.visita_ida_real}</td>
-              </tr>
-              <tr>
                 <th scope="row" className="table-title">Visita Técnica (VOLTA)</th>
                 <td>{cronograma[0].visita_volta_lb}</td>
                 <td>{cronograma[0]?.visita_volta_rp}</td>
@@ -209,6 +203,18 @@ const Cronograma = () => {
                 <td>{cronograma[0]?.emitir_pep_real}</td>
               </tr>
               <tr>
+                <th scope="row" className="table-title">Comentar PEP</th>
+                <td>{cronograma[0]?.comentar_pep_lb}</td>
+                <td>{cronograma[0]?.comentar_pep_rp}</td>
+                <td>{cronograma[0]?.comentar_pep_real}</td>
+              </tr>
+              <tr>
+                <th scope="row" className="table-title">Atender PEP</th>
+                <td>{cronograma[0]?.atender_pep_lb}</td>
+                <td>{cronograma[0]?.atender_pep_rp}</td>
+                <td>{cronograma[0]?.atender_pep_real}</td>
+              </tr>
+              <tr>
                 <th scope="row" className="table-title">PB aprov./ coment. PEP</th>
                 <td>{cronograma[0].aprovar_pep_lb}</td>
                 <td>{cronograma[0].aprovar_pep_rp}</td>
@@ -233,6 +239,30 @@ const Cronograma = () => {
                 <td>{cronograma[0]?.atender_coment_projeto_real}</td>
               </tr>
               <tr>
+                <th scope="row" className="table-title">Aprovar projetos</th>
+                <td>{cronograma[0]?.aprovar_projeto_lb}</td>
+                <td>{cronograma[0]?.aprovar_projeto_rp}</td>
+                <td>{cronograma[0]?.aprovar_projeto_real}</td>
+              </tr>
+              <tr>
+                <th scope="row" className="table-title">Emitir Databook</th>
+                <td>{cronograma[0]?.emitir_databook_lb}</td>
+                <td>{cronograma[0]?.emitir_databook_rp}</td>
+                <td>{cronograma[0]?.emitir_databook_real}</td>
+              </tr>
+              <tr>
+                <th scope="row" className="table-title">Comentar Databook</th>
+                <td>{cronograma[0]?.comentar_databook_lb}</td>
+                <td>{cronograma[0]?.comentar_databook_rp}</td>
+                <td>{cronograma[0]?.comentar_databook_real}</td>
+              </tr>
+              <tr>
+                <th scope="row" className="table-title">Atender comentários</th>
+                <td>{cronograma[0].atender_coment_projeto_lb}</td>
+                <td>{cronograma[0]?.atender_coment_projeto_rp}</td>
+                <td>{cronograma[0]?.atender_coment_projeto_real}</td>
+              </tr>
+              <tr>
                 <th scope="row" className="table-title">PB aprova Data Book</th>
                 <td>{cronograma[0].data_book_lb}</td>
                 <td>{cronograma[0]?.data_book_rp}</td>
@@ -244,12 +274,6 @@ const Cronograma = () => {
                 <td>{cronograma[0].prazo_rp}</td>
                 <td>{cronograma[0].prazo_real}</td>
               </tr>
-              {/* <tr>
-                <th scope="row" className="table-title">Prazo desde emissão ET</th>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr> */}
             </tbody>
           </Table>
         </Row>
