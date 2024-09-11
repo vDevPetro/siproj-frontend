@@ -118,7 +118,7 @@ const Cronograma = () => {
                   <i className="bi bi-cloud-download me-2" /> Baixar
                 </a> 
                 : 
-                <a href="https://firebasestorage.googleapis.com/v0/b/siproj2-5ff69.appspot.com/o/padrao%2FMODELO%20CRONOGRAMA%20SIPROJ.mpp?alt=media&token=4ec8b9b7-e3bd-406c-89cb-af352a195176" className="btn btn-outline-success me-2 me-md-4" download >
+                <a href="https://firebasestorage.googleapis.com/v0/b/siproj2-5ff69.appspot.com/o/padrao%2FCR%20-%20XXX-AS-PB%20-%20REV%3D0.mpp?alt=media&token=db1c3958-09ed-4e04-b045-c4e846df5399" className="btn btn-outline-success me-2 me-md-4" download >
                   <i className="bi bi-cloud-download me-2" /> Baixar padrão
                 </a> 
               }        
