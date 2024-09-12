@@ -157,14 +157,13 @@ const Users = () => {
                     <button className='btn btn-outline-warning' onClick={() => updateUsers()}><i className="bi bi-arrow-repeat"/></button>
                     </div>
                   </div>
-                  <table className="table table-striped table-hover ">
+                  <table className="table table-striped table-hover w-100">
                     <thead>
                       <tr>
                         <th scope="col">Email</th>
                         <th scope="col">Nível</th>
                         <th scope="col">Status</th>
                         <th scope="col">Cadastrado</th>
-                        <th scope="col">Ações</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -175,14 +174,6 @@ const Users = () => {
                             <td>{item.nivel}</td>
                             <td>{item.status}</td>
                             <td>{item.stamp}</td>
-                            <td>
-                              <button className="btn btn-primary btn-sm me-2 edit-icon" title="Editar">
-                                <i className="bi bi-pencil-square"></i>
-                              </button>
-                              <button className="btn btn-danger btn-sm" title="Excluir">
-                                <i className="bi bi-trash"></i>
-                              </button>
-                            </td>
                           </tr>
                         ))
                       }
