@@ -139,7 +139,7 @@ const Cronograma = () => {
               <tr>
                 <th className="table-title"></th>
                 <th className="table-title">Linha de Base</th>
-                <th className="table-title">Replanejamento</th>
+                <th className="table-title">Projetado</th>
                 <th className="table-title">Realizado</th>
               </tr>
             </thead>
@@ -250,7 +250,7 @@ const Cronograma = () => {
                 <td>{cronograma[0]?.emitir_databook_rp}</td>
                 <td>{cronograma[0]?.emitir_databook_real}</td>
               </tr>
-              <tr>abl
+              <tr>
                 <th scope="row" className={`table-title ${cronograma[0].comentar_databook_na === "1" ? 'text-decoration-line-through' : ''}`}>Comentar Databook {cronograma[0].comentar_databook_na === "1" ? <i className='bi bi-slash-circle ms-2'/> : <></>}</th>
                 <td>{cronograma[0]?.comentar_databook_lb}</td>
                 <td>{cronograma[0]?.comentar_databook_rp}</td>
