@@ -2,10 +2,54 @@
 :root {
   scroll-behavior: smooth;
 }
+
+/* Ajeitar a tabela de usuario */
 .table{
   table-layout: fixed;
   width: 100%;
 }
+
+/* Para ajeitar o espacamento da tabela de perfil */
+.table-perfil td,.table-perfil th {
+  padding: 0.25rem;
+  width: auto;      
+}
+
+/* Para ajeitar o texto do container de alteracao de senha*/
+.container-profile h3 {
+  text-align: center;
+  padding-bottom: 10px;
+}
+
+/* Para ajeitar o label de alteracao de senha*/
+.form-label-profile {
+  display: flex;
+  justify-content: flex-end; 
+  align-items: center;
+}
+
+
+/* Para ajeitar a posicao do icone de visivel*/
+.input-container-profile {
+  position: relative; 
+}
+
+
+/* Para ajeitar o label e o icone na alteracao de senha*/
+.input-container-profile input {
+  width: 90%; 
+  padding-right: 10px; 
+}
+
+/* Para deixar o icone de visivel alinhado com relacao ao input de alteracao de senha*/
+.input-container-profile i {
+  position: absolute;
+  right: 0px;
+  top: 40%;
+  transform: translateY(-50%);
+  cursor: pointer; 
+}
+
 body {
   font-family: "Open Sans", sans-serif;
   background: #f9fff6;
