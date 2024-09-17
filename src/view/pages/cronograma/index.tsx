@@ -137,139 +137,139 @@ const Cronograma = () => {
           <Table hover className="table table-striped table-bordered">
             <thead>
               <tr>
-                <th className="table-title"></th>
-                <th className="table-title">Linha de Base</th>
-                <th className="table-title">Projetado</th>
-                <th className="table-title">Realizado</th>
+                <th style = {{ color: '#043a00'}} className="table-title"></th>
+                <th style = {{ color: '#043a00'}} className="table-title">Linha de Base</th>
+                <th style = {{ color: '#043a00'}} className="table-title">Projetado</th>
+                <th style = {{ color: '#043a00'}} className="table-title">Realizado</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <th className="table-title">Data de criação AS</th>
+                <th style = {{ color: '#043a00'}} className="table-title">Data de criação AS</th>
                 <td colSpan={3}>{cronograma[0]?.criacao}</td>
               </tr>
               <tr>
-                <th scope="row" className={`table-title ${cronograma[0].emissao_et_petro_na === "1" ? 'text-decoration-line-through' : ''}`}>Emitir ET {cronograma[0].emissao_et_petro_na === "1" ? <i className='bi bi-slash-circle ms-2'/> : <></>}</th>
+                <th scope="row" style = {{ color: '#043a00'}} className={`table-title ${cronograma[0].emissao_et_petro_na === "1" ? 'text-decoration-line-through' : ''}`}>Emitir ET {cronograma[0].emissao_et_petro_na === "1" ? <i className='bi bi-slash-circle ms-2'/> : <></>}</th>
                 <td>{cronograma[0].emissao_et_petro_lb}</td>
                 <td>{cronograma[0]?.emissao_et_petro_rp}</td>
                 <td>{cronograma[0]?.emissao_et_petro_real}</td>
               </tr>
               <tr>
-                <th scope="row" className={`table-title ${cronograma[0].analise_et_na === "1" ? 'text-decoration-line-through' : ''}`}>Concluir análise ET {cronograma[0].analise_et_na === "1" ? <i className='bi bi-slash-circle ms-2'/> : <></>}</th>
+                <th scope="row" style = {{ color: '#043a00'}} className={`table-title ${cronograma[0].analise_et_na === "1" ? 'text-decoration-line-through' : ''}`}>Concluir análise ET {cronograma[0].analise_et_na === "1" ? <i className='bi bi-slash-circle ms-2'/> : <></>}</th>
                 <td>{cronograma[0]?.analise_et_lb}</td>
                 <td>{cronograma[0]?.analise_et_rp}</td>
                 <td>{cronograma[0]?.analise_et_real}</td>
               </tr>
               <tr>
-                <th scope="row" className={`table-title ${cronograma[0].reuniao_pre_na === "1" ? 'text-decoration-line-through' : ''}`}>Reunião pré visita {cronograma[0].reuniao_pre_na === "1" ? <i className='bi bi-slash-circle ms-2'/> : <></>}</th>
+                <th scope="row" style = {{ color: '#043a00'}} className={`table-title ${cronograma[0].reuniao_pre_na === "1" ? 'text-decoration-line-through' : ''}`}>Reunião pré visita {cronograma[0].reuniao_pre_na === "1" ? <i className='bi bi-slash-circle ms-2'/> : <></>}</th>
                 <td>{cronograma[0]?.reuniao_pre_lb}</td>
                 <td>{cronograma[0]?.reuniao_pre_rp}</td>
                 <td>{cronograma[0]?.reuniao_pre_real}</td>
               </tr>
               <tr>
-                <th scope="row" className={`table-title ${cronograma[0].visita_volta_na === "1" ? 'text-decoration-line-through' : ''}`}>Visita técnica (VOLTA) {cronograma[0].visita_volta_na === "1" ? <i className='bi bi-slash-circle ms-2'/> : <></>}</th>
+                <th scope="row" style = {{ color: '#043a00'}} className={`table-title ${cronograma[0].visita_volta_na === "1" ? 'text-decoration-line-through' : ''}`}>Visita técnica (VOLTA) {cronograma[0].visita_volta_na === "1" ? <i className='bi bi-slash-circle ms-2'/> : <></>}</th>
                 <td>{cronograma[0].visita_volta_lb}</td>
                 <td>{cronograma[0]?.visita_volta_rp}</td>
                 <td>{cronograma[0]?.visita_volta_real}</td>
               </tr>
               <tr>
-                <th scope="row" className={`table-title ${cronograma[0].emitir_rl_visita_na === "1" ? 'text-decoration-line-through' : ''}`}>Emitir rl {cronograma[0].emitir_rl_visita_na === "1" ? <i className='bi bi-slash-circle ms-2'/> : <></>}</th>
+                <th scope="row" style = {{ color: '#043a00'}} className={`table-title ${cronograma[0].emitir_rl_visita_na === "1" ? 'text-decoration-line-through' : ''}`}>Emitir rl {cronograma[0].emitir_rl_visita_na === "1" ? <i className='bi bi-slash-circle ms-2'/> : <></>}</th>
                 <td>{cronograma[0].emitir_rl_visita_lb}</td>
                 <td>{cronograma[0]?.emitir_rl_visita_rp}</td>
                 <td>{cronograma[0]?.emitir_rl_visita_real}</td>
               </tr>
               <tr>
-                <th scope="row" className={`table-title ${cronograma[0].aprovar_rl_visita_na === "1" ? 'text-decoration-line-through' : ''}`}>Aprovar rl {cronograma[0].aprovar_rl_visita_na === "1" ? <i className='bi bi-slash-circle ms-2'/> : <></>}</th>
+                <th scope="row" style = {{ color: '#043a00'}} className={`table-title ${cronograma[0].aprovar_rl_visita_na === "1" ? 'text-decoration-line-through' : ''}`}>Aprovar rl {cronograma[0].aprovar_rl_visita_na === "1" ? <i className='bi bi-slash-circle ms-2'/> : <></>}</th>
                 <td>{cronograma[0].aprovar_rl_visita_lb}</td>
                 <td>{cronograma[0]?.aprovar_rl_visita_rp}</td>
                 <td>{cronograma[0]?.aprovar_rl_visita_real}</td>
               </tr>
               <tr>
-                <th scope="row" className={`table-title ${cronograma[0].emitir_orc_na === "1" ? 'text-decoration-line-through' : ''}`}>Emitir orçamento {cronograma[0].emitir_orc_na === "1" ? <i className='bi bi-slash-circle ms-2'/> : <></>}</th>
+                <th scope="row" style = {{ color: '#043a00'}} className={`table-title ${cronograma[0].emitir_orc_na === "1" ? 'text-decoration-line-through' : ''}`}>Emitir orçamento {cronograma[0].emitir_orc_na === "1" ? <i className='bi bi-slash-circle ms-2'/> : <></>}</th>
                 <td>{cronograma[0].emitir_orc_lb}</td>
                 <td>{cronograma[0].emitir_orc_rp}</td>
                 <td>{cronograma[0]?.emitir_orc_real}</td>
               </tr>
               <tr>
-                <th scope="row" className={`table-title ${cronograma[0].aprovar_orc_na === "1" ? 'text-decoration-line-through' : ''}`}>PB aprovar orçamento {cronograma[0].aprovar_orc_na === "1" ? <i className='bi bi-slash-circle ms-2'/> : <></>}</th>
+                <th scope="row" style = {{ color: '#043a00'}} className={`table-title ${cronograma[0].aprovar_orc_na === "1" ? 'text-decoration-line-through' : ''}`}>PB aprovar orçamento {cronograma[0].aprovar_orc_na === "1" ? <i className='bi bi-slash-circle ms-2'/> : <></>}</th>
                 <td>{cronograma[0].aprovar_orc_lb}</td>
                 <td>{cronograma[0].aprovar_orc_rp}</td>
                 <td>{cronograma[0]?.aprovar_orc_real}</td>
               </tr>
               <tr>
-                <th scope="row" className={`table-title ${cronograma[0].emitir_pep_na === "1" ? 'text-decoration-line-through' : ''}`}>Emitir PEP {cronograma[0].emitir_pep_na === "1" ? <i className='bi bi-slash-circle ms-2'/> : <></>}</th>
+                <th scope="row" style = {{ color: '#043a00'}} className={`table-title ${cronograma[0].emitir_pep_na === "1" ? 'text-decoration-line-through' : ''}`}>Emitir PEP {cronograma[0].emitir_pep_na === "1" ? <i className='bi bi-slash-circle ms-2'/> : <></>}</th>
                 <td>{cronograma[0].emitir_pep_lb}</td>
                 <td>{cronograma[0].emitir_pep_rp}</td>
                 <td>{cronograma[0]?.emitir_pep_real}</td>
               </tr>
               <tr>
-                <th scope="row" className={`table-title ${cronograma[0].comentar_pep_na === "1" ? 'text-decoration-line-through' : ''}`}>Comentar PEP {cronograma[0].comentar_pep_na === "1" ? <i className='bi bi-slash-circle ms-2'/> : <></>}</th>
+                <th scope="row" style = {{ color: '#043a00'}} className={`table-title ${cronograma[0].comentar_pep_na === "1" ? 'text-decoration-line-through' : ''}`}>Comentar PEP {cronograma[0].comentar_pep_na === "1" ? <i className='bi bi-slash-circle ms-2'/> : <></>}</th>
                 <td>{cronograma[0]?.comentar_pep_lb}</td>
                 <td>{cronograma[0]?.comentar_pep_rp}</td>
                 <td>{cronograma[0]?.comentar_pep_real}</td>
               </tr>
               <tr>
-                <th scope="row" className={`table-title ${cronograma[0].atender_pep_na === "1" ? 'text-decoration-line-through' : ''}`}>Atender PEP {cronograma[0].atender_pep_na === "1" ? <i className='bi bi-slash-circle ms-2'/> : <></>}</th>
+                <th scope="row" style = {{ color: '#043a00'}} className={`table-title ${cronograma[0].atender_pep_na === "1" ? 'text-decoration-line-through' : ''}`}>Atender PEP {cronograma[0].atender_pep_na === "1" ? <i className='bi bi-slash-circle ms-2'/> : <></>}</th>
                 <td>{cronograma[0]?.atender_pep_lb}</td>
                 <td>{cronograma[0]?.atender_pep_rp}</td>
                 <td>{cronograma[0]?.atender_pep_real}</td>
               </tr>
               <tr>
-                <th scope="row" className={`table-title ${cronograma[0].aprovar_pep_na === "1" ? 'text-decoration-line-through' : ''}`}>Aprovar PEP {cronograma[0].aprovar_pep_na === "1" ? <i className='bi bi-slash-circle ms-2'/> : <></>}</th>
+                <th scope="row" style = {{ color: '#043a00'}} className={`table-title ${cronograma[0].aprovar_pep_na === "1" ? 'text-decoration-line-through' : ''}`}>Aprovar PEP {cronograma[0].aprovar_pep_na === "1" ? <i className='bi bi-slash-circle ms-2'/> : <></>}</th>
                 <td>{cronograma[0].aprovar_pep_lb}</td>
                 <td>{cronograma[0].aprovar_pep_rp}</td>
                 <td>{cronograma[0]?.aprovar_pep_real}</td>
               </tr>
               <tr>
-                <th scope="row" className={`table-title ${cronograma[0].emitir_projeto_na === "1" ? 'text-decoration-line-through' : ''}`}>Emitir Projeto {cronograma[0].emitir_projeto_na === "1" ? <i className='bi bi-slash-circle ms-2'/> : <></>}</th>
+                <th scope="row" style = {{ color: '#043a00'}} className={`table-title ${cronograma[0].emitir_projeto_na === "1" ? 'text-decoration-line-through' : ''}`}>Emitir Projeto {cronograma[0].emitir_projeto_na === "1" ? <i className='bi bi-slash-circle ms-2'/> : <></>}</th>
                 <td>{cronograma[0].emitir_projeto_lb}</td>
                 <td>{cronograma[0]?.emitir_projeto_rp}</td>
                 <td>{cronograma[0]?.emitir_projeto_real}</td>
               </tr>
               <tr>
-                <th scope="row" className={`table-title ${cronograma[0].comentar_projeto_na === "1" ? 'text-decoration-line-through' : ''}`}>PB comentar projeto {cronograma[0].comentar_projeto_na === "1" ? <i className='bi bi-slash-circle ms-2'/> : <></>}</th>
+                <th scope="row" style = {{ color: '#043a00'}} className={`table-title ${cronograma[0].comentar_projeto_na === "1" ? 'text-decoration-line-through' : ''}`}>PB comentar projeto {cronograma[0].comentar_projeto_na === "1" ? <i className='bi bi-slash-circle ms-2'/> : <></>}</th>
                 <td>{cronograma[0].comentar_projeto_lb}</td>
                 <td>{cronograma[0]?.comentar_projeto_rp}</td>
                 <td>{cronograma[0]?.comentar_projeto_real}</td>
               </tr>
               <tr>
-                <th scope="row" className={`table-title ${cronograma[0].atender_coment_projeto_na === "1" ? 'text-decoration-line-through' : ''}`}>Atender Comentários {cronograma[0].atender_coment_projeto_na === "1" ? <i className='bi bi-slash-circle ms-2'/> : <></>}</th>
+                <th scope="row" style = {{ color: '#043a00'}} className={`table-title ${cronograma[0].atender_coment_projeto_na === "1" ? 'text-decoration-line-through' : ''}`}>Atender Comentários {cronograma[0].atender_coment_projeto_na === "1" ? <i className='bi bi-slash-circle ms-2'/> : <></>}</th>
                 <td>{cronograma[0].atender_coment_projeto_lb}</td>
                 <td>{cronograma[0]?.atender_coment_projeto_rp}</td>
                 <td>{cronograma[0]?.atender_coment_projeto_real}</td>
               </tr>
               <tr>
-                <th scope="row" className={`table-title ${cronograma[0].aprovar_projeto_na === "1" ? 'text-decoration-line-through' : ''}`}>Aprovar projetos {cronograma[0].aprovar_projeto_na === "1" ? <i className='bi bi-slash-circle ms-2'/> : <></>}</th>
+                <th scope="row" style = {{ color: '#043a00'}} className={`table-title ${cronograma[0].aprovar_projeto_na === "1" ? 'text-decoration-line-through' : ''}`}>Aprovar projetos {cronograma[0].aprovar_projeto_na === "1" ? <i className='bi bi-slash-circle ms-2'/> : <></>}</th>
                 <td>{cronograma[0]?.aprovar_projeto_lb}</td>
                 <td>{cronograma[0]?.aprovar_projeto_rp}</td>
                 <td>{cronograma[0]?.aprovar_projeto_real}</td>
               </tr>
               <tr>
-                <th scope="row" className={`table-title ${cronograma[0].emitir_databook_na === "1" ? 'text-decoration-line-through' : ''}`}>Emitir Databook {cronograma[0].emitir_databook_na === "1" ? <i className='bi bi-slash-circle ms-2'/> : <></>}</th>
+                <th scope="row" style = {{ color: '#043a00'}} className={`table-title ${cronograma[0].emitir_databook_na === "1" ? 'text-decoration-line-through' : ''}`}>Emitir Databook {cronograma[0].emitir_databook_na === "1" ? <i className='bi bi-slash-circle ms-2'/> : <></>}</th>
                 <td>{cronograma[0]?.emitir_databook_lb}</td>
                 <td>{cronograma[0]?.emitir_databook_rp}</td>
                 <td>{cronograma[0]?.emitir_databook_real}</td>
               </tr>
               <tr>
-                <th scope="row" className={`table-title ${cronograma[0].comentar_databook_na === "1" ? 'text-decoration-line-through' : ''}`}>Comentar Databook {cronograma[0].comentar_databook_na === "1" ? <i className='bi bi-slash-circle ms-2'/> : <></>}</th>
+                <th scope="row" style = {{ color: '#043a00'}} className={`table-title ${cronograma[0].comentar_databook_na === "1" ? 'text-decoration-line-through' : ''}`}>Comentar Databook {cronograma[0].comentar_databook_na === "1" ? <i className='bi bi-slash-circle ms-2'/> : <></>}</th>
                 <td>{cronograma[0]?.comentar_databook_lb}</td>
                 <td>{cronograma[0]?.comentar_databook_rp}</td>
                 <td>{cronograma[0]?.comentar_databook_real}</td>
               </tr>
               <tr>
-                <th scope="row" className={`table-title ${cronograma[0].atender_coment_projeto_na === "1" ? 'text-decoration-line-through' : ''}`}>Atender Comentarios {cronograma[0].atender_coment_projeto_na === "1" ? <i className='bi bi-slash-circle ms-2'/> : <></>}</th>
+                <th scope="row" style = {{ color: '#043a00'}} className={`table-title ${cronograma[0].atender_coment_projeto_na === "1" ? 'text-decoration-line-through' : ''}`}>Atender Comentarios {cronograma[0].atender_coment_projeto_na === "1" ? <i className='bi bi-slash-circle ms-2'/> : <></>}</th>
                 <td>{cronograma[0].atender_coment_projeto_lb}</td>
                 <td>{cronograma[0]?.atender_coment_projeto_rp}</td>
                 <td>{cronograma[0]?.atender_coment_projeto_real}</td>
               </tr>
               <tr>
-                <th scope="row" className={`table-title ${cronograma[0].data_book_na === "1" ? 'text-decoration-line-through' : ''}`}>Aprovar Databook {cronograma[0].data_book_na === "1" ? <i className='bi bi-slash-circle ms-2'/> : <></>}</th>
+                <th scope="row" style = {{ color: '#043a00'}} className={`table-title ${cronograma[0].data_book_na === "1" ? 'text-decoration-line-through' : ''}`}>Aprovar Databook {cronograma[0].data_book_na === "1" ? <i className='bi bi-slash-circle ms-2'/> : <></>}</th>
                 <td>{cronograma[0].data_book_lb}</td>
                 <td>{cronograma[0]?.data_book_rp}</td>
                 <td>{cronograma[0]?.data_book_real}</td>
               </tr>
               <tr>
-                <th scope="row" className="table-title">Prazo desde aprov. PEP</th>
+                <th scope="row" style = {{ color: '#043a00'}} className="table-title">Prazo desde aprov. PEP</th>
                 <td>{cronograma[0].prazo_lb}</td>
                 <td>{cronograma[0].prazo_rp}</td>
                 <td>{cronograma[0].prazo_real}</td>

@@ -1,4 +1,6 @@
 import MUIDataTable from "mui-datatables";
+import { MUIDataTableColumn } from "mui-datatables";
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import styled from "styled-components";
 import { Responsive } from "mui-datatables";
 import { Dialog, DialogActions, DialogContent, DialogTitle, DialogContentText, Button } from "@mui/material";
@@ -21,6 +23,39 @@ const Container = styled.main`
         padding: 1rem !important;
     }
 `;
+const theme = createTheme({
+    components: {
+      MuiIconButton: {
+        styleOverrides: {
+          root: {
+            "&:hover": {
+              backgroundColor: "transparent",  
+              "& .MuiSvgIcon-root": {
+                color: "#008542", 
+              },
+            },
+          },
+        },
+      },
+      MuiSvgIcon: {
+        styleOverrides: {
+          root: {
+            color: "#6c757d",  
+          },
+        },
+      },
+      MuiTableCell: {
+        styleOverrides: {
+          head: {
+            color: "#043a00", 
+            '& .MuiTableSortLabel-root': {
+              color: "#043a00",  
+            },
+          },
+        },
+      },
+    },
+  });
 
 const ConsultarAs = () => {
 
@@ -137,6 +172,40 @@ const ConsultarAs = () => {
             CarregarAS(rowData[0])
         },
         responsive: layout,
+        textLabels: {
+            body: {
+              noMatch: "Nenhum resultado encontrado",
+              toolTip: "Ordenar",
+              columnHeaderTooltip: (column: MUIDataTableColumn) => `Ordenar por ${column.label || column.name}`,
+            },
+            pagination: {
+              next: "Próxima página",
+              previous: "Página anterior",
+              rowsPerPage: "Linhas por página:",
+              displayRows: "de",
+            },
+            toolbar: {
+              search: "Pesquisar",
+              downloadCsv: "Baixar CSV",
+              print: "Imprimir",
+              viewColumns: "Ver colunas",
+              filterTable: "Filtrar tabela",
+            },
+            filter: {
+              all: "Todos",
+              title: "Filtros",
+              reset: "Limpar",
+            },
+            viewColumns: {
+              title: "Mostrar colunas",
+              titleAria: "Mostrar/Esconder colunas da tabela",
+            },
+            selectedRows: {
+              text: "linha(s) selecionada(s)",
+              delete: "Excluir",
+              deleteAria: "Excluir linhas selecionadas",
+            },
+          }
     }
 
     const [autorizacoes, setAutorizacoes] = useState([{}]);
@@ -160,6 +229,7 @@ const ConsultarAs = () => {
     }    
 
     return(
+        <ThemeProvider theme={theme}>
         <Container className="container-lg">
             <div className="pagetitle mt-5 pt-1 pt-md-2">
                 <h1>Consultar Autorização de Serviço</h1>
@@ -178,6 +248,7 @@ const ConsultarAs = () => {
                 </div>
             </div>
         </Container>
+        </ThemeProvider>
     )
 }
 

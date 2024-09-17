@@ -178,11 +178,11 @@ const handleSubmit = async (e: FormEvent) => {
         <Table hover className="table-sm text-nowrap table-striped table-bordered table-fixed">
           <thead>
             <tr>
-              <th scope="col" className="table-title">N° Emissão</th>
-              <th scope="col" className="table-title">Motivo</th>
-              <th scope="col" className="table-title">Situação</th>
-              <th scope="col" className="table-title">Emitir Projeto LB</th>
-              <th scope="col" className='table-title'>Editar</th>
+              <th scope="col" style = {{ color: '#043a00'}} className="table-title">N° Emissão</th>
+              <th scope="col" style = {{ color: '#043a00'}} className="table-title">Motivo</th>
+              <th scope="col" style = {{ color: '#043a00'}} className="table-title">Situação</th>
+              <th scope="col" style = {{ color: '#043a00'}} className="table-title">Emitir Projeto LB</th>
+              <th scope="col" style = {{ color: '#043a00'}} className='table-title'>Editar</th>
             </tr>
           </thead>
           <tbody>
@@ -244,26 +244,26 @@ const handleSubmit = async (e: FormEvent) => {
               <thead>
                 <tr>
                   <td></td>
-                  <th className="table-title">Emitir projeto comentário</th>
-                  <th className="table-title">PB comentar projeto</th>
-                  <th className="table-title">Atender comentários</th>
+                  <th style = {{ color: '#043a00'}} className="table-title">Emitir projeto comentário</th>
+                  <th style = {{ color: '#043a00'}} className="table-title">PB comentar projeto</th>
+                  <th style = {{ color: '#043a00'}} className="table-title">Atender comentários</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <th className="table-title">Planejamento</th>
+                  <th style ={{ color: '#043a00'}} className="table-title">Planejamento</th>
                   <td><Form.Control type="date" name="emitir_proj_lb" value={novaEmissao.emitir_proj_lb} onChange={handleChange} className="border-0 p-1" /></td>
                   <td><Form.Control type="date" name="coment_proj_lb" value={novaEmissao.coment_proj_lb} onChange={handleChange} className="border-0 p-1" /></td>
                   <td><Form.Control type="date" name="atender_coment_proj_lb" value={novaEmissao.atender_coment_proj_lb} onChange={handleChange} className="border-0 p-1" /></td>
                 </tr>
                 <tr>
-                  <th className="table-title">Replanejamento</th>
+                  <th style ={{ color: '#043a00'}} className="table-title">Replanejamento</th>
                   <td><Form.Control type="date" name="emitir_proj_rp" value={novaEmissao.emitir_proj_rp} onChange={handleChange} className="border-0 p-1" /></td>
                   <td><Form.Control type="date" name="coment_proj_rp" value={novaEmissao.coment_proj_rp} onChange={handleChange} className="border-0 p-1" /></td>
                   <td><Form.Control type="date" name="atender_coment_proj_rp" value={novaEmissao.atender_coment_proj_rp} onChange={handleChange} className="border-0 p-1" /></td>
                 </tr>
                 <tr>
-                  <th className="table-title">Realizado</th>
+                  <th style ={{ color: '#043a00'}} className="table-title">Realizado</th>
                   <td><Form.Control type="date" name="emitir_proj_real" value={novaEmissao.emitir_proj_real} onChange={handleChange} className="border-0 p-1" /></td>
                   <td><Form.Control type="date" name="coment_proj_real" value={novaEmissao.coment_proj_real} onChange={handleChange} className="border-0 p-1" /></td>
                   <td><Form.Control type="date" name="atender_coment_proj_real" value={novaEmissao.atender_coment_proj_real} onChange={handleChange} className="border-0 p-1" /></td>
