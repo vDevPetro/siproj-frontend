@@ -169,43 +169,45 @@ const handleSubmit = async (e: FormEvent) => {
 
   return (
     <Container>
-      {emissoes.length > 0 && 
-        <>
-          <div className="pagetitle mt-5 mb-3">
-            <h1>Consultar Emissões</h1>
-          </div>
-          <div className='table-responsive'>
-          <Table hover className="table-sm text-nowrap table-striped table-bordered">
-            <thead>
-              <tr>
-                <th scope="col" className="table-title">N° Emissão</th>
-                <th scope="col" className="table-title">Motivo</th>
-                <th scope="col" className="table-title">Situação</th>
-                <th scope="col" className="table-title">Emitir Projeto LB</th>
-                {/* <th scope="col" className="table-title">Comentário Projeto LB</th> */}
-                <th scope="col" className='table-title'>Editar</th>
-              </tr>
-            </thead>
-            <tbody>
-              {emissoes.map((item, index) => (
-                <tr key={index} id={item.id} onClick={() => handleEdit(item)}>
-                  <td>{item.emissao}</td>
-                  <td>{item.motivo}</td>
-                  <td>{item.situacao === 'aprov'? 'Aprovada' : item.situacao === 'aprov_coment' ? 'Aprov. com comentários' : 'Reprovada'}</td>
-                  <td>{convertDate(item.emitir_proj_lb)}</td>
-                  {/* <td>{convertDate(item.coment_proj_lb)}</td> */}
-                  <td><button className='btn btn-success '><i className='bi bi-pencil'/></button></td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
-          </div>
-        </>
-      }
-
+  {emissoes.length > 0 && 
+    <>
       <div className="pagetitle mt-5 mb-3">
-        <h1>{edit ? 'Editar emissão' : 'Inserir emissão'}</h1>
+        <h1>Consultar Emissões</h1>
       </div>
+      <div className='table-responsive'>
+        <Table hover className="table-sm text-nowrap table-striped table-bordered table-fixed">
+          <thead>
+            <tr>
+              <th scope="col" className="table-title">N° Emissão</th>
+              <th scope="col" className="table-title">Motivo</th>
+              <th scope="col" className="table-title">Situação</th>
+              <th scope="col" className="table-title">Emitir Projeto LB</th>
+              <th scope="col" className='table-title'>Editar</th>
+            </tr>
+          </thead>
+          <tbody>
+            {emissoes.map((item, index) => (
+              <tr key={index} id={item.id} onClick={() => handleEdit(item)}>
+                <td>{item.emissao}</td>
+                <td>{item.motivo}</td>
+                <td>{item.situacao === 'aprov'? 'Aprovada' : item.situacao === 'aprov_coment' ? 'Aprov. com comentários' : 'Reprovada'}</td>
+                <td>{convertDate(item.emitir_proj_lb)}</td>
+                <td>
+                  <button className='btn btn-success'>
+                    <i className='bi bi-pencil'/>
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </div>
+    </>
+  }
+
+  <div className="pagetitle mt-5 mb-3">
+    <h1>{edit ? 'Editar emissão' : 'Inserir emissão'}</h1>
+  </div>
       <Form onSubmit={handleSubmit}>
         <div className='d-flex justify-content-between mb-3'>
           <div className="d-flex">
@@ -300,22 +302,22 @@ const handleSubmit = async (e: FormEvent) => {
         {edit && <button type='button' onClick={handleClose} className="btn btn-outline-warning rounded-circle ms-4"><i className='bi bi-x-lg'/></button>}
       </Form>
 
-      {show && status &&
-        <Modal show onHide={() => setShow(false)} backdrop="static" keyboard={false}>
-          <Modal.Header closeButton>
-            <Modal.Title>{status >= 200 ? 'Sucesso' : 'Erro'}</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            { status === 200 ? 'Emissão alterada com sucesso' : 'Emissão cadastrada com sucesso'} 
-          </Modal.Body>
-          <Modal.Footer>
-            <Button  className="btn btn-success" onClick={() => setShow(false)}>
-              Entendido
-            </Button>
-          </Modal.Footer>
-        </Modal>
-      }
-    </Container>
+      {show && status && 
+    <Modal show onHide={() => setShow(false)} backdrop="static" keyboard={false}>
+      <Modal.Header closeButton>
+        <Modal.Title>{status >= 200 ? 'Sucesso' : 'Erro'}</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        {status === 200 ? 'Emissão alterada com sucesso' : 'Emissão cadastrada com sucesso'} 
+      </Modal.Body>
+      <Modal.Footer>
+        <Button className="btn btn-success" onClick={() => setShow(false)}>
+          Entendido
+        </Button>
+      </Modal.Footer>
+    </Modal>
+  }
+</Container>
   );
 };
 

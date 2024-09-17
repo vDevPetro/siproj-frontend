@@ -16,6 +16,23 @@ body {
   margin-bottom: 0;
 }
 
+.table-fixed {
+  table-layout: fixed; 
+  width: 100%; 
+}
+
+.table-fixed th, .table-fixed td {
+  word-wrap: break-word; 
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.table-title {
+  width: 20%; 
+}
+
+
 .table-sm td {
   padding: 0.25rem;
   vertical-align: middle;
