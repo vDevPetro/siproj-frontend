@@ -4,10 +4,11 @@ import { Container } from './styles';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { storage } from '../../../controller/ConnectionFactory';
 import { useParams } from 'react-router-dom';
-import { updateUrl } from '../../../controller/Cronograma';
+import { updateCronograma, updateUrl } from '../../../controller/Cronograma';
 import CronogramaModel from '../../../model/Cronograma';
 import { getCronogramaByAs } from '../../../controller/Cronograma';
 import { Spinner } from "react-bootstrap";
+import { useUserContext } from '../../../context/UserContext';
 
 const Cronograma = () => {
   const [file, setFile] = useState<File | undefined>(undefined);
@@ -18,6 +19,8 @@ const Cronograma = () => {
   const [cronograma, setCronograma] = useState<CronogramaModel[] | null>(null);
   const { id } = useParams();
   const hasFetchedData = useRef(false);
+  const { user } = useUserContext();
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
     if (hasFetchedData.current) return; 
@@ -44,9 +47,10 @@ const Cronograma = () => {
     try {
       if (id && url) {
         
-        const res = await updateUrl(id, url);
+        const res = await updateCronograma(id, url, user?.email);
         setStatus(res.status);
         setResponse(res.data);
+        setShow(true);
       }      
     } catch (error) {
       console.error('Erro no componente ao enviar url:', error);
@@ -126,8 +130,8 @@ const Cronograma = () => {
             { uploadProgress > 0 && uploadProgress < 100 &&
               <ProgressBar animated now={uploadProgress} variant='success' striped className='mt-3'/>
             }
-            { status === 200  &&
-              <Alert variant='success' dismissible onClose={() => setUrl(null)} className='mt-3'>
+            { status === 200  && show &&
+              <Alert variant='success' dismissible onClose={() => setShow(false)} className='mt-3'>
                 Cronograma enviado!
               </Alert>
             }

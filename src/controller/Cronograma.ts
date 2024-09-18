@@ -1,5 +1,6 @@
 import axios from "axios";
 import Cronograma from "../model/Cronograma";
+import { getCurrentDateTime } from "../view/pages/historico";
 
 const apiUrl = "https://apisiproj.vercel.app/cronograma";
 
@@ -11,6 +12,19 @@ export const updateUrl = async (num_as: string, url: string): Promise<{status: n
         return { status: response.status, data: response.data }
     } catch (error) {
         console.error('Falha ao atualizar url do cronograma:', error);
+        throw error;
+    }
+}
+
+export const updateCronograma = async (num_as: string, url: string, user: string | undefined): Promise<{status: number; data: any}> => {
+    try {
+        const response = await axios.put(`${apiUrl}/${num_as}`, {
+            url: url,
+            log: 'Cronograma enviado em: ' + getCurrentDateTime() + ' por ' + user
+        })
+        return {status: response.status, data: response.data}
+    } catch (error) {
+        console.error('Falha ao atualizar o cronograma:', error);
         throw error;
     }
 }
