@@ -4,7 +4,7 @@ import { Container } from './styles';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { storage } from '../../../controller/ConnectionFactory';
 import { useParams } from 'react-router-dom';
-import { updateCronograma, updateUrl } from '../../../controller/Cronograma';
+import { updateCronograma } from '../../../controller/Cronograma';
 import CronogramaModel from '../../../model/Cronograma';
 import { getCronogramaByAs } from '../../../controller/Cronograma';
 import { Spinner } from "react-bootstrap";

@@ -1,11 +1,16 @@
 import Base from "../model/Base"
 import axios, { AxiosError } from "axios"
+import { apiKey } from "./ConnectionFactory";
 
 const apiUrl = "https://apisiproj.vercel.app/as";
 
 export const getBase = async (): Promise<Base[]> => {
     try {
-        const response = await axios.get<Base[]>(apiUrl);
+        const response = await axios.get<Base[]>(apiUrl, {
+            headers: {
+                Authorization: apiKey,
+            },
+        });
         return response.data.map(item => ({
             id: item.id,
             tipo: item.tipo,
@@ -40,6 +45,9 @@ export const getBase = async (): Promise<Base[]> => {
 export const postBase = async (base: Base): Promise<{ status: number; data: any }> => {
     try {
         const response = await axios.post(apiUrl, {
+            headers: {
+                Authorization: apiKey,
+            },
             id: base.id,
             contrato_icj: base.contrato_icj,
             contrato_sap: base.contrato_sap,
@@ -59,7 +67,11 @@ export const postBase = async (base: Base): Promise<{ status: number; data: any 
 
 export const getNextAvailableId = async (): Promise<number> => {
     try {
-        const response = await axios.get<{ nextId: number }>(`${apiUrl}/nextid`);
+        const response = await axios.get<{ nextId: number }>(`${apiUrl}/nextid`, {
+            headers: {
+                Authorization: apiKey,
+            },
+        });
         return response.data.nextId;
     } catch (error) {
         console.error('Falha ao obter o próximo ID disponível:', error);
@@ -69,7 +81,11 @@ export const getNextAvailableId = async (): Promise<number> => {
 
 export const getBaseById = async (id: String): Promise<Base> => {
   try{
-      const response = await axios.get<Base>(`${apiUrl}/${id}`);
+      const response = await axios.get<Base>(`${apiUrl}/${id}`, {
+        headers: {
+            Authorization: apiKey,
+        },
+      });
       const item = response.data;
       return {
         id: Number(item.id),
@@ -100,6 +116,9 @@ export const getBaseById = async (id: String): Promise<Base> => {
 export const updateBase = async (base: Base, email: string): Promise<{ status: number; data: any }> => {
     try {
         const response = await axios.put(`${apiUrl}/${base.id}`, {
+            headers: {
+                Authorization: apiKey,
+            },
             tipo: base.tipo,
             unidade: base.unidade,
             fiscais: base.fiscais,

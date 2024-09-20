@@ -1,11 +1,16 @@
 import axios from "axios";
 import Usuario from "../model/Usuario";
+import { apiKey } from "./ConnectionFactory";
 
 const apiUrl = "https://apisiproj.vercel.app/users";
 
 export const getUsers = async (): Promise<Usuario[]> => {
     try {
-        const response = await axios.get<Usuario[]>(apiUrl);
+        const response = await axios.get<Usuario[]>(apiUrl, {
+            headers: {
+                Authorization: apiKey,
+            },
+        });
         return response.data.map(item => ({
             id: item.id,
             nome: item.nome,
@@ -24,7 +29,11 @@ export const getUsers = async (): Promise<Usuario[]> => {
 
 export const getUser = async(email: string): Promise<Usuario> => {
     try {
-        const response = await axios.get<Usuario>(`${apiUrl}/${email}`);
+        const response = await axios.get<Usuario>(`${apiUrl}/${email}`, {
+            headers: {
+                Authorization: apiKey,
+            },
+        });
         const item = response.data;
         return {
             id: item.id,
@@ -44,7 +53,11 @@ export const getUser = async(email: string): Promise<Usuario> => {
 
 export const updateUsers = async() => {
     try{
-        const response = await axios.get(apiUrl+'/export-users');
+        const response = await axios.get(apiUrl+'/export-users', {
+            headers: {
+                Authorization: apiKey,
+            },
+        });
         return response.status;
     } catch(error) {
         console.error('Falha em atualizar usuarios: ', error);
