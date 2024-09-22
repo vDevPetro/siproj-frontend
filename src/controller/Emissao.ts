@@ -1,11 +1,16 @@
 import Emissao from "../model/Emissao";
 import axios from "axios";
+import { apiKey } from "./ConnectionFactory";
 
 const apiUrl = "https://apisiproj.vercel.app/emissao";
 
 export const getEmissao = async (num_as:string | undefined): Promise<Emissao[]> => {
   try {
-      const response = await axios.get<Emissao[]>(`${apiUrl}/${num_as}`);
+      const response = await axios.get<Emissao[]>(`${apiUrl}/${num_as}`, {
+        headers: {
+          Authorization: apiKey,
+        },
+      });
       return response.data.map(item => ({
         id: item.id,
         num_as: item.num_as,
@@ -38,6 +43,9 @@ export const getEmissao = async (num_as:string | undefined): Promise<Emissao[]> 
 export const putEmissao = async (emissao: Emissao): Promise<{ status: number; data: any}> => {
   try {
     const response = await axios.put(`${apiUrl}/${emissao.num_as}/${emissao.emissao}`, {
+      headers: {
+        Authorization: apiKey,
+      },
       num_as: emissao.num_as,
       emissao: emissao.emissao.toString(),
       motivo: emissao.motivo,
@@ -65,6 +73,9 @@ export const putEmissao = async (emissao: Emissao): Promise<{ status: number; da
 export const postEmissao = async (emissao: Emissao): Promise<{ status: number; data: any }> => {
   try {
     const response = await axios.post(apiUrl, {
+      headers: {
+        Authorization: apiKey,
+      },
       num_as: emissao.num_as,
       emissao: emissao.emissao.toString(),
       motivo: emissao.motivo,
@@ -91,7 +102,11 @@ export const postEmissao = async (emissao: Emissao): Promise<{ status: number; d
 
 export const getNextAvailableId = async (): Promise<number> => {
   try {
-      const response = await axios.get<{ nextId: number }>(`${apiUrl}/nextid`);
+      const response = await axios.get<{ nextId: number }>(`${apiUrl}/nextid`, {
+        headers: {
+          Authorization: apiKey,
+        },
+      });
       return response.data.nextId;
   } catch (error) {
       console.error('Falha ao obter o próximo ID disponível:', error);
@@ -101,7 +116,11 @@ export const getNextAvailableId = async (): Promise<number> => {
 
 export const getEmissaoById = async (id: String): Promise<Emissao> => {
   try{
-      const response = await axios.get<Emissao>(`${apiUrl}/${id}`);
+      const response = await axios.get<Emissao>(`${apiUrl}/${id}`, {
+        headers: {
+          Authorization: apiKey,
+        },
+      });
       const item = response.data;
       return {
         id:item.id,

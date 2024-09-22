@@ -1,24 +1,16 @@
 import axios from "axios";
 import Cronograma from "../model/Cronograma";
 import { getCurrentDateTime } from "../view/pages/historico";
+import { apiKey } from "./ConnectionFactory";
 
 const apiUrl = "https://apisiproj.vercel.app/cronograma";
-
-export const updateUrl = async (num_as: string, url: string): Promise<{status: number; data: any}> => {
-    try {
-        const response = await axios.put(`${apiUrl}/${num_as}/url`, {
-            url: url
-        });
-        return { status: response.status, data: response.data }
-    } catch (error) {
-        console.error('Falha ao atualizar url do cronograma:', error);
-        throw error;
-    }
-}
 
 export const updateCronograma = async (num_as: string, url: string, user: string | undefined): Promise<{status: number; data: any}> => {
     try {
         const response = await axios.put(`${apiUrl}/${num_as}`, {
+            headers: {
+                Authorization: apiKey,
+            },
             url: url,
             log: 'Cronograma enviado em: ' + getCurrentDateTime() + ' por ' + user
         })
@@ -31,7 +23,11 @@ export const updateCronograma = async (num_as: string, url: string, user: string
 
 export const getCronogramaByAs = async (num_as: string): Promise<Cronograma[] | null> => {
     try {
-        const response = await axios.get<Cronograma[]>(`${apiUrl}/${num_as}`);
+        const response = await axios.get<Cronograma[]>(`${apiUrl}/${num_as}`, {
+            headers: {
+                Authorization: apiKey,
+            },
+        });
         return response.data.map(item => ({
             ...item
         }))
@@ -47,6 +43,9 @@ export const getCronogramaByAs = async (num_as: string): Promise<Cronograma[] | 
 export const postCronograma = async (num_as: string): Promise<{status: number; data: any}> => {
     try {
         const res = await axios.post(apiUrl, {
+            headers:{
+                Authorization: apiKey,
+            },
             num_as: num_as
         });
         return { status: res.status, data: res.data };

@@ -11,6 +11,8 @@ const firebaseConfig = {
     appId: process.env.REACT_APP_FIREBASE_APPID
 };
 
+export const apiKey = process.env.API_KEY;
+
 export const firebaseApp = initializeApp(firebaseConfig);
 
 export const storage = getStorage(firebaseApp);
