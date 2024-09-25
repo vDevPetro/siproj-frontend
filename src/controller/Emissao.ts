@@ -42,27 +42,30 @@ export const getEmissao = async (num_as:string | undefined): Promise<Emissao[]> 
 
 export const putEmissao = async (emissao: Emissao): Promise<{ status: number; data: any}> => {
   try {
-    const response = await axios.put(`${apiUrl}/${emissao.num_as}/${emissao.emissao}`, {
-      headers: {
-        Authorization: apiKey,
+    const response = await axios.put(`${apiUrl}/${emissao.num_as}/${emissao.emissao}`, 
+      {
+        num_as: emissao.num_as,
+        emissao: emissao.emissao.toString(),
+        motivo: emissao.motivo,
+        desc_motivo: emissao.desc_motivo,
+        emitir_proj_lb: emissao.emitir_proj_lb,
+        emitir_proj_rp: emissao.emitir_proj_rp,
+        emitir_proj_real: emissao.emitir_proj_real,
+        coment_proj_lb: emissao.coment_proj_lb,
+        coment_proj_rp: emissao.coment_proj_rp,
+        coment_proj_real: emissao.coment_proj_real,
+        atender_coment_proj_lb: emissao.atender_coment_proj_lb,
+        atender_coment_proj_rp: emissao.atender_coment_proj_rp,
+        atender_coment_proj_real: emissao.atender_coment_proj_real,
+        situacao: emissao.situacao,
+        justificativa: emissao.justificativa,
+        log: ''
       },
-      num_as: emissao.num_as,
-      emissao: emissao.emissao.toString(),
-      motivo: emissao.motivo,
-      desc_motivo: emissao.desc_motivo,
-      emitir_proj_lb: emissao.emitir_proj_lb,
-      emitir_proj_rp: emissao.emitir_proj_rp,
-      emitir_proj_real: emissao.emitir_proj_real,
-      coment_proj_lb: emissao.coment_proj_lb,
-      coment_proj_rp: emissao.coment_proj_rp,
-      coment_proj_real: emissao.coment_proj_real,
-      atender_coment_proj_lb: emissao.atender_coment_proj_lb,
-      atender_coment_proj_rp: emissao.atender_coment_proj_rp,
-      atender_coment_proj_real: emissao.atender_coment_proj_real,
-      situacao: emissao.situacao,
-      justificativa: emissao.justificativa,
-      log: ''
-    });
+      {
+        headers: {
+            Authorization: apiKey,
+        }
+      });
     return { status: response.status, data: response.data }
   } catch (error) {
     console.error('Falha ao atualizar emissao: ', error);
@@ -72,27 +75,30 @@ export const putEmissao = async (emissao: Emissao): Promise<{ status: number; da
 
 export const postEmissao = async (emissao: Emissao): Promise<{ status: number; data: any }> => {
   try {
-    const response = await axios.post(apiUrl, {
-      headers: {
-        Authorization: apiKey,
+    const response = await axios.post(apiUrl, 
+      {
+        num_as: emissao.num_as,
+        emissao: emissao.emissao.toString(),
+        motivo: emissao.motivo,
+        desc_motivo: emissao.desc_motivo,
+        emitir_proj_lb: emissao.emitir_proj_lb,
+        emitir_proj_rp: emissao.emitir_proj_rp,
+        emitir_proj_real: emissao.emitir_proj_real,
+        coment_proj_lb: emissao.coment_proj_lb,
+        coment_proj_rp: emissao.coment_proj_rp,
+        coment_proj_real: emissao.coment_proj_real,
+        atender_coment_proj_lb: emissao.atender_coment_proj_lb,
+        atender_coment_proj_rp: emissao.atender_coment_proj_rp,
+        atender_coment_proj_real: emissao.atender_coment_proj_real,
+        situacao: emissao.situacao,
+        justificativa: emissao.justificativa,
+        log: ''
       },
-      num_as: emissao.num_as,
-      emissao: emissao.emissao.toString(),
-      motivo: emissao.motivo,
-      desc_motivo: emissao.desc_motivo,
-      emitir_proj_lb: emissao.emitir_proj_lb,
-      emitir_proj_rp: emissao.emitir_proj_rp,
-      emitir_proj_real: emissao.emitir_proj_real,
-      coment_proj_lb: emissao.coment_proj_lb,
-      coment_proj_rp: emissao.coment_proj_rp,
-      coment_proj_real: emissao.coment_proj_real,
-      atender_coment_proj_lb: emissao.atender_coment_proj_lb,
-      atender_coment_proj_rp: emissao.atender_coment_proj_rp,
-      atender_coment_proj_real: emissao.atender_coment_proj_real,
-      situacao: emissao.situacao,
-      justificativa: emissao.justificativa,
-      log: ''
-    });
+      {
+        headers: {
+            Authorization: apiKey,
+        }
+      });
     return { status: response.status, data: response.data };
   } catch (error) {
     console.error('Falha ao enviar os dados:', error);

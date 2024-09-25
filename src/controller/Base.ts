@@ -44,10 +44,8 @@ export const getBase = async (): Promise<Base[]> => {
 
 export const postBase = async (base: Base): Promise<{ status: number; data: any }> => {
     try {
-        const response = await axios.post(apiUrl, {
-            headers: {
-                Authorization: apiKey,
-            },
+        const response = await axios.post(apiUrl, 
+        {    
             id: base.id,
             contrato_icj: base.contrato_icj,
             contrato_sap: base.contrato_sap,
@@ -57,6 +55,11 @@ export const postBase = async (base: Base): Promise<{ status: number; data: any 
             fiscais: base.fiscais,
             resp_petro: base.resp_petro,
             resp_contr: base.resp_contr,
+        },
+        {
+            headers: {
+                Authorization: apiKey,
+            }
         });
         return { status: response.status, data: response.data };
     } catch (error) {
@@ -115,10 +118,8 @@ export const getBaseById = async (id: String): Promise<Base> => {
 
 export const updateBase = async (base: Base, email: string): Promise<{ status: number; data: any }> => {
     try {
-        const response = await axios.put(`${apiUrl}/${base.id}`, {
-            headers: {
-                Authorization: apiKey,
-            },
+        const response = await axios.put(`${apiUrl}/${base.id}`, 
+        {
             tipo: base.tipo,
             unidade: base.unidade,
             fiscais: base.fiscais,
@@ -136,6 +137,11 @@ export const updateBase = async (base: Base, email: string): Promise<{ status: n
             id_gep: base.id_gep,
             tipo_gep: base.tipo_gep,
             log: email + ' - ' + getCurrentDateTime()
+        },
+        {
+            headers: {
+                Authorization: apiKey,
+            }
         });
         return { status: response.status, data: response.data };
     } catch (error) {
