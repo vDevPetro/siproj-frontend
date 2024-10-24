@@ -58,11 +58,12 @@ const Cronograma = () => {
   }
 
   const handleUpload = () => {
-    if (!file || !id) return;
+    if (!file) return;
 
     setUploadProgress(1);
-    const storageRef = ref(storage, 'cronogramas/'+id+'.mpp');
-    const uploadTask = uploadBytesResumable(storageRef, file) ;
+    const fileName = file.name; // Obtém o nome original do arquivo
+    const storageRef = ref(storage, 'cronogramas/' + fileName); // Usa o nome do arquivo no caminho de upload
+    const uploadTask = uploadBytesResumable(storageRef, file);
 
     uploadTask.on(
       'state_changed',
@@ -71,7 +72,7 @@ const Cronograma = () => {
         setUploadProgress(progress);
       },
       (error) => {
-        setUploadProgress(0)
+        setUploadProgress(0);
         console.error('Upload failed', error);
       },
       () => {
@@ -80,10 +81,10 @@ const Cronograma = () => {
           setFile(undefined);
           sendUpdate(downloadURL);
         });
-        
       }
     );
-  }
+};
+
 
   if(!cronograma) {
     return (
