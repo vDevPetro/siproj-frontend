@@ -60,3 +60,22 @@ export const postCronograma = async (num_as: string): Promise<{status: number; d
         throw error;
     }  
 }
+
+export const updateStatusCronograma = async (num_as: string, situacao: string, user: string | undefined): Promise<{status: number; data: any}> => {
+    try {
+        const response = await axios.put(`${apiUrl}/${num_as}`, 
+        {
+            situacao: situacao,
+            log: 'Situação atualizada para: ' + situacao + ' em: ' + getCurrentDateTime() + ' por ' + user
+        },
+        {
+            headers: {
+                Authorization: apiKey,
+            }
+        });
+        return {status: response.status, data: response.data}
+    } catch (error) {
+        console.error('Falha ao atualizar a situação do cronograma:', error);
+        throw error;
+    }
+};

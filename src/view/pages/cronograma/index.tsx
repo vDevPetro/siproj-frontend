@@ -6,7 +6,7 @@ import { storage } from '../../../controller/ConnectionFactory';
 import { useParams } from 'react-router-dom';
 import { updateCronograma } from '../../../controller/Cronograma';
 import CronogramaModel from '../../../model/Cronograma';
-import { getCronogramaByAs } from '../../../controller/Cronograma';
+import { getCronogramaByAs, updateStatusCronograma } from '../../../controller/Cronograma';
 import { Spinner } from "react-bootstrap";
 import { useUserContext } from '../../../context/UserContext';
 
@@ -21,6 +21,7 @@ const Cronograma = () => {
   const hasFetchedData = useRef(false);
   const { user } = useUserContext();
   const [show, setShow] = useState(false);
+  const [situacao, setSituacao] = useState('');
 
   useEffect(() => {
     if (hasFetchedData.current) return; 
@@ -42,6 +43,19 @@ const Cronograma = () => {
       setFile(e.target.files[0]);
     }
   }
+
+  const handleSave = async () => {
+    try {
+      if (id && situacao) {
+        const res = await updateStatusCronograma(id, situacao, user?.email);
+        setStatus(res.status);
+        setResponse(res.data);
+        setShow(true);
+      }
+    } catch (error) {
+      console.error("Erro ao salvar a situação:", error);
+    }
+  };
 
   const sendUpdate = async (url: string) => {
     try {
@@ -106,7 +120,26 @@ const Cronograma = () => {
           <Col md={4}>
             <Form.Group>
                 <Form.Label>Situação da AS</Form.Label>
-                <Form.Control type='text' value={cronograma[0].situacao} readOnly/>
+                {user?.nivel === "PETROBRAS" || user?.nivel === "ADMINISTRADOR" ? 
+                <Form.Control 
+                                  as="select" 
+                                  value={situacao} 
+                                  onChange={(e) => setSituacao(e.target.value)} 
+                >
+                  <option value={cronograma[0].situacao}>{cronograma[0].situacao}</option>
+                  <option value="CANCELADO">CANCELADO</option>
+                  <option value="HIBERNADO">HIBERNADO</option>
+                </Form.Control>
+                  : 
+                <Form.Control type="text" value={cronograma[0].situacao} readOnly />
+                }
+                <div className='d-flex justify-content-start'>
+                {(user?.nivel === "PETROBRAS" || user?.nivel === "ADMINISTRADOR") &&
+                  <button className="btn btn-success me-2 me-md-4" type="button" onClick={handleSave}>
+                  <i className="bi bi-floppy me-2"/> Salvar
+                  </button>
+                }
+                </div>
             </Form.Group>
           </Col>
           <Col md={7}>
