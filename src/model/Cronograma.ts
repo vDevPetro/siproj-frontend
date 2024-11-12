@@ -83,6 +83,7 @@ type Cronograma = {
     comentar_databook_real?: string;
     comentar_databook_na?: string;
     url : string;
+    atualizacao?: string;
 }
 
 export default Cronograma;

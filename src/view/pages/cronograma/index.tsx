@@ -175,7 +175,7 @@ const Cronograma = () => {
           <Table hover className="table table-striped table-bordered">
             <thead>
               <tr>
-                <th style = {{ color: '#043a00'}} className="table-title"></th>
+                <th style = {{ color: '#696969', fontSize: '.75rem'}} className="table-title text-wrap">{cronograma[0]?.atualizacao}</th>
                 <th style = {{ color: '#043a00'}} className="table-title">Linha de Base</th>
                 <th style = {{ color: '#043a00'}} className="table-title">Projetado</th>
                 <th style = {{ color: '#043a00'}} className="table-title">Realizado</th>
