@@ -95,7 +95,6 @@ const Emissoes = () => {
         setNovaEmissao((prevState) => ({
           ...prevState,
           emissao: sorted.length + 1,
-          log: sorted[0]?.log || "",
         }));
         setEmissoes(sorted);
       } catch (error) {
@@ -139,7 +138,7 @@ const Emissoes = () => {
         setEmissoes(sorted);
         setStatus(status.status);
       } else {
-        const res = await postEmissao(novaEmissao);
+        const res = await postEmissao(novaEmissao, user?.nome);
         setEmissoes((prev) => [...prev, novaEmissao]);
         setNovaEmissao({
           id: "",
@@ -308,7 +307,6 @@ const Emissoes = () => {
       </div>
       {edit && (
         <div className="mb-3">
-          {/* Exibe o log da nova emissão ou uma mensagem padrão caso o log não exista */}
           {/* <p>{novaEmissao?.log || "Nenhum log disponível"}</p> */}
         </div>
       )}

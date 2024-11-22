@@ -74,7 +74,7 @@ export const putEmissao = async (emissao: Emissao, user: string | undefined): Pr
   }
 };
 
-export const postEmissao = async (emissao: Emissao): Promise<{ status: number; data: any }> => {
+export const postEmissao = async (emissao: Emissao, user: string | undefined): Promise<{ status: number; data: any }> => {
   try {
     const response = await axios.post(apiUrl, 
       {
@@ -93,7 +93,7 @@ export const postEmissao = async (emissao: Emissao): Promise<{ status: number; d
         atender_coment_proj_real: emissao.atender_coment_proj_real,
         situacao: emissao.situacao,
         justificativa: emissao.justificativa,
-        log: ''
+        log: `Atualizado no dia ${getCurrentDateTime()} por ${user}`
       },
       {
         headers: {
