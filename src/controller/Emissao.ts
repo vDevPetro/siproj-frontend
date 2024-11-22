@@ -1,4 +1,5 @@
 import Emissao from "../model/Emissao";
+import { getCurrentDateTime } from "../view/pages/historico";
 import axios from "axios";
 import { apiKey } from "./ConnectionFactory";
 
@@ -40,7 +41,7 @@ export const getEmissao = async (num_as:string | undefined): Promise<Emissao[]> 
   }
 };
 
-export const putEmissao = async (emissao: Emissao): Promise<{ status: number; data: any}> => {
+export const putEmissao = async (emissao: Emissao, user: string | undefined): Promise<{ status: number; data: any}> => {
   try {
     const response = await axios.put(`${apiUrl}/${emissao.num_as}/${emissao.emissao}`, 
       {
@@ -59,7 +60,7 @@ export const putEmissao = async (emissao: Emissao): Promise<{ status: number; da
         atender_coment_proj_real: emissao.atender_coment_proj_real,
         situacao: emissao.situacao,
         justificativa: emissao.justificativa,
-        log: ''
+        log: `Atualizado no dia ${getCurrentDateTime()} por ${user}`,
       },
       {
         headers: {
