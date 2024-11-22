@@ -79,7 +79,7 @@ export const getCurrentDateTime = (): string => {
     const hours = currentDate.getHours().toString().padStart(2, '0');
     const minutes = currentDate.getMinutes().toString().padStart(2, '0');
 
-    return `${day}/${month}/${year} às ${hours}:${minutes}`;
+    return `${day}/${month}/${year} ${hours}:${minutes}`;
 };
 
 const Historico = () => {
