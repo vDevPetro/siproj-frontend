@@ -29,7 +29,7 @@ export const getEmissao = async (num_as:string | undefined): Promise<Emissao[]> 
         atender_coment_proj_real: item.atender_coment_proj_real,
         situacao: item.situacao,
         justificativa: item.justificativa,
-        log: ''
+        log: item.log
       }));
   } catch (error) {
       if (axios.isAxiosError(error) && error.response?.status === 404) {

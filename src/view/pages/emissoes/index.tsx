@@ -1,29 +1,12 @@
 import { Container } from "./styles";
-import React, {
-  useState,
-  ChangeEvent,
-  FormEvent,
-  useEffect,
-  useRef,
-} from "react";
+import React, {useState, ChangeEvent, FormEvent, useEffect, useRef } from "react";
 import { Form, Row, Col, Button, Modal } from "react-bootstrap";
 import InputMask from "react-input-mask";
 import { useParams } from "react-router-dom";
 import Emissao from "../../../model/Emissao";
-import {
-  getEmissao,
-  postEmissao,
-  putEmissao,
-} from "../../../controller/Emissao";
+import { getEmissao, postEmissao, putEmissao } from "../../../controller/Emissao";
 import Table from "react-bootstrap/Table";
-import {
-  Grid,
-  Radio,
-  RadioGroup,
-  FormControlLabel,
-  FormControl,
-  FormLabel,
-} from "@mui/material";
+import { Grid, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel } from "@mui/material";
 import { Spinner } from "react-bootstrap";
 import { useUserContext } from "../../../context/UserContext";
 
@@ -105,9 +88,7 @@ const Emissoes = () => {
     fetchData();
   }, []);
 
-  const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-  ) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setNovaEmissao((prevState) => ({ ...prevState, [name]: value }));
   };
@@ -305,11 +286,11 @@ const Emissoes = () => {
       <div className="pagetitle mt-5 mb-3">
         <h1>{edit ? "Editar emissão" : "Inserir emissão"}</h1>
       </div>
-      {edit && (
+      {edit &&
         <div className="mb-3">
-          {/* <p>{novaEmissao?.log || "Nenhum log disponível"}</p> */}
+          {novaEmissao?.log || "Nenhum log disponível"}
         </div>
-      )}
+      }
       <Form onSubmit={handleSubmit}>
         <div className="d-flex justify-content-between mb-3">
           <div className="d-flex">
@@ -550,7 +531,9 @@ const Emissoes = () => {
             <></>
           )}
         </Row>
-
+        <Row>
+          {}
+        </Row>
         <Row className="mb-4">
           <Col>
             <Form.Group controlId="formJustificativa">
