@@ -116,7 +116,7 @@ const Users = () => {
                           <MenuItem value="" ><em>Nível</em></MenuItem>
                           <MenuItem value="ADMINISTRADOR">1 - Administrador</MenuItem>
                           <MenuItem value="CONTRATADA">2 - Usuário Contratada</MenuItem>
-                          <MenuItem value="PETRO">3 - Usuário Petrobras</MenuItem>
+                          <MenuItem value="PETROBRAS">3 - Usuário Petrobras</MenuItem>
                         </Select>
                       </FormControl>
                     </div>
