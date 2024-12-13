@@ -120,7 +120,7 @@ const Cronograma = () => {
           <Col md={4}>
             <Form.Group>
                 <Form.Label>Situação da AS</Form.Label>
-                {user?.nivel === "PETROBRAS" || user?.nivel === "ADMINISTRADOR" ? 
+                {user?.nivel === "ADMINISTRADOR" ? 
                 <Form.Control 
                                   as="select" 
                                   value={situacao} 
@@ -134,7 +134,7 @@ const Cronograma = () => {
                 <Form.Control type="text" value={cronograma[0].situacao} readOnly />
                 }
                 <div className='d-flex justify-content-start'>
-                {(user?.nivel === "PETROBRAS" || user?.nivel === "ADMINISTRADOR") &&
+                {(user?.nivel === "ADMINISTRADOR") &&
                   <button className="btn btn-success me-2 me-md-4" type="button" onClick={handleSave}>
                   <i className="bi bi-floppy me-2"/> Salvar
                   </button>

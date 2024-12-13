@@ -398,19 +398,19 @@ const AtualizarAS = () => {
           <Col md="3">
             <Form.Group controlId="formPorte">
               <Form.Label htmlFor='porte'>Porte</Form.Label>
-              <Slider marks={porteMarks} step={1} min={1} max={3} color='success' id="porte" onChange={handlePorteChange} name="porte" value={getRangeValue("porte")}/>
+              <Slider marks={porteMarks} step={1} min={1} max={3} color='success' id="porte" onChange={handlePorteChange} name="porte" value={getRangeValue("porte")} disabled={user?.nivel !== "ADMINISTRADOR"}/>
             </Form.Group>
           </Col>
           <Col md="3">
             <Form.Group controlId="formCriticidade">
               <Form.Label htmlFor='criticidade'>Criticidade</Form.Label>
-              <Slider marks={criticidadeMarks} step={1} min={1} max={3} color='success' id="criticidade" onChange={handleCriticidadeChange} name="criticade" value={getRangeValue("criticidade")}/>
+              <Slider marks={criticidadeMarks} step={1} min={1} max={3} color='success' id="criticidade" onChange={handleCriticidadeChange} name="criticade" value={getRangeValue("criticidade")} disabled={user?.nivel !== "ADMINISTRADOR"}/>
             </Form.Group>
           </Col>
           <Col md="3">
             <Form.Group controlId="formPrioridade">
               <Form.Label htmlFor='prioridade'>Prioridade</Form.Label>
-              <Slider marks={prioridadeMarks} step={1} min={1} max={3} color='success' id="prioridade" onChange={handlePrioridadeChange} name="prioridade" value={getRangeValue("prioridade")}/>
+              <Slider marks={prioridadeMarks} step={1} min={1} max={3} color='success' id="prioridade" onChange={handlePrioridadeChange} name="prioridade" value={getRangeValue("prioridade")} disabled={user?.nivel !== "ADMINISTRADOR"}/>
             </Form.Group>
           </Col>
         </Row>

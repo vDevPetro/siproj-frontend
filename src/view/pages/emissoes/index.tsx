@@ -53,6 +53,7 @@ const Emissoes = () => {
   const hasFetchedData = useRef(false);
 
   const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (user?.nivel !== "ADMINISTRADOR") return;
     setNovaEmissao((prevState) => ({
       ...prevState,
       situacao: event.target.value,
@@ -271,9 +272,11 @@ const Emissoes = () => {
                       )}
                     </td>
                     <td>
+                    {user?.nivel === "CONTRATADA" || user?.nivel === "ADMINISTRADOR" ? (
                       <button className="btn btn-success">
                         <i className="bi bi-pencil" />
                       </button>
+                    ) : null}
                     </td>
                   </tr>
                 ))}
@@ -473,7 +476,7 @@ const Emissoes = () => {
           </Row>
         )}
         <Row>
-          {user?.nivel !== "CONTRATADA" && edit ? (
+          {user?.nivel === "ADMINISTRADOR" && edit ? (
             <Grid
               container
               spacing={0}
@@ -494,11 +497,13 @@ const Emissoes = () => {
                   value="aprov"
                   control={<Radio color="success" {...controlProps("aprov")} />}
                   label="Aprovado"
+                  disabled={user?.nivel !== "ADMINISTRADOR"}
                 />
                 <FormControlLabel
                   value="repr"
                   control={<Radio color="success" {...controlProps("repr")} />}
                   label="Reprovado"
+                  disabled={user?.nivel!== "ADMINISTRADOR"}
                 />
               </Grid>
 
@@ -517,6 +522,7 @@ const Emissoes = () => {
                     <Radio color="success" {...controlProps("aprov_coment")} />
                   }
                   label="Aprovado com comentários"
+                  disabled={user?.nivel!== "ADMINISTRADOR"}
                 />
                 <FormControlLabel
                   value="active"
@@ -524,6 +530,7 @@ const Emissoes = () => {
                     <Radio color="success" {...controlProps("active")} />
                   }
                   label="Ativo"
+                  disabled={user?.nivel!== "ADMINISTRADOR"}
                 />
               </Grid>
             </Grid>
