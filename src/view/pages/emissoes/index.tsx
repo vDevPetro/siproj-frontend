@@ -238,6 +238,7 @@ const Emissoes = () => {
                   >
                     Emitir Proj Real
                   </th>
+                  {user?.nivel !== "PETROBRAS" && (
                   <th
                     scope="col"
                     style={{
@@ -249,6 +250,7 @@ const Emissoes = () => {
                   >
                     Editar
                   </th>
+                  )}
                 </tr>
               </thead>
               <tbody>
@@ -271,13 +273,13 @@ const Emissoes = () => {
                           : ""
                       )}
                     </td>
+                    {user?.nivel !== "PETROBRAS" && (
                     <td>
-                    {user?.nivel === "CONTRATADA" || user?.nivel === "ADMINISTRADOR" ? (
                       <button className="btn btn-success">
                         <i className="bi bi-pencil" />
                       </button>
-                    ) : null}
                     </td>
+                )}
                   </tr>
                 ))}
               </tbody>
@@ -285,15 +287,17 @@ const Emissoes = () => {
           </div>
         </>
       )}
-
+      {novaEmissao && ( user?.nivel !== "PETROBRAS" || edit) && (
+    <>    
       <div className="pagetitle mt-5 mb-3">
-        <h1>{edit ? "Editar emissão" : "Inserir emissão"}</h1>
+        <h1>{ user?.nivel === "PETROBRAS" ? "Consultar Emissão" : edit ? "Editar emissão" : "Inserir emissão"}</h1>
       </div>
-      {edit &&
+      {edit && novaEmissao?.log && (
         <div className="mb-3">
           {novaEmissao?.log || "Nenhum log disponível"}
         </div>
-      }
+      )}
+      
       <Form onSubmit={handleSubmit}>
         <div className="d-flex justify-content-between mb-3">
           <div className="d-flex">
@@ -321,7 +325,7 @@ const Emissoes = () => {
                 className="form-control"
                 value={novaEmissao.emissao}
                 onChange={handleChange}
-                readOnly
+                readOnly={user?.nivel === "PETROBRAS"}
               />
             </div>
           </div>
@@ -337,6 +341,7 @@ const Emissoes = () => {
               value={novaEmissao.motivo}
               onChange={handleChange}
               required
+              disabled={user?.nivel === "PETROBRAS"}
             >
               <option selected>Selecione...</option>
               <option value="Emissão Inicial">Emissão Inicial</option>
@@ -563,7 +568,9 @@ const Emissoes = () => {
             </Form.Group>
           </Col>
         </Row>
-
+      
+      {user?.nivel !== "PETROBRAS" && (
+        <>
         <Button variant="primary" type="submit">
           <i className={`bi bi-${edit ? "floppy" : "cloud-upload"} me-2`} />
           {edit ? "Salvar" : "Inserir"}
@@ -577,7 +584,11 @@ const Emissoes = () => {
             <i className="bi bi-x-lg" />
           </button>
         )}
+        </>
+      )}
       </Form>
+      </>
+      )}
 
       {show && status && (
         <Modal
