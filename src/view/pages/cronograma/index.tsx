@@ -143,10 +143,13 @@ const Cronograma = () => {
             </Form.Group>
           </Col>
           <Col md={7}>
+          {user?.nivel !== "PETROBRAS" && (
             <Form.Group>
                 <Form.Label>Arquivo do MS Project .mpp - {url ? 'Cronograma armazenado' : 'Cronograma ausente' }</Form.Label>
                 <Form.Control type="file" accept='.mpp' onChange={handleFileChange} />
             </Form.Group>
+             )}
+             {user?.nivel !== "PETROBRAS" && (
             <div className="d-flex">
               <button className="btn btn-success me-2 me-md-4" type='button' onClick={handleUpload}>
                 <i className="bi bi-cloud-upload me-2"/> Enviar
@@ -161,6 +164,7 @@ const Cronograma = () => {
                 </a> 
               }        
             </div>
+            )}
             { uploadProgress > 0 && uploadProgress < 100 &&
               <ProgressBar animated now={uploadProgress} variant='success' striped className='mt-3'/>
             }
