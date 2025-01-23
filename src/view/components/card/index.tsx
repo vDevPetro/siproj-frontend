@@ -1,6 +1,7 @@
 import styled from "styled-components";
-import { Card, Button, Placeholder } from "react-bootstrap";
+import { Card, Button, Placeholder, } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 
 type CardProps = {
@@ -24,7 +25,7 @@ const Cartao = (props: CardProps) => {
                             {props.desc}
                         </Card.Text>
                         <Card.Footer>Responsável: {props.respPetro}</Card.Footer>
-                        <Button variant="success" onClick={() => navigate('/as/'+ props.id + '/atualizar')}>Abrir</Button>
+                        <Link to={`/as/${props.id}/atualizar`} className="btn btn-success">Abrir</Link>
                     </Card.Body>
                 </Card>
             </div>
