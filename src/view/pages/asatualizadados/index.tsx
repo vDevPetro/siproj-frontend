@@ -363,7 +363,7 @@ const AtualizarAS = () => {
           <Col xs="8" sm="10" md="4" xxl="2">
             <Form.Group controlId="formPorte">
               <Form.Label htmlFor='tipo_gep'>Tipo GEP</Form.Label>
-              <Form.Select id="tipo_gep" value={as.tipo_gep}>
+              <Form.Select id="tipo_gep" value={as.tipo_gep} onChange={handleChange}>
                 <option>Selecione...</option>
                 <option value="Paradas">Paradas</option>
                 <option value="Adequações">Adequações</option>
